@@ -22,7 +22,7 @@ class Produit
     #[ORM\Column(length: 255)]
     private ?string $designation = null;
 
-    #[ORM\Column(length: 255,nullable: true)]
+    #[ORM\Column(length: 255,nullable: true,unique:true)]
     private ?string $code = null;
 
     #[ORM\Column(length: 255, nullable: true)]
