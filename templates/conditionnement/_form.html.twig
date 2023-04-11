@@ -3,24 +3,25 @@
     
         <div class="form-group">
             <div class="row">
-                <div class="col-12">
-                    {{ form_widget(form.id) }}
+
+                <div class="col-4">
+                    <div class="form-group">
+                        {{ form_label(form.code) }}
+                        {{ form_widget(form.code) }}
+                    </div>
                 </div>
-                <div class="col-12">
-                    {{ form_label(form.code) }}
-                    {{ form_widget(form.code) }}
-                    <span class="form-text text-muted">Renseignez un code significatif pour vous.</span>
-                </div>
-                <div class="col-12">
-                    {{ form_label(form.libelle) }}
-                    {{ form_widget(form.libelle) }}
-                    <span class="form-text text-muted">Renseignez un libellé significatif pour vous.</span>
+                <div class="col-8">
+                    <div class="form-group">
+                        {{ form_label(form.libelle) }}
+                        {{ form_widget(form.libelle) }}
+                    </div>
                 </div>
                 
                 <div class="col-12">
-                    {{ form_label(form.qte) }}
-                    {{ form_widget(form.qte) }}
-                    <span class="form-text text-muted">Renseignez un libellé significatif pour vous.</span>
+                    <div class="form-group">
+                        {{ form_label(form.qte) }}
+                        {{ form_widget(form.qte) }}
+                    </div>
                 </div>
             </div>
         </div>

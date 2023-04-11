@@ -6,19 +6,17 @@
              <div class="col-12">
                     {{ form_widget(form.id) }}
                 </div>
-                <div class="col-12">
+                <div class="col-4">
                     {{ form_label(form.code) }}
                     {{ form_widget(form.code) }}
-                    <span class="form-text text-muted">Renseignez un code significatif pour vous.</span>
                 </div>
-                <div class="col-12">
+                <div class="col-8">
                     {{ form_label(form.libelle) }}
                     {{ form_widget(form.libelle) }}
-                    <span class="form-text text-muted">Renseignez un libellé significatif pour vous.</span>
                 </div>
             </div>
         </div>
-    <div class="card-footer">
+    <div class="card-footer p-0 pt-3">
         <button type="submit" id="soum" class="btn btn-primary mr-2">{{ button_label|default('Enregistrer') }}</button>
         {# <button type="submit" class="btn btn-primary mr-2">Enregistrer</button> #}
         <button type="reset" id="reset" class="btn btn-secondary">Annuler</button>

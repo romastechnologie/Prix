@@ -1,37 +1,30 @@
 <div class="card card-custom mt-5" id="kt_card_2">
-	<div class="card-header bg-primary">
+	<div class="card-header bg-success" style="min-height: 25px !important;">
 		<div class="card-title">
 			<h3 class="card-label text-white">PRIX PAR CATEGORIE DE CLIENT</h3>
 		</div>
 		<div class="card-toolbar">
-			<a href="#" class="btn btn-icon btn-sm btn-warning supprimer" data-card-tool="remove" data-toggle="tooltip" data-placement="top" title="Remove Card">
+			<a href="#" class="btn btn-icon btn-sm btn-hover-light-primary supprimer" data-card-tool="remove" data-toggle="tooltip" data-placement="top" title="Remove Card">
 			<i class="ki ki-close icon-nm"></i>
 			</a>
 		</div>
 	</div>
-	<div class="card-body">
-        <div class="rounded border p-5 mt-1">
+	<div class="card-body pt-5">
+        {# <div class="rounded border p-5 mt-1"> #}
             <div class="form-group row mb-2">
-                    <div class="col-3">
-                        {{ form_row(form.cateClient) }}
-                        {# {{ form_widget(form.prixConcurentiel) }} #}
-                    </div>
-                     <div class="col-3">
-                        {{ form_row(form.prixVente) }}
-                        {# {{ form_widget(form.prixMax) }} #}
-                    </div>
-                    <div class="col-3">
-                        {{ form_row(form.prixMin) }}
-                        {# {{ form_widget(form.prixMin) }} #}
-                    </div>
-                    <div class="col-3">
-                        {{ form_row(form.prixMax) }}
-                        {# {{ form_widget(form.prixMax) }} #}
-                    </div>
-                   
-
-
+                <div class="col-md-5">
+                    {{ form_row(form.cateClient) }}
+                </div>
+                    <div class="col-md-3">
+                    {{ form_row(form.prixVente) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.prixMin) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.prixMax) }}
+                </div>
             </div>
-        </div>
+        {# </div> #}
     </div>
 </div>

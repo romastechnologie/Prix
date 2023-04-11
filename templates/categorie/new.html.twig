@@ -5,9 +5,9 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-6">
+        <div class="col-5">
             <!--begin::List Widget 9-->
-                <div class="card card-custom card-stretch gutter-b">
+                <div class="card card-custom gutter-b">
                     <!--begin::Header-->
                     <div class="card-header align-items-center border-0 mt-4">
                         <h3 class="card-title align-items-start flex-column">
@@ -33,15 +33,18 @@
                                                 <div class="col-12">
                                                     {{ form_widget(form.id) }}
                                                 </div>
-                                                <div class="col-6">
-                                                    {{ form_label(form.code) }}
-                                                    {{ form_widget(form.code) }}
-                                                    <span class="form-text text-muted">Renseignez un code significatif pour vous.</span>
-                                                </div>
-                                                <div class="col-6">
-                                                    {{ form_label(form.libelle) }}
-                                                    {{ form_widget(form.libelle) }}
-                                                    <span class="form-text text-muted">Renseignez un libellé significatif pour vous.</span>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        {{ form_label(form.code) }}
+                                                        {{ form_widget(form.code) }}
+                                                    </div>
+                                                 </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        {{ form_label(form.libelle) }}
+                                                        {{ form_widget(form.libelle) }}
+                                                        {# <span class="form-text text-muted">Renseignez un libellé significatif pour vous.</span> #}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -58,7 +61,7 @@
                 </div>
             <!--end: List Widget 9-->
         </div>
-        <div class="col-6">
+        <div class="col-7">
             <!--begin::List Widget 9-->
                 <div class="card card-custom card-stretch gutter-b">
                     <!--begin::Header-->
