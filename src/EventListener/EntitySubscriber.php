@@ -208,6 +208,10 @@ class EntitySubscriber implements EventSubscriberInterface
         $em = $args->getEntityManager();
 
         if($entity instanceof Conditionner ){
+            $lastPrix = $this->prixRepository->lastPrixConditionnerForConditionment($entity);
+            $lastPrix->setDateFin(new DateTime());
+            $em->persist($lastPrix);
+            $em->flush();
             $prix = new Prix();
                 $prix
                 ->setEstActif(0)
@@ -224,6 +228,10 @@ class EntitySubscriber implements EventSubscriberInterface
 
 
         if($entity instanceof ConditionnerCateClient ){
+            $lastPrix = $this->prixRepository->lastPrixConditionnerForConditionmentClient($entity);
+            $lastPrix->setDateFin(new DateTime());
+            $em->persist($lastPrix);
+            $em->flush();
             $prix = new Prix();
             //dd($entity);
                 $prix

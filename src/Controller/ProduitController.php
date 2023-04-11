@@ -40,9 +40,13 @@ class ProduitController extends AbstractController
     #[Route('/produit/recherche/info/recuperation', name: 'produit_recherche_recup_donnees')]
     public function resultaRecherche(Request $request,NativeQueryMySQL $native, ClientRepository $clientRepository){
         if($request->isMethod('POST')){
+
             /*Recuperation*/
+
             $produit = (int)json_decode($request->request->get("produit"));
+             
             $idCli = (int)json_decode($request->request->get("client"));
+
             $client = $clientRepository->find($idCli);
             $idCateg = (int) $client->getCateClient()->getId();
             //dump($produit,$idCateg);
@@ -115,7 +119,6 @@ class ProduitController extends AbstractController
             $produit = $form->get("produit")->getData();
             $client = $form->get("client")->getData();
             $categ = $client->getCategClient();
-
 
             return new JsonResponse("Ok");
         }
@@ -332,16 +335,17 @@ class ProduitController extends AbstractController
                     $tdbodyConClient .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>". $cond->getCateClient()->getLibelle() ."</td><td>".$cond->getPrixMax() ."</td><td>". $cond->getPrixMin() ."</td> </tr> ";
                 }
                 
-                $historique .= '<td><table><thead><th>Prix achat</th><th>Prix revient</th><th>Prix vente</th><th>Prix Min</th><th>Prix Max</th></thead><tbody>';
+                $historique .= '<tr><table><thead><tr><th>'. $conditionner->getConditionnement()->getLibelle() .' </th></tr><tr><th>Date début</th><th>Date fin</th><th>Prix vente</th><th>Prix Min</th><th>Prix Max</th></tr></thead><tbody>';
                 $Histprixs = $prR->historiquePrix($conditionner, $produit);
-                $sql = "SELECT p.prix_min, p.prix_max, p.prix_achat, p.prix_revient, p.prix_vente FROM prix p INNER JOIN conditionner c ON c.id = p.conditionner_id  INNER JOIN produit pr ON c.produit_id =pr.id WHERE  pr.id = ". $produit->getId()." and p.conditionner_id = ".$conditionner->getId() ;
+                $sql = "SELECT p.prix_min, p.prix_max, p.date_attribution, p.date_fin, p.prix_vente FROM prix p INNER JOIN conditionner c ON c.id = p.conditionner_id  INNER JOIN produit pr ON c.produit_id =pr.id WHERE  pr.id = ". $produit->getId()." and p.conditionner_id = ".$conditionner->getId() ;
                 $datas = $native->getConnection()->query($sql)->fetchAllAssociative();
                 //dump($conditionner,$produit, $datas);
                 $datass[] =  $sql;
                 foreach($datas as $prix){
-                    $historique .= "<tr> <td>".$prix['prix_achat'] ." </td><td>".  $prix['prix_revient']."</td><td>".$prix['prix_vente'] ."</td><td>". $prix['prix_min']."</td><td>". $prix['prix_max']."</td></tr> ";
+                    $historique .= "<tr> <td>".$prix['date_attribution'] ." </td><td>".  $prix['date_fin']."</td><td>".$prix['prix_vente'] ."</td><td>". $prix['prix_min']."</td><td>". $prix['prix_max']."</td></tr> ";
                 }
-                $historique .= '</tbody></table></td> </td></tr>';
+                $historique .= '</tbody></table></tr>';
+                dump($historique);
                 
                 $prixs = $prR->findBy(["conditionner"=>$conditionner, "estActif"=>1, "prixMin"=>NULL, "prixMax"=>NULL, "prixConcurentiel"=>NULL , "conditionnerClient"=>NULL]);
                 foreach($prixs as $prix){
