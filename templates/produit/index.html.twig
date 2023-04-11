@@ -1,0 +1,365 @@
+{% extends 'base.html.twig' %}
+{% block pageActive %} Produit {% endblock %}
+
+{% block title %}ROMAS Produit{% endblock %}
+
+{% block content %}
+    <div class="card card-custom">
+        <div class="card-header">
+            <h3 class="card-title">
+                Un nouveau produit
+            </h3>
+            <div class="card-toolbar">
+                <div class="example-tools justify-content-center">
+                    <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
+                    <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
+                </div>
+            </div>
+        </div>
+        <!--begin::Form-->
+        {{ form_start(form) }}
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-4">
+                            {# {{ form_label(form.aTaxe) }} #}
+                            <label for="produit_aTaxe" required="required">
+                            Est Taxable
+                                {{ form_widget(form.aTaxe) }}
+                            </label>
+                            {# <span class="form-text text-muted">Renseignez un code significatif pour vous.</span> #}
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-3">
+                            {{ form_label(form.sousCategorie) }}
+                            {{ form_widget(form.sousCategorie) }}
+                        </div>
+                    <div class="col-3">
+                            {{ form_label(form.designation) }}
+                            {{ form_widget(form.designation) }}
+                        </div>
+                        <div class="col-3">
+                            {{ form_label(form.mode) }}
+                            {{ form_widget(form.mode) }}
+                        </div>
+                        <div class="col-3">
+                            {{ form_label(form.refUsine) }}
+                            {{ form_widget(form.refUsine) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-custom" id="kt_card_1">
+                    <div class="card-header bg-dark ">
+                        <div class="card-title">
+                            <h3 class="card-label text-white">RATTACHEMENT</h3>
+                        </div>
+                        <div class="card-toolbar">
+                            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="toggle" data-toggle="tooltip" data-placement="top" title="Toggle Card">
+                            <i class="ki ki-arrow-down icon-nm"></i>
+                            </a>
+                            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary mr-1" data-card-tool="reload" data-toggle="tooltip" data-placement="top" title="Reload Card">
+                            <i class="ki ki-reload icon-nm"></i>
+                            </a>
+                            <a href="#" class="btn btn-icon btn-sm btn-hover-light-primary" data-card-tool="remove" data-toggle="tooltip" data-placement="top" title="Remove Card">
+                            <i class="ki ki-close icon-nm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="conditionners"
+                                data-index="{{ form.conditionners|length > 0 ? form.conditionners|last.vars.name + 1 : 0 }}"
+                                data-prototype="{% autoescape 'html' %}{{ include('produit/prot/_conditionner.html.twig',
+                                        { 'form': form.conditionners.vars.prototype  })|escape }}{% endautoescape %}">
+                                {% for con in form.conditionners %}
+                                    {{ include("produit/prot/_conditionner.html.twig", { form: con }) }}
+                                {% endfor %}
+                            </div>
+                            <button type="button" class="add_item_link btn btn-outline-primary ml-0 mt-5" data-collection-holder-class="conditionners">Ajouter prix par conditionnement</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
+                <button type="reset" class="btn btn-secondary">Annuler</button>
+            </div>
+        {{ form_end(form, {render_rest:false}) }}
+        <!--end::Form-->
+    </div>
+
+
+<!-- Modal-->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 300px;">
+                <div class="card-body">
+                <!--begin: Datatable-->
+                    <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed" id="test">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th class="text-center">Code</th>
+                            <th>Libelle</th>
+                            <th>Catégorie</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                    </table>
+                <!--end: Datatable-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary font-weight-bold">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+    <script>
+        $("select[name*='[conditionnement]']").change(function(){
+            let option = $(this).find('option:selected');
+            let qteCond = String($(option).attr("data-qte")); 
+            let input = $($(this).parent().parent()).next().children().find('input');
+            $(input[0]).val(qteCond);
+        });
+        {% if msg is defined %}
+            Swal.fire("{{ msg }}", "Cliquez ici", "error");
+        {% endif %}
+        $(".tab").click(function(){
+            let cont = $(this).attr("href");
+            cont = cont.replace("#","");
+            let contenu = $("#"+cont);
+            let divs = $('div[class*="tab-pane fade i"]');
+            $('div[class*="tab-pane fade i"]').each(function(){
+                $( this ).removeClass(" show active");
+            })
+            $('a[class*="nav-link tab i"]').each(function(){
+                $( this ).removeClass("active");
+            })
+            $(this).addClass("active");
+            $(contenu).addClass(" show active");
+        });
+
+    </script>
+
+    <script>
+        function min(cla, val1) {
+            let ele = cla;
+            let titre = $(ele).prev().text();
+            if(titre !== "Min" || titre !== "Achat"){
+                return false;
+            }
+            //console.log(titre);
+            var eleVal = ele.val();
+            var nexEle = $(ele).parent().parent().next().children().find('input');
+            var nexEleLabel = $(ele).parent().parent().next().children().find('label');
+                    
+            var nextInputVal = $(nexEle[0]).val();
+            var nextLabel = $(nexEleLabel).text();
+            eleVal = parseInt(eleVal);
+            
+            nextInputVal = parseInt(nextInputVal);
+            console.log(val1+" "+ eleVal , val2 + " " + nextInputVal);
+            if(titre.includes(val1)){
+                if(titre.includes(val1) && nextLabel.includes(val2)){
+                    if(nextInputVal >= eleVal ){
+                        $(ele).attr("data-verif","OK");
+                        $(nexEle[0]).attr("data-verif","OK");
+                    }
+                }
+            }
+        }
+        $('.tape').keyup(function () {     
+            this.value = this.value.replace(/[^0-9\.]/g,'');
+        });
+
+       function addFormCollection(e, parentHolder = null) {
+            var collectionHolder = document.querySelector('.' + e);
+           if(parentHolder){
+                collectionHolder = parentHolder.querySelector('.' + e);
+           }
+
+            const item = document.createElement('div');
+            item.classList.add('el');
+
+            var prototype = collectionHolder.dataset.prototype;
+            var index = collectionHolder.dataset.index;
+            index = parseInt(index);
+
+            if( e == 'conditionnerCateClients'){
+                parentHolder.querySelector('.conditionnerCateClients').dataset.index = index + 1;
+                item.innerHTML = collectionHolder
+                .dataset.prototype.replace( /_subname_/g,collectionHolder.dataset.index);
+                collectionHolder.appendChild(item);
+            }else{
+                    collectionHolder.dataset.index = index + 1;
+                    item.innerHTML = prototype.replace(/_name_/g,index);
+                    collectionHolder.appendChild(item);
+                            $("select[name*='[conditionnement]']").change(function(){
+                                let option = $(this).find('option:selected');
+                                let qteCond = String($(option).attr("data-qte")); 
+                                let input = $($(this).parent().parent()).next().children().find('input');
+                                $(input[0]).val(qteCond);
+                            });
+            }
+            jQuery('.tape').keyup(function () {     
+                this.value = this.value.replace(/[^0-9\.]/g,'');
+            });
+            
+             // $(".tape").keyup(function(){
+              //      let el = $(this);
+               //     functionName(el, "Min", 'Max');
+                // functionName(el, 'Achat', 'Revient');
+             //   }); 
+
+            addTagFormDeleteLink(item);
+                index++;
+
+            $(item.querySelector("select")).select2();
+                if( e == 'conditionners'){
+                    document.querySelectorAll('.add_item_link2').forEach(btn => {
+                            const btnAttr = btn.getAttribute('data-collection-holder-class');
+                        btn.addEventListener('click', function(){addFormCollection(btnAttr,btn.closest('.el'))});
+                        const holders2 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
+                        holders2.forEach(h => {
+                            const element = h.querySelectorAll('ell');
+                            element.forEach(tr => {
+                                addTagFormDeleteLink2(tr);
+                            });
+                        });
+                    });
+                }
+            
+        };
+
+        const addTagFormDeleteLink = (item) => {
+             
+            const removeFormButton = item.querySelector('.supprimer');
+
+            removeFormButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+
+
+        document.querySelectorAll('.add_item_link').forEach(btn => {
+            const btnAttr = btn.getAttribute('data-collection-holder-class');
+            btn.addEventListener('click', function(){addFormCollection(btnAttr)});
+            const holders = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
+            holders.forEach(h => {
+                const element = h.querySelectorAll('el');
+                element.forEach(tr => {
+                    addTagFormDeleteLink(tr);
+                });
+            });
+           
+        });
+    </script>
+
+    <script>
+        const addFormToCollection2 = (e) => {
+            const collectionHolder2 = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+           
+            const item = document.createElement('div');
+            item.classList.add('ell');
+
+            item.innerHTML = collectionHolder2
+            .dataset
+            .prototype
+            .replace(
+            /__name__/g,
+            collectionHolder2.dataset.index
+            );
+
+            collectionHolder2.appendChild(item);
+            $(item.querySelector("select")).select2();
+            collectionHolder2.dataset.index++;
+
+            // add a delete link to the new form
+            addTagFormDeleteLink2(item);
+        };
+
+        const addTagFormDeleteLink2 = (item) => {
+             
+            const removeFormButton2 = item.querySelector('.supprimer2');
+
+            removeFormButton2.addEventListener('click', (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+
+
+        document.querySelectorAll('.add_item_link2').forEach(btn => {
+            btn.addEventListener('click', addFormToCollection2);
+            const holders2 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
+            holders2.forEach(h => {
+                const element = h.querySelectorAll('ell');
+                element.forEach(tr => {
+                    addTagFormDeleteLink2(tr);
+                });
+            });
+        });
+    </script> 
+
+    <script>
+        const addFormToCollection3 = (e) => {
+            const collectionHolder3 = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+           
+            const item = document.createElement('div');
+            item.classList.add('ell');
+
+            item.innerHTML = collectionHolder3
+            .dataset
+            .prototype
+            .replace(
+            /__name__/g,
+            collectionHolder3.dataset.index
+            );
+
+            collectionHolder3.appendChild(item);
+            $(item.querySelector("select")).select2();
+            collectionHolder3.dataset.index++;
+
+            // add a delete link to the new form
+            addTagFormDeleteLink3(item);
+        };
+
+        const addTagFormDeleteLink3 = (item) => {
+             
+            const removeFormButton3 = item.querySelector('.supprimer3');
+
+            removeFormButton3.addEventListener('click', (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+
+
+        document.querySelectorAll('.add_item_link3').forEach(btn => {
+            btn.addEventListener('click', addFormToCollection3);
+            const holders3 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
+            holders3.forEach(h => {
+                const element = h.querySelectorAll('ell');
+                element.forEach(tr => {
+                    addTagFormDeleteLink3(tr);
+                });
+            });
+        });
+    </script> 
+{% endblock %}

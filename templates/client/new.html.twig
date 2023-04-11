@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Client{% endblock %}
+{% block pageActive %} Client {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <!--begin::List Widget 9-->
+                <div class="card card-custom card-stretch gutter-b">
+                    <!--begin::Header-->
+                    <div class="card-header align-items-center border-0 mt-4">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="font-weight-bolder text-dark">Un nouveau Client</span>
+                            <span class="text-muted mt-3 font-weight-bold font-size-sm">SOMIMAS</span>
+                        </h3>
+                        <div class="card-toolbar">
+                            <div class="dropdown dropdown-inline">
+                                <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ki ki-bold-more-hor"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body pt-4">
+                        <!--begin::Timeline-->
+                        <!--begin::Form-->
+                        {{ form_start(form) }}
+                           {{ include('client/_form.html.twig') }}
+                        {{ form_end(form) }}
+                        <!--end::Form-->
+                        <!--end::Timeline-->
+                    </div>
+                    <!--end: Card Body-->
+                </div>
+            <!--end: List Widget 9-->
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+    <script>
+        $(document).ready(function() { 
+        {% if msg is defined %}
+            Swal.fire("{{ msg }}", "Cliquez ici", "error");
+        {% endif %}
+
+        function showhide(type, moral, physique){
+            if(type === 'Physique'){
+                    $("#client1_raisonSociale").removeAttr("required");
+                    $("#client1_sigle").removeAttr("required");
+                    $("#client1_ifu").removeAttr("required");
+                    $("#client1_denomination").removeAttr("required");
+                moral.hide();
+                physique.show();
+            }else{
+            //  console.log(physique);
+            $("#client1_raisonSociale").attr("required",true);
+            $("#client1_sigle").attr("required",true);
+            $("#client1_ifu").attr("required",true);
+            $("#client1_denomination").attr("required",true);
+                physique.hide()
+                moral.show();
+            }
+        }
+
+            function swishe(){
+                let type  = $("input[checked='checked']").val();
+                let form = $("form");
+                let moral = form.find('.moral').parent();
+                let physique = form.find('.physique').parent();
+                console.log(type);
+                    showhide(type, moral, physique)
+
+                form.find('input[type="radio"]').change(function() {
+                    let type2 = this.value;
+                    showhide(type2, moral, physique)
+                });
+            
+            }
+            swishe();
+        });
+    </script>
+{% endblock %}      

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+			<meta charset="utf-8" />
+			<title>CONNEXION|Gest Prix</title>
+			<meta name="description" content="Login page example" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+			<link rel="canonical" href="https://keenthemes.com/metronic" />
+			<!--begin::Fonts-->
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+			<!--end::Fonts-->
+			<!--begin::Page Custom Styles(used by this page)-->
+			<link href="{{ asset('admin/theme/html/demo1/dist/assets/css/pages/login/classic/login-4f552.css?v=7.1.8')}}" rel="stylesheet" type="text/css" />
+			<!--end::Page Custom Styles-->
+			<!--begin::Global Theme Styles(used by all pages)-->
+			<link href="{{ asset('admin/theme/html/demo1/dist/assets/plugins/global/plugins.bundlef552.css?v=7.1.8')}}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('admin/theme/html/demo1/dist/assets/plugins/custom/prismjs/prismjs.bundlef552.css?v=7.1.8')}}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('admin/theme/html/demo1/dist/assets/css/style.bundlef552.css?v=7.1.8')}}" rel="stylesheet" type="text/css" />
+			<!--end::Global Theme Styles-->
+			<!--begin::Layout Themes(used by all pages)-->
+			<link href="{{ asset('admin/theme/html/demo1/dist/assets/css/themes/layout/header/base/lightf552.css?v=7.1.8')}}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('admin/theme/html/demo1/dist/assets/css/themes/layout/header/menu/lightf552.css?v=7.1.8')}}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('admin/theme/html/demo1/dist/assets/css/themes/layout/brand/darkf552.css?v=7.1.8')}}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('admin/theme/html/demo1/dist/assets/css/themes/layout/aside/darkf552.css?v=7.1.8')}}" rel="stylesheet" type="text/css" />
+			<!--end::Layout Themes-->
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
+		<!-- Google Tag Manager (noscript) -->
+		<!-- End Google Tag Manager (noscript) -->
+		<!--begin::Main-->
+		{% block body %}
+			<div class="d-flex flex-column flex-root">
+				<!--begin::Login-->
+				<div class="login login-4 login-signin-on d-flex flex-row-fluid" id="kt_login">
+					<div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat" style="background-image: url('{{ asset('admin/theme/html/demo1/dist/assets/media/bg/bg-3.jpg')}}');">
+						<div class="login-form text-center p-7 position-relative overflow-hidden">
+							<!--begin::Login Header-->
+							<div class="d-flex flex-center mb-15">
+								<a href="#">
+									<img src="{{ asset('admin/som.png') }}" class="max-h-75px" alt="" />
+								</a>
+							</div>
+							<!--end::Login Header-->
+							<!--begin::Login Sign in form-->
+							<div class="login-signin">
+								<div class="mb-20">
+									<h3>Se connecter</h3>
+									<div class="text-muted font-weight-bold">Entrez vos information de connexion pour vous connecter:</div>
+								</div>
+								<form method="post" class="form" id="kt_login_signin_form">
+									{% if error %}
+										<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+									{% endif %}
+
+									{% if app.user %}
+										<div class="alert alert-info mb-3">
+											Vous êtes connecté en tant que : {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+										</div>
+									{% endif %}
+									<div class="form-group mb-5">
+										<input type="email" placeholder="Email" name="email" id="inputEmail" class="form-control h-auto form-control-solid py-4 px-8"  autocomplete="off" />
+									</div>
+									<div class="form-group mb-5">
+										<input type="password" placeholder="Mot de passe" name="password" id="inputPassword" class="form-control h-auto form-control-solid py-4 px-8"/>
+									</div>
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									<div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+										<div class="checkbox-inline">
+											<label class="checkbox m-0 text-muted">
+											<input type="checkbox" name="remember" />
+											<span></span>Me rappeler</label>
+										</div>
+										<a href="javascript:;" id="kt_login_forgot" class="text-muted text-hover-primary">Mot de passe oublié ?</a>
+									</div>
+									<button type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Connexion</button>
+								</form>
+								{# <div class="mt-10">
+									<span class="opacity-70 mr-4">Don't have an account yet?</span>
+									<a href="javascript:;" id="kt_login_signup" class="text-muted text-hover-primary font-weight-bold">Sign Up!</a>
+								</div> #}
+							</div>
+							<!--end::Login Sign in form-->
+						</div>
+					</div>
+				</div>
+				<!--end::Login-->
+			</div>
+		{% endblock %}
+			<!--end::Main-->
+		{% block javascripts %}
+		
+			{# <!--begin::Global Theme Bundle(used by all pages)-->
+			<script src="{{ asset('admin/theme/html/demo1/dist/assets/plugins/global/plugins.bundlef552.js?v=7.1.8')}}"></script>
+			<script src="{{ asset('admin/theme/html/demo1/dist/assets/plugins/custom/prismjs/prismjs.bundlef552.js?v=7.1.8')}}"></script>
+			<script src="{{ asset('admin/theme/html/demo1/dist/assets/js/scripts.bundlef552.js?v=7.1.8')}}"></script>
+			<!--end::Global Theme Bundle-->
+			<!--begin::Page Scripts(used by this page)-->
+			<script src="{{ asset('admin/theme/html/demo1/dist/assets/js/pages/custom/login/login-generalf552.js?v=7.1.8')}}"></script>
+			<!--end::Page Scripts--> #}
+		{% endblock %}
+	</body>
+		<!--end::Body-->
+
+<!-- Mirrored from preview.keenthemes.com/metronic/demo1/custom/pages/login/classic/login-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 23 Jan 2021 11:59:27 GMT -->
+</html>
+
+
+
+

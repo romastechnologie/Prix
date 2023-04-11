@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des clients{% endblock %}
+
+{% block content %}
+     <div class="card card-custom">
+        <div class="card-header">
+            <h3 class="card-title">
+                Une nouvelle catégorie
+            </h3>
+            <div class="card-toolbar">
+                <div class="example-tools justify-content-center">
+                    <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
+                    <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
+                </div>
+            </div>
+        </div>
+        <!--begin::Form-->
+        {{ form_start(form,{ 'attr' : {'class': 'withRadio' }}) }}
+        <div class="card-body">
+            <div class="form-group">
+                <div class="row">
+                    
+                     {{ include('client/partials/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
+            <button type="reset" class="btn btn-secondary">Annulé</button>
+        </div>
+        {{ form_end(form) }}
+        <!--end::Form-->
+    </div>
+
+
+
+<!-- Modal-->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 300px;">
+                <div class="card-body">
+                <!--begin: Datatable-->
+                    <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed" id="test">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th class="text-center">Code</th>
+                            <th>Libelle</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                    </table>
+                <!--end: Datatable-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary font-weight-bold">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+    <script>
+        function swishStatut(){
+        let form = $(container).find('form.withRadio');
+        let moral = form.find('.moral').parent();
+        let physique = form.find('.physique').parent();
+        
+        if(form.find('input[type=radio]:checked').val() == 'Physique')
+            moral.hide();
+        if(form.find('input[type=radio]:checked').val() == 'Moral')
+            physique.hide();
+        
+        form.find('input[type=radio]').change(function() {
+            if (this.value == 'Physique') {
+                moral.hide();
+                physique.show();
+            }
+            else if (this.value == 'Moral') {
+                moral.show();
+                physique.hide();
+            }
+        });
+    }
+    </script>
+{% endblock %}

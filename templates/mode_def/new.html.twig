@@ -1,0 +1,290 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Mode{% endblock %}
+{% block pageActive %} Mode de définition des prixs {% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-6">
+        <!--begin::List Widget 9-->
+            <div class="card card-custom card-stretch gutter-b">
+                <!--begin::Header-->
+                <div class="card-header align-items-center border-0 mt-4">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="font-weight-bolder text-dark">Un nouveau mode</span>
+                        <span class="text-muted mt-3 font-weight-bold font-size-sm">SOMIMAS</span>
+                    </h3>
+                    <div class="card-toolbar">
+                        <div class="dropdown dropdown-inline">
+                            <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ki ki-bold-more-hor"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body pt-4">
+                    <!--begin::Timeline-->
+                     <!--begin::Form-->
+                        {{ form_start(form) }}
+                            {{ include('mode_def/_form.html.twig') }}
+                            <div class="card-footer">
+                                <button type="submit" id="soum" class="btn btn-primary mr-2">{{ button_label|default('Enregistrer') }}</button>
+                                {# <button type="submit" class="btn btn-primary mr-2">Enregistrer</button> #}
+                                <button type="reset" class="btn btn-secondary">Annuler</button>
+                            </div>
+                        {{ form_end(form) }}
+                    <!--end::Form-->
+                    <!--end::Timeline-->
+                </div>
+                <!--end: Card Body-->
+            </div>
+        <!--end: List Widget 9-->
+    </div>
+    <div class="col-6">
+        <!--begin::List Widget 9-->
+            <div class="card card-custom card-stretch gutter-b">
+                <!--begin::Header-->
+                <div class="card-header align-items-center border-0 mt-4">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="font-weight-bolder text-dark">Liste des DEF</span>
+                        <span class="text-muted mt-3 font-weight-bold font-size-sm">SOMIMAS</span>
+                    </h3>
+                    <div class="card-toolbar">
+                        <div class="dropdown dropdown-inline">
+                            <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ki ki-bold-more-hor"></i>
+                            </a>
+                            {# <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                                <!--begin::Navigation-->
+                                <ul class="navi navi-hover">
+                                    <li class="navi-header font-weight-bold py-4">
+                                        <span class="font-size-lg">Choose Label:</span>
+                                        <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip" data-placement="right" title="Click to learn more..."></i>
+                                    </li>
+                                    <li class="navi-separator mb-3 opacity-70"></li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
+                                                <span class="navi-text">
+                                                    <span class="label label-xl label-inline label-light-success">Customer</span>
+                                                </span>
+                                        </a>
+                                    </li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
+                                                <span class="navi-text">
+                                                    <span class="label label-xl label-inline label-light-danger">Partner</span>
+                                                </span>
+                                        </a>
+                                    </li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
+                                                <span class="navi-text">
+                                                    <span class="label label-xl label-inline label-light-warning">Suplier</span>
+                                                </span>
+                                        </a>
+                                    </li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
+                                                <span class="navi-text">
+                                                    <span class="label label-xl label-inline label-light-primary">Member</span>
+                                                </span>
+                                        </a>
+                                    </li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
+                                                <span class="navi-text">
+                                                    <span class="label label-xl label-inline label-light-dark">Staff</span>
+                                                </span>
+                                        </a>
+                                    </li>
+                                    <li class="navi-separator mt-3 opacity-70"></li>
+                                    <li class="navi-footer py-4">
+                                        <a class="btn btn-clean font-weight-bold btn-sm" href="#">
+                                            <i class="ki ki-plus icon-sm"></i>Add new</a>
+                                    </li>
+                                </ul>
+                                <!--end::Navigation-->
+                            </div> #}
+                        </div>
+                    </div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body pt-4">
+                    <!--begin: Datatable-->
+                        <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed" id="test">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Libelle</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    <!--end: Datatable-->
+                </div>
+                <!--end: Card Body-->
+            </div>
+        <!--end: List Widget 9-->
+    </div>
+</div>
+
+<!-- Modal-->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 300px;">
+                
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+
+
+let etat = $('#exampleModalScrollable').is(':visible');
+console.log(etat);
+
+    function recharge(){
+            $('#test').dataTable().fnClearTable();
+            $('#test').dataTable().fnDestroy();
+            $('#test').DataTable({
+                'ajax' : {  url:  '{{ path("liste_mode_def_by_ajax") }}',
+                        dataSrc: 'data',
+                        complete:function(){
+                            $(".suppr").click(function(e) {
+                                let id3 = $(this).attr("data-id");
+                                //console.log(id);
+                                Swal.fire({
+                                    title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
+                                    text: "Cette action est irréversible" ,
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Non",
+                                    confirmButtonText: "Oui"
+                                }).then(function(result) {
+                                    if (result.value) {
+                                            $.ajax({
+                                                url: "{{path('mode_def_delete')}}",
+                                                method: "POST",
+                                                data:{ id: JSON.stringify(id3)},
+                                                dataType: "json"
+                                                })
+                                                .done(function( data ) {
+                                                    if(data[0] == "Succes"){
+                                                        recharge()
+                                                        Swal.fire(
+                                                            "Suppression effective",
+                                                            "L'enregistrement a bien été supprimé. ",
+                                                            "success"
+                                                        )
+                                                    }else{
+                                                        Swal.fire(
+                                                            "Suppression effective",
+                                                            data[1],
+                                                            "error"
+                                                        )
+                                                    }
+
+                                                })
+                                        
+                                        
+                                    }
+                                });
+                            })
+                        }
+                    },
+            'columns' : [
+                {"data":"id"},
+                {"data":"libelle"},
+                {"data":null }
+            ],
+            columnDefs: [
+            {
+                targets: -1,
+                data: null,
+               "render": function (data) {
+                let id1 = data.id;
+                let libel = data.libelle;
+                     $(".modif").click(function(){
+                            let id = $(this).attr("data-id");
+                            let contenu = $(this).attr("data-libelle");
+                            //console.log(id);
+                            $("#mode_def_libelle").val(contenu);
+                            $("#mode_def_id").val(id);
+                        });
+                    return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center modif' data-id='"+id1+"' data-libelle='"+libel+"' href='#'>Modifier</a><a class='divider' href='#'></a><a class='dropdown-item text-center btn btn-danger suppr' data-id='"+id1+"' href='#' >Supprimer</a>"
+                            //"<divider>   '<a class='dropdown-item' href='#'>Something else here</a>
+                            +"</div>"+
+                        "</div>";
+                }
+            },
+        ],
+    });
+   
+    }
+recharge()
+    
+    $("form").submit(function(e){
+        $("#soum").addClass("spinner spinner-white spinner-right");
+        e.preventDefault();
+        let libelle =JSON.stringify( $("#mode_def_libelle").val());
+        let id =JSON.stringify( $("#mode_def_id").val());
+        //console.log(code,libelle);
+        $.ajax({
+            url: "{{path('mode_def_new_by_ajax')}}",
+            method: "POST",
+            data:{ libelle:libelle , id:id},
+            dataType: "json"
+            })
+            .done(function( data ) {
+                recharge()
+                if(data[0]== "Ajout"){
+                    if ( data[1]  == "Enregistrement effectué") {
+                        $("#mode_def_libelle").val("");
+                        
+                        Swal.fire(data[1], "Cliquez ici", "success");
+                    }else{
+                        Swal.fire(data[1], "Cliquez ici", "error");
+                    }
+                }else{
+                    if ( data[1]  == "Modification effectuée") {
+                        $("#mode_def_libelle").val("");
+                        $("#mode_def_id").val("");
+                        Swal.fire(data[1], "Cliquez ici", "success");
+                    }else{
+                        Swal.fire(data[1], "Cliquez ici", "error");
+                    }
+                }
+                $("#soum").removeClass("spinner spinner-white spinner-right");
+                
+            })
+            .fail(function(data){
+                console.log(data)
+                Swal.fire(data, "Cliquez ici", "error");
+            });
+    });
+
+     $(".modif").click(function(){
+        let idTd = $(this).parent().parent().parent().prev().prev();
+        let id = $(id[0]).text();
+
+        console.log($(id[0]).text());
+        });
+    
+</script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Utilisateur{% endblock %}
+
+{% block content %}
+ {{ form_start(form) }}
+    <div class="card card-custom" id="kt_card_2">
+	<div class="card-header">
+		<div class="card-title">
+			<h3 class="card-label">RECHERCHE</h3>
+		</div>
+		<div class="card-toolbar">
+			<button type="submit" class="btn btn-warning"   title="Modification de l'utilisateur">
+			<i class="ki ki-reload icon-nm"></i>Modifier
+			</button>
+		</div>
+	</div>
+	<div class="card-body">
+       
+             {{ include('registration/reg/_formprofil.html.twig') }}
+            <div class="card-footer">
+            <button type="submit" class="btn btn-warning"   title="Modification de l'utilisateur">
+                <i class="ki ki-reload icon-nm"></i>Modifier
+            </button>
+            <button type="reset" class="btn btn-secondary">Annuler</button>
+            </div>
+	</div>
+</div>
+        {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+{% if etat is defined %}
+console.log("Bonjour");
+	Swal.fire(
+		"Suppression effective",
+		"L'enregistrement a bien été supprimé. ",
+		"success"
+	)
+{% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conditionnement index{% endblock %}
+
+{% block content %}
+    <h1>Conditionnement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for conditionnement in conditionnements %}
+            <tr>
+                <td>{{ conditionnement.id }}</td>
+                <td>{{ conditionnement.code }}</td>
+                <td>{{ conditionnement.libelle }}</td>
+                <td>
+                    <a href="{{ path('app_conditionnement_show', {'id': conditionnement.id}) }}">show</a>
+                    <a href="{{ path('app_conditionnement_edit', {'id': conditionnement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_conditionnement_new') }}">Create new</a>
+{% endblock %}

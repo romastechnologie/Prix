@@ -1,0 +1,60 @@
+                {{ form_start(registrationForm) }}
+                    <div class="form-group row">
+                        <div class="col-6">
+                            {{ form_label(registrationForm.email) }}
+                            {{ form_widget(registrationForm.email) }}
+                            </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.username) }}
+                            {{ form_widget(registrationForm.username) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.nom) }}
+                            {{ form_widget(registrationForm.nom) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.prenom) }}
+                            {{ form_widget(registrationForm.prenom) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.telephone) }}
+                            {{ form_widget(registrationForm.telephone) }}
+                            </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.adresse) }}
+                            {{ form_widget(registrationForm.adresse) }}
+                            </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.password.first) }}
+                            {{ form_widget(registrationForm.password.first) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.password.second) }}
+                            {{ form_widget(registrationForm.password.second) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.userRoles) }}
+                            {{ form_widget(registrationForm.userRoles) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_label(registrationForm.file) }}
+                            {{ form_widget(registrationForm.file) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-left">
+                            <div class="checkbox-inline">
+                                <label class="checkbox checkbox-outline checkbox-red m-0">
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                                <span></span>J'accepte les 
+                                <a href="#" class="font-weight-bold ml-1">termes et conditions d'utilisation</a>.</label>
+                            </div>
+                            <div class="form-text text-muted text-center"></div>
+                        </div>
+                        <div class="form-group  mt-5">
+                            <button type="submit" class="btn btn-primary">S'inscrire</button>
+                            <button type="reset" class="btn btn-warning">Annuler</button>
+                        </div>
+                    </div>
+            
+                {{ form_end(registrationForm) }}

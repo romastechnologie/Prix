@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ModeDef{% endblock %}
+{% block pageActive %} Mode de définition des prixs {% endblock %}
+
+{% block content %}
+    <h1>Edit ModeDef</h1>
+
+    {{ include('mode_def/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_mode_def_index') }}">back to list</a>
+
+    {{ include('mode_def/_delete_form.html.twig') }}
+{% endblock %}

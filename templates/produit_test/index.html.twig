@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block content %}
+    <h1>Produit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>Code</th>
+                <th>RefUsine</th>
+                <th>ATaxe</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.designation }}</td>
+                <td>{{ produit.code }}</td>
+                <td>{{ produit.refUsine }}</td>
+                <td>{{ produit.aTaxe }}</td>
+                <td>{{ produit.description }}</td>
+                <td>
+                    <a href="{{ path('app_produit_test_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('app_produit_test_edit', {'id': produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_test_new') }}">Create new</a>
+{% endblock %}
+{% block javascripts %}
+    <script>
+       function addFormCollection(e, parentHolder = null) {
+        console.log(e)
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+           
+            const item = document.createElement('div');
+            item.classList.add('el');
+
+            item.innerHTML = collectionHolder
+            .dataset
+            .prototype
+            .replace(
+            /__name__/g,
+            collectionHolder.dataset.index
+            );
+
+            collectionHolder.appendChild(item);
+            $(item.querySelector("select")).select2();
+            collectionHolder.dataset.index++;
+
+
+            document.querySelectorAll('.add_item_link2').forEach(btn => {
+                    const btnAttr = btn.getAttribute('data-collection-holder-class');
+                btn.addEventListener('click', addFormCollection(btnAttr,btn.closest('.parent')));
+                console.log(btn.parentElement);
+                const holders2 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
+                holders2.forEach(h => {
+                    const element = h.querySelectorAll('ell');
+                    element.forEach(tr => {
+                        addTagFormDeleteLink2(tr);
+                    });
+                });
+            });
+            // add a delete link to the new form
+            addTagFormDeleteLink(item);
+        };
+
+        const addTagFormDeleteLink = (item) => {
+             
+            const removeFormButton = item.querySelector('.supprimer');
+
+            removeFormButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+
+
+        document.querySelectorAll('.add_item_link').forEach(btn => {
+            const btnAttr = btn.getAttribute('data-collection-holder-class');
+            btn.addEventListener('click', addFormCollection(btnAttr,btn.closest('.parent')));
+            const holders = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
+            holders.forEach(h => {
+                const element = h.querySelectorAll('el');
+                element.forEach(tr => {
+                    addTagFormDeleteLink(tr);
+                });
+            });
+        });
+    </script>
+{% endblock %}

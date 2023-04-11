@@ -1,0 +1,425 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ROMAS Produit{% endblock %}
+{% block pageActive %} Produit {% endblock %}
+
+{% block content %}
+    <!--begin::Card-->
+    <div class="card card-custom">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">
+                    <i class="flaticon2-image-file text-primary"></i>
+                </span>
+                <h3 class="card-label">Liste des produits</h3>
+            </div>
+            <div class="card-toolbar">
+            <a  type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-warning mr-5 font-weight-bolder">
+                <span class="svg-icon svg-icon-md">
+                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Flatten.svg-->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24" />
+                            <circle fill="#000000" cx="9" cy="15" r="6" />
+                            <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                        </g>
+                    </svg>
+                    <!--end::Svg Icon-->
+                </span>Importation</a>
+                <!--end::Button-->
+                <a  href="{{ path("produit") }}" class="btn btn-primary font-weight-bolder">
+                <span class="svg-icon svg-icon-md">
+                    <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Flatten.svg-->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24" />
+                            <circle fill="#000000" cx="9" cy="15" r="6" />
+                            <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                        </g>
+                    </svg>
+                    <!--end::Svg Icon-->
+                </span>Nouveau</a>
+                <!--end::Button-->
+            </div>
+        </div>
+        <div class="card-body">
+            <!--begin: Datatable-->
+            <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed" id="test" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th class="text-center">Code</th>
+                        <th class="text-center">Produit</th>
+                        <th>Catégorie</th>
+                        <th>Sous catégorie</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for pr in produits %}
+                    <tr data-id="{{ pr["id"] }}" data-conditionners=" {% for p in pr['conditionners'] %}   [ {{ p['prixMin'] ~ '-' ~ p['prixMax'] ~ '-' ~ (p['prix'])['prixMin'] ~ '-' ~ (p['prix'])['prixMax']   ~ '-' ~ p['prix']['prixConcu'] }} ]- {% endfor %}"  data-categClient="" >
+                        {# {{ dump(pr["conditionners"]) }}  #}
+                        <td>{{ pr["id"] }}</td>
+                        <td>{{ pr["code"] }}</td>
+                        <td>{{ pr["designation"] }}</td>
+                        <td>{{ pr["categorie"] }}</td>
+                        <td>{{ pr["sousCategorie"] }}</td>
+                        <td>
+                        
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Plus d'option
+                            </button>
+                            <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item clicmore" data-toggle="modal" data-id="{{ pr["id"] }}" data-target="#exampleModalScrollable" href="{{ path('produit_edit_view',{ id : pr["id"] }) }}">Informations</a>
+                                <a class="dropdown-item" href="{{ path('produit_edit_view',{'id': pr["id"] }) }}">Modifier</a>
+                                <a class="dropdown-item btn btn-danger" href="{{ path('gp_produit_delete',{'id': pr["id"] } ) }}">Supprimer</a>
+                            </div>
+                        </div>
+                                                
+                        {# <a href="#"  class="btn btn-icon btn-light-primary btn-circle btn-sm mr-2 ">
+                                <i class="flaticon2-add"></i>
+                            </a>
+                            <a  class="btn btn-icon btn-light-primary btn-circle btn-sm mr-2">
+                                <i class="flaticon2-drop"></i>
+                            </a>
+                            <a href="#" data-toggle="modal" data-target="#exampleModalScrollable" class="btn btn-icon btn-light-danger btn-circle btn-sm mr-2">
+                                <i class="flaticon2-box text-danger"></i>
+                            </a> #}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!--end: Datatable-->
+        </div>
+    </div>
+    <!--end::Card-->
+    <div class="mod">
+        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeLg" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Détails</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="height: 300px;">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a href="#home" class="nav-link tab i active" data-bs-toggle="tab">CONDITIONNEMENT</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#profile" class="nav-link tab i" data-bs-toggle="tab">PRIX PAR GROUPE DE CLIENT</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#messages" class="nav-link tab i" data-bs-toggle="tab">HISTORIQUE DES PRIX</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade i show active" id="home">
+                                    <div class="card card-custom">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                Conditionnement 
+                                            </h3>
+                                            <div class="card-toolbar">
+                                                <div class="example-tools justify-content-center">
+                                                    <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
+                                                    <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--begin::Form-->
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Conditionnement</th>
+                                                            <th class="text-center">Prix minimal</th>
+                                                            <th>Prix maximal</th>
+                                                            <th>Prix concurentiel</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tbodyInfoCondi">
+                                                        
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        <!--end::Form-->
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade i" id="profile">
+                                    <div class="card card-custom">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                Prix Par Catégorie de client 
+                                            </h3>
+                                        </div>
+                                        <!--begin::Form-->
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Conditionnement</th>
+                                                            <th class="text-center">Type de client</th>
+                                                            <th>Prix maximal</th>
+                                                            <th>Prix Minimal</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tbodyClient">
+                                                            <tr>
+                                                                <td></td>
+                                                                <td class="text-center"></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        <!--end::Form-->
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade i" id="messages">
+                                    <div class="card card-custom">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                HISTORIQUE DES PRIXS 
+                                            </h3>
+                                            <div class="card-toolbar">
+                                                <div class="example-tools justify-content-center">
+                                                    <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
+                                                    <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--begin::Form-->
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Conditionnement</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="tAutrePrix">
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!--end::Form-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary font-weight-bold">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+<!-- Button trigger modal-->
+
+<!-- Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fichier à importer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            {{ form_start(drop) }}
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="dropzone dropzone-default dropzone-primary">
+                            <div class="dropzone-msg dz-message">
+                                {{ form_row(drop.dropFile) }}
+                                <span ></span>
+                                <span id="text"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button"  class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Annuler</button>
+                <button type="submit" id="soum" class="btn btn-primary font-weight-bold">Importer</button>
+            </div>
+            {{ form_end(drop) }}
+        </div>
+    </div>
+</div>
+                                
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script>
+    {% if msg is defined %}
+        Swal.fire("{{ msg }}", "Cliquez ici", "error");
+    {% endif %}
+    $("#soum").click(function(){
+        $('#drop_dropFile').val();
+        if($('#drop_dropFile').val() != ""){
+            $("#soum").addClass("spinner spinner-white spinner-right");
+        }
+    });
+    
+
+const isObject2 = (obj) => {
+  return typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
+}
+
+const objToArray = (obj) => {
+  return Object.keys(obj).map((key) => {
+    return [
+      key, isObject2(obj[key]) ? 
+        objToArray(obj[key]) :
+        obj[key]
+    ];
+  });    
+}
+
+$(".clicmore").click(function(){
+    {% set clic = null %}
+   // let parent = ($(this).parent().parent().parent());
+    let id = $(this).attr("data-id");
+    $("#tbodyInfoCondi").html("");
+        $.ajax({
+                url: "{{path('produi_listeAjax')}}",
+                method: "POST",
+                data:{ id:id},
+                dataType: "json"
+                })
+                .done(function( data ) {
+                    console.log(data[0], data[1]);
+                    $("#tbodyInfoCondi").html(data[0]);
+                    $("#tbodyClient").html(data[1]);
+                    $("#tAutrePrix").html(data[2]);        
+                    })
+                .fail(function(data){
+                    Swal.fire(data, "Cliquez ici", "error");
+                })
+    });
+
+$('#test').DataTable();
+
+$(".tab").click(function(){
+    let cont = $(this).attr("href");
+    cont = cont.replace("#","");
+    let contenu = $("#"+cont);
+    let divs = $('div[class*="tab-pane fade i"]');
+    $('div[class*="tab-pane fade i"]').each(function(){
+        $( this ).removeClass(" show active");
+    })
+    $('a[class*="nav-link tab i"]').each(function(){
+        $( this ).removeClass("active");
+    })
+    $(this).addClass("active");
+    $(contenu).addClass(" show active");
+    
+
+});
+
+const fileSelect = document.getElementById("drop_dropFile");
+const fileElem = document.getElementById("fileElem");
+
+fileSelect.addEventListener(
+  "click",
+  (e) => {
+    console.log("OK");
+  },
+  false
+);
+
+$('#drop_dropFile').change(function(){
+   let valeur =  $(this).val();
+   console.log(valeur);
+   let nom = valeur.split("\\");
+   //console.log(nom[nom.length -1]);
+   //console.log(this.files[0].size);
+   let numberOfBytes = this.files[0].size;
+   $("#text").text(nom[nom.length -1]);
+    const units = [
+        "B",
+        "KiB",
+        "MiB",
+        "GiB",
+        "TiB",
+        "PiB",
+        "EiB",
+        "ZiB",
+        "YiB",
+        ];
+    const exponent = Math.min(
+        Math.floor(numberOfBytes / 1024),
+        units.length - 1
+        );
+
+    console.log(numberOfBytes,exponent);
+})
+{# const inputElement = document.getElementById("drop_dropFile");
+ inputElement.addEventListener(
+        "change",
+        function() {
+          let numberOfBytes = 0;
+          console.log("OK");
+          for (const file of inputElement.files) {
+            numberOfBytes += file.size;
+          }
+
+          // Approximate to the closest prefixed unit
+          const units = [
+            "B",
+            "KiB",
+            "MiB",
+            "GiB",
+            "TiB",
+            "PiB",
+            "EiB",
+            "ZiB",
+            "YiB",
+          ];
+          const exponent = Math.min(
+            Math.floor(Math.log(numberOfBytes) / Math.log(1024)),
+            units.length - 1
+          );
+          const approx = numberOfBytes / 1024 ** exponent;
+          const output =
+            exponent === 0
+              ? `${numberOfBytes} bytes`
+              : `${approx.toFixed(3)} ${
+                  units[exponent]
+                } (${numberOfBytes} bytes)`;
+
+        },
+        false
+      ); #}
+
+
+
+</script>
+{% endblock %}

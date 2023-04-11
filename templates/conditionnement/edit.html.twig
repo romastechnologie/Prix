@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Conditionnement{% endblock %}
+
+{% block content %}
+    <h1>Edit Conditionnement</h1>
+
+    {{ include('conditionnement/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_conditionnement_index') }}">Annuler</a>
+
+    {{ include('conditionnement/_delete_form.html.twig') }}
+{% endblock %}

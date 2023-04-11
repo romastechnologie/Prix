@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Mode{% endblock %}
+{% block pageActive %} Mode de définition des prixs {% endblock %}
+{% block lien2 %} 
+    <a type="button" class="btn btn-primary" data-toggle="modal" id="cliclic" data-target="#exampleModalScrollable">
+    Voir liste
+    </a> 
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <!--begin::List Widget 9-->
+            <div class="card card-custom card-stretch gutter-b">
+                <!--begin::Header-->
+                <div class="card-header align-items-center border-0 mt-4">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="font-weight-bolder text-dark">Liste des DEF</span>
+                        <span class="text-muted mt-3 font-weight-bold font-size-sm">SOMIMAS</span>
+                    </h3>
+                    <div class="card-toolbar">
+                        <div class="dropdown dropdown-inline">
+                            <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ki ki-bold-more-hor"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body pt-4">
+                    <!--begin: Datatable-->
+                        <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed" id="test">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Libelle</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    <!--end: Datatable-->
+                </div>
+                <!--end: Card Body-->
+            </div>
+        <!--end: List Widget 9-->
+    </div>
+</div>
+
+
+{% endblock %}

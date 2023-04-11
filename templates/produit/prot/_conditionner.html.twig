@@ -1,0 +1,71 @@
+<div class="card card-custom mt-5" id="kt_card_2">
+	<div class="card-header bg-info ">
+		<div class="card-title">
+			<h3 class="card-label text-white">PRIX PAR CONDITIONNEMENT DU PRODUIT</h3>
+		</div>
+		<div class="card-toolbar">
+			<a href="#" class="btn btn-icon btn-sm btn-warning supprimer" data-card-tool="remove" data-toggle="tooltip" data-placement="top" title="Remove Card">
+			<i class="ki ki-close icon-nm"></i>
+			</a>
+		</div>
+	</div>
+	<div class="card-body">
+		    <div class="form-group row mb-2">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-3">
+                    {{ form_row(form.conditionnement) }}
+                    {# {{ form_widget(form.conditionnement) }} #}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.qteProduit) }}
+                    {# {{ form_widget(form.conditionnement) }} #}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.prixAchat) }}
+                    {# {{ form_widget(form.prixMin) }} #}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.prixRevient) }}
+                    {# {{ form_widget(form.prixMax) }} #}
+                </div>
+
+                <div class="col-3">
+                    {{ form_row(form.prixVente) }}
+                    {# {{ form_widget(form.prixConcurentiel) }} #}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.prixMin) }}
+                    {# {{ form_widget(form.prixMin) }} #}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.prixMax) }}
+                    {# {{ form_widget(form.prixMax) }} #}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.prixConcurentiel) }}
+                    {# {{ form_widget(form.prixConcurentiel) }} #}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <div class="row">
+            <div class="col-12">
+                    <div class="conditionnerCateClients"
+                        data-index="{{ form.conditionnerCateClients|length > 0 ? form.conditionnerCateClients|last.vars.name + 1 : 0 }}"
+                        data-prototype="{% autoescape 'html' %}{{ include('produit/prot/_cateClientCon.html.twig',
+                                { 'form': form.conditionnerCateClients.vars.prototype  }) | escape }}{% endautoescape %}">
+                        {% for cat in form.conditionnerCateClients %}
+                            {{ include("produit/prot/_cateClientCon.html.twig", { form: cat }) }}
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="add_item_link2 btn btn-outline-primary ml-0 mt-5" data-collection-holder-class="conditionnerCateClients">Ajouter Prix Client</button>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+	</div>
+</div>
+

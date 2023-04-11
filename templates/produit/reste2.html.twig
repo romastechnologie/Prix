@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chercher informations{% endblock %}
+{% block pageActive %} Produit {% endblock %}
+
+{% block content %}
+   <!--begin::Card-->
+
+    <!--end::Card-->  
+ 
+<div class="card card-custom" id="kt_card_2">
+	<div class="card-header">
+		<div class="card-title">
+			<h3 class="card-label">RECHERCHE</h3>
+		</div>
+		<div class="card-toolbar">
+		
+		</div>
+	</div>
+	<div class="card-body">
+            <fieldset class="form-group scheduler-border">
+                    <legend class="scheduler-border">Information à rechercher</legend>
+                        <div class="control-group">
+                            {{ form_start(form) }}
+                                <div class="row">
+                                    <div class="col-5">
+                                        {{ form_label(form.categ) }}
+                                        {{ form_widget(form.categ) }}
+                                        <span class="form-text text-muted">Renseignez un code significatif pour vous.</span>
+                                    </div>
+                                    <div class="col-5">
+                                        {{ form_label(form.produit) }}
+                                        {{ form_widget(form.produit) }}
+                                        <span class="form-text text-muted">Renseignez un libellé significatif pour vous.</span>
+                                    </div>
+                                    <div>
+                                        <a type="button" id="cliclic" class="btn btn-success ml-4 mt-7" >Lancer recherche</a>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+            </fieldset>
+            <fieldset class="form-group scheduler-border">
+                    <legend class="scheduler-border">Résultat de la recherche</legend>
+                        <div class="control-group">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <td scope="col">Conditionnement</td>
+                                        <td scope="col">Prix d'achat</td>
+                                        <td scope="col">Prix de revient</td>
+                                        <td scope="col">Prix de vente</td>
+                                        <td scope="col">Prix minimal</td>
+                                        <td scope="col">Prix maximal</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                
+                                </tbody> 
+                            </table>
+                        </div>
+            </fieldset>
+	</div>
+</div>        
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+    <script>
+        $(".tab").click(function(){
+            let cont = $(this).attr("href");
+            cont = cont.replace("#","");
+            let contenu = $("#"+cont);
+            let divs = $('div[class*="tab-pane fade i"]');
+            $('div[class*="tab-pane fade i"]').each(function(){
+                $( this ).removeClass(" show active");
+            })
+            $('a[class*="nav-link tab i"]').each(function(){
+                $( this ).removeClass("active");
+            })
+            $(this).addClass("active");
+            $(contenu).addClass(" show active");
+        });
+
+
+$(".table").dataTable();
+        
+
+    $("#cliclic").click(function(){
+        
+        let produit  = $('#recherche2_produit').val();
+        let categorie = $('#recherche2_categ').val();
+        //console.log( produit, client);
+        if(produit == "" ){
+            Swal.fire("Erreur", "Le produit n'est pas renseigner. Veuillez revoir ce champ", "error");
+            return false;
+        }
+        if(categorie == "" ){
+             Swal.fire("Erreur", "Le client n'est pas renseigner. Veuillez revoir ce champ", "error");
+            return false;
+        }
+
+        $('.table').dataTable().fnClearTable();
+        $('.table').dataTable().fnDestroy();
+
+        $('.table').DataTable({
+            'ajax' : {  'url':  '{{ path("produit_recherche_recup_don_cate") }}',
+                        "type": "POST",
+                        "data":{ produit:  JSON.stringify(produit), categorie:  JSON.stringify(categorie) },
+                        "dataSrc": 'data',
+                        beforeSend: function() {
+                            let ele = $(".page-loader");
+                            let chilf = $(ele).children();
+                        $(chilf[0]).css('margin','20% 0% 0% 50%');
+                        $(ele).show();
+                        //.log("Il sont rentrés");
+                    },
+                    complete: function () {
+                        $("rechBarTitle").attr("")
+                        let ele = $(".page-loader");
+                        let chilf = $(ele).children();
+                        $(chilf[0]).css('margin','20% 0% 0% 50%');
+                        $(ele).hide();
+                    },
+                    
+                    },
+                 
+            'columns' : [
+                {"data":"conditionnement"},
+                {"data":"prixAchat"},
+                {"data":"prixRevient"},
+                {"data":"prixVente"},
+                {"data":"prixMin"},
+                {"data":"prixMax"}
+            ]
+            
+        });
+});
+    </script>
+{% endblock %}

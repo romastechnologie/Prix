@@ -1,0 +1,255 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} ROMAS | Catégorie {% endblock %}
+{% block pageActive %} Catégorie {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6">
+            <!--begin::List Widget 9-->
+                <div class="card card-custom card-stretch gutter-b">
+                    <!--begin::Header-->
+                    <div class="card-header align-items-center border-0 mt-4">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="font-weight-bolder text-dark">Une nouvelle catégorie</span>
+                            <span class="text-muted mt-3 font-weight-bold font-size-sm">SOMIMAS</span>
+                        </h3>
+                        <div class="card-toolbar">
+                            <div class="dropdown dropdown-inline">
+                                <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ki ki-bold-more-hor"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body pt-4">
+                        <!--begin::Timeline-->
+                        <!--begin::Form-->
+                                {{ form_start(form) }}
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    {{ form_widget(form.id) }}
+                                                </div>
+                                                <div class="col-6">
+                                                    {{ form_label(form.code) }}
+                                                    {{ form_widget(form.code) }}
+                                                    <span class="form-text text-muted">Renseignez un code significatif pour vous.</span>
+                                                </div>
+                                                <div class="col-6">
+                                                    {{ form_label(form.libelle) }}
+                                                    {{ form_widget(form.libelle) }}
+                                                    <span class="form-text text-muted">Renseignez un libellé significatif pour vous.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" id="soum" class="btn btn-primary mr-2">Enregistrer</button>
+                                            <button type="reset" id="reset" class="btn btn-secondary">Annuler</button>
+                                        </div>
+            
+                                    {{ form_end(form) }}
+                        <!--end::Form-->
+                        <!--end::Timeline-->
+                    </div>
+                    <!--end: Card Body-->
+                </div>
+            <!--end: List Widget 9-->
+        </div>
+        <div class="col-6">
+            <!--begin::List Widget 9-->
+                <div class="card card-custom card-stretch gutter-b">
+                    <!--begin::Header-->
+                    <div class="card-header align-items-center border-0 mt-4">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="font-weight-bolder text-dark">Liste des catégories</span>
+                            <span class="text-muted mt-3 font-weight-bold font-size-sm">SOMIMAS</span>
+                        </h3>
+                        <div class="card-toolbar">
+                            <div class="dropdown dropdown-inline">
+                                <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ki ki-bold-more-hor"></i>
+                                </a>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body pt-4">
+                        <!--begin: Datatable-->
+                            <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed" id="test">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Code</th>
+                                    <th>Libelle</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        <!--end: Datatable-->
+                    </div>
+                    
+                    <div class="card-footer">
+                        <a href="{{ path('importation_general') }}" class="btn btn-output-white text-white ">Importer</a>
+                    </div>
+                    <!--end: Card Body-->
+                </div>
+            <!--end: List Widget 9-->
+        </div>
+    </div>
+
+
+
+
+
+
+
+<!-- Modal-->
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+    function vidage(){
+        $("#categorie_libelle").val("");
+        $("#categorie_code").val("");
+        $("#categorie_id").val("");
+        return true;
+    }
+    function recharge(){
+            $('#test').dataTable().fnClearTable();
+            $('#test').dataTable().fnDestroy();
+            $('#test').DataTable({
+                'ajax' : {  url:  '{{ path("categorie") }}',
+                        dataSrc: 'data',
+                        complete:function(){
+                            $(".suppr").click(function(e) {
+                                let id3 = $(this).attr("data-id");
+                                //console.log(id);
+                                Swal.fire({
+                                    title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
+                                    text: "Cette action est irréversible" ,
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    cancelButtonText: "Non",
+                                    confirmButtonText: "Oui"
+                                })
+                                .then(function(result) {
+                                    if (result.value) {
+                                        $.ajax({
+                                            url: "{{path('categorie_delete')}}",
+                                            method: "POST",
+                                            data:{ id: JSON.stringify(id3)},
+                                            dataType: "json"
+                                        })
+                                        .done(function( data ){
+                                            if(data[0] == "Succes"){
+                                                recharge();
+                                                Swal.fire(
+                                                    "Suppression effective",
+                                                    "L'enregistrement a bien été supprimé. ",
+                                                    "success"
+                                                )
+                                            }else{
+                                                Swal.fire(
+                                                    "Suppression effective",
+                                                    data[1],
+                                                    "error"
+                                                )
+                                            }
+                                        })
+                                    }
+                                });
+                            })
+                            
+                            $(".modif").click(function(){
+                                vidage()
+                                console.log(this);
+                                let id = $(this).attr("data-id");
+                                let contenu = $(this).attr("data-libelle");
+                                let codeAt = $(this).attr("data-code");
+                                console.log(id,codeAt,contenu);
+                                $("#categorie_libelle").val(contenu);
+                                $("#categorie_id").val(id);
+                                $("#categorie_code").val(codeAt);
+                            });
+                        }
+                    },
+            'columns' : [
+                {"data":"id"},
+                {"data":"code"},
+                {"data":"libelle"},
+                {"data":null }
+            ],
+            columnDefs: [
+            {
+                targets: -1,
+                data: null,
+               "render": function (data) {
+                let id1 = data.id;
+                let code = data.code;
+                let libel = data.libelle;
+                    return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center modif ' data-code='"+code+"' data-id='"+id1+"' data-libelle='"+libel+"' href='#'>Modifier</a><a class='dropdown-item text-center btn btn-danger suppr' data-id='"+id1+"' href='#' >Supprimer</a>"
+                            //"<divider>   '<a class='dropdown-item' href='#'>Something else here</a>
+                            +"</div>"+
+                        "</div>";
+                }
+            },
+        ],
+        });
+   
+    }
+
+recharge()
+
+
+    $("#reset").click(function(){
+        vidage();
+    });
+    $("form").submit(function(e){
+        $("#soum").addClass("spinner spinner-white spinner-right");
+        e.preventDefault();
+        let libelle =JSON.stringify( $("#categorie_libelle").val());
+        let code =  JSON.stringify( $("#categorie_code").val());
+        let id = JSON.stringify( $("#categorie_id").val());
+        console.log(id, code,libelle);
+        $.ajax({
+            url: "{{path('new_categ_ajax')}}",
+            method: "post",
+            data:{ id:id , code:code, libelle:libelle },
+            dataType: "json"
+            })
+            .done(function( data ) {
+                $("#soum").removeClass("spinner spinner-white spinner-right");
+                recharge()
+                if(data[0]== "Ajout"){
+                    if ( data[1]  == "Enregistrement effectué") {
+                            vidage()
+                            Swal.fire(data[1], "Cliquez ici", "success");
+                            
+                    }else{
+                        Swal.fire(data[1], "Cliquez ici", "error");
+                    }
+                }else{
+                    if ( data[1]  == "Modification effectuée") {
+                        vidage()
+                            Swal.fire(data[1], "Cliquez ici", "success");
+                            
+                    }else{
+                        Swal.fire(data[1], "Cliquez ici", "error");
+                    }
+                }
+                
+            })
+            .fail(function(data){
+               // console.log(data)
+                Swal.fire(data, "Cliquez ici", "error");
+            })
+    });
+
+</script>
+{% endblock %}

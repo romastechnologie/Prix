@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ModeDef index{% endblock %}
+{% block pageActive %} Mode de définition des prixs {% endblock %}
+
+{% block content %}
+    <h1>ModeDef index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mode_def in mode_defs %}
+            <tr>
+                <td>{{ mode_def.id }}</td>
+                <td>{{ mode_def.libelle }}</td>
+                <td>
+                    <a href="{{ path('app_mode_def_show', {'id': mode_def.id}) }}">show</a>
+                    <a href="{{ path('app_mode_def_edit', {'id': mode_def.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_mode_def_new') }}">Create new</a>
+{% endblock %}

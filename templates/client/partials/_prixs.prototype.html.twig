@@ -1,0 +1,27 @@
+
+<div class="card card-custom gutter-b example example-compact mt-10">
+    <div class="card-header" style="background-color: #437DAA;">
+        <h3 class="card-title">PRIX PAR CATEGORIE DE CLIENT DU CONDITIONNEMENT</h3>
+        <div class="card-toolbar">
+            <div class="example-tools justify-content-center">
+                <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="rounded border p-5 mt-1">
+            <div class="form-group row mb-2">
+                <div class="col-6">
+                    {{ form_row(form.conditionner) }}
+                </div>
+                <div class="col-5">
+                    {{ form_row(form.prixVente) }}
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-danger btn-remove supprimer3 mt-7"> X </button> 
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
