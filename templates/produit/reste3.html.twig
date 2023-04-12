@@ -79,7 +79,28 @@
         });
 
 
-$(".table").dataTable();
+$(".table").dataTable({
+    language: {
+                    search:         "CHERCHER",
+                    lengthMenu:    "AFFICHER _MENU_ ELEMENTS",
+                    info:           "AFFICHAGE DE _START_ A _END_ SUR _TOTAL_ ENREGISTREMENTS",
+                    infoEmpty:      "AFFICHAGE DE 0 A 0 SUR 0 ENREGISTREMENT",
+                    loadingRecords: "CHARGEMENT...",
+                    zeroRecords:    "AUCUN ELEMENT A AFFICHER",
+                    emptyTable:     "AUCUN ENREGISTREMENT TROUVE",
+                    paginate: {
+                        "sFirst":      "<<",
+                        previous:   "<",
+                        next:       ">",
+                        "sLast":       ">>"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                    
+                },
+});
         
 
     $("#cliclic").click(function(){
@@ -95,6 +116,26 @@ $(".table").dataTable();
         $('.table').dataTable().fnDestroy();
 
         $('.table').DataTable({
+            language: {
+                    search:         "CHERCHER",
+                    lengthMenu:    "AFFICHER _MENU_ ELEMENTS",
+                    info:           "AFFICHAGE DE _START_ A _END_ SUR _TOTAL_ ENREGISTREMENTS",
+                    infoEmpty:      "AFFICHAGE DE 0 A 0 SUR 0 ENREGISTREMENT",
+                    loadingRecords: "CHARGEMENT...",
+                    zeroRecords:    "AUCUN ELEMENT A AFFICHER",
+                    emptyTable:     "AUCUN ENREGISTREMENT TROUVE",
+                    paginate: {
+                        "sFirst":      "<<",
+                        previous:   "<",
+                        next:       ">",
+                        "sLast":       ">>"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                    
+                },
             'ajax' : {  'url':  '{{ path("produit_recherche_recup") }}',
                         "type": "POST",
                         "data":{ produit:  JSON.stringify(produit) },

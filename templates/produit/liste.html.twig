@@ -78,16 +78,6 @@
                                 <a class="dropdown-item btn btn-danger" href="{{ path('gp_produit_delete',{'id': pr.id } ) }}">Supprimer</a>
                             </div>
                         </div>
-
-                        {# <a href="#"  class="btn btn-icon btn-light-primary btn-circle btn-sm mr-2 ">
-                                <i class="flaticon2-add"></i>
-                            </a>
-                            <a  class="btn btn-icon btn-light-primary btn-circle btn-sm mr-2">
-                                <i class="flaticon2-drop"></i>
-                            </a>
-                            <a href="#" data-toggle="modal" data-target="#exampleModalScrollable" class="btn btn-icon btn-light-danger btn-circle btn-sm mr-2">
-                                <i class="flaticon2-box text-danger"></i>
-                            </a> #}
                         </td>
                     </tr>
                 {% endfor %}
@@ -327,7 +317,29 @@ $(".clicmore").click(function(){
                 })
     });
 
-$('#test').DataTable();
+$('#test').DataTable({
+                language: {
+                    search:         "CHERCHER",
+                    lengthMenu:    "AFFICHER _MENU_ ELEMENTS",
+                    info:           "AFFICHAGE DE _START_ A _END_ SUR _TOTAL_ ENREGISTREMENTS",
+                    infoEmpty:      "AFFICHAGE DE 0 A 0 SUR 0 ENREGISTREMENT",
+                    loadingRecords: "CHARGEMENT...",
+                    zeroRecords:    "AUCUN ELEMENT A AFFICHER",
+                    emptyTable:     "AUCUNE DONNEE DISPONIBLE DANS LE TABLEAU",
+                    paginate: {
+                        "sFirst":      "<<",
+                        previous:   "<",
+                        next:       ">",
+                        "sLast":       ">>"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                    
+                },
+}
+);
 
 $(".tab").click(function(){
     let cont = $(this).attr("href");

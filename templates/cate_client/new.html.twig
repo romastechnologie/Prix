@@ -86,6 +86,27 @@
             $('#test').dataTable().fnClearTable();
             $('#test').dataTable().fnDestroy();
             $('#test').DataTable({
+                language: {
+
+                    search:         "CHERCHER",
+                    lengthMenu:    "AFFICHER _MENU_ ELEMENTS",
+                    info:           "AFFICHAGE DE _START_ A _END_ SUR _TOTAL_ ENREGISTREMENTS",
+                    infoEmpty:      "AFFICHAGE DE 0 A 0 SUR 0 ENREGISTREMENT",
+                    loadingRecords: "CHARGEMENT...",
+                    zeroRecords:    "AUCUN ELEMENT A AFFICHER",
+                    emptyTable:     "AUCUNE DONNEE DISPONIBLE DANS LE TABLEAU",
+                    paginate: {
+                        "sFirst":      "<<",
+                        previous:   "<",
+                        next:       ">",
+                        "sLast":       ">>"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                    
+                },
                 'ajax' : {  url:  '{{ path("categ_client_liste") }}',
                         dataSrc: 'data',
                         complete:function(){
