@@ -101,6 +101,7 @@ class Client1Type extends AbstractType
                 'required' => false,
                 'label_html' => true,
                 'attr' => ['required'=>false,
+                "maxlength"=>"13",
                 'class'=>'form-control mb-2', 
                 'placeholder' => 'Entrer le numero IFU'],
             ])

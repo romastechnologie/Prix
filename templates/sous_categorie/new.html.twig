@@ -52,7 +52,7 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
-                                <button type="reset" class="btn btn-secondary">Annuler</button>
+                                <button type="reset" onclick="vidage()"  class="btn btn-secondary">Vider</button>
                             </div>
                         {{ form_end(form) }}
                         <!--end::Form-->
@@ -163,6 +163,7 @@
     }
 
     function supprimer(id){
+        vidage()
         Swal.fire({
             title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
             text: "Cette action est irréversible" ,
@@ -201,7 +202,7 @@
     }
 
     function modifier(id , code, libelle, categorie){
-        vidage();
+        vidage()
         $("#sous_categorie_libelle").val(libelle);
         $("#sous_categorie_id").val(id);
         $("#sous_categorie_code").val(code);
@@ -210,7 +211,7 @@
 
     recharge()
     function vidage(){
-        $("#sous_categorie_categorie").val('').change();
+        $("#sous_categorie_categorie").val("").change();
         $("#sous_categorie_libelle").val('');
         $("#sous_categorie_code").val('');
         $("#sous_categorie_id").val('');
