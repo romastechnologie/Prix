@@ -26,7 +26,7 @@ class Client1Type extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'label_html' => true,
                 'label' => 'Catégorie <span style="color: red;"><strong>*</strong></span>',
-                'required' => false,
+                'required' => true,
                 'placeholder' => 'Choisissez votre Catégorie',
                 'attr' => ['required'=>false, 
                 'class'=>'form-control selectpicker', 
