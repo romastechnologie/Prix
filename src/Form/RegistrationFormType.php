@@ -51,6 +51,7 @@ class RegistrationFormType extends AbstractType
             ->add('userRoles',EntityType::class,[
                 'label'=>"Droit",
                 'multiple'=>true,
+                'required'=>true,
                 'class'=> Role::class,
                 'choice_label' => function ($choice) {
                     return $choice->getRole();
@@ -64,13 +65,17 @@ class RegistrationFormType extends AbstractType
 
             ])
             ->add('telephone',TextType::class,[
+                'required'=>false,
                 "attr"=>[
+                    'required'=>false,
                     'placeholder'=>"Téléphone",
                     'class'=>'form-control'
                 ]
                 ])
                 ->add('adresse',TextType::class,[
+                    'required'=>false,
                     "attr"=>[
+                        'required'=>false,
                         'placeholder'=>"Adresse",
                         'class'=>'form-control'
                     ]
