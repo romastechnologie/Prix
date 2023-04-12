@@ -107,7 +107,7 @@
                             <i aria-hidden="true" class="ki ki-close"></i>
                         </button>
                     </div>
-                    <div class="modal-body" style="height: 300px;">
+                    <div class="modal-body p-0 py-2" style="height: 300px;">
 
                         {# <div class="card-body"> #}
                             <ul class="nav nav-tabs">
@@ -123,8 +123,8 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade i show active" id="home">
-                                    <div class="card card-custom">
-                                        <div class="card-header">
+                                    <div class="card">
+                                        {# <div class="card-header">
                                             <h3 class="card-title">
                                                 Conditionnement
                                             </h3>
@@ -134,15 +134,15 @@
                                                     <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> #}
                                         <!--begin::Form-->
                                             {# <div class="card-body"> #}
-                                                <div class="form-group">
+                                                <div class="form-group pt-3">
                                                     <table class="table table-hover">
                                                         <thead>
                                                         <tr>
                                                             <th>Conditionnement</th>
-                                                            <th class="text-center">Prix minimal</th>
+                                                            <th>Prix minimal</th>
                                                             <th>Prix maximal</th>
                                                             <th>Prix concurentiel</th>
                                                         </tr>
@@ -190,8 +190,8 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade i" id="messages">
-                                    <div class="card card-custom">
-                                        <div class="card-header">
+                                    <div class="card">
+                                        {# <div class="card-header">
                                             <h3 class="card-title">
                                                 HISTORIQUE DES PRIXS
                                             </h3>
@@ -201,21 +201,21 @@
                                                     <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> #}
                                         <!--begin::Form-->
-                                        {# <div class="card-body"> #}
-                                            <div class="form-group">
-                                                <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed">
+                                        <div class="card-body">
+                                            <div class="form-group pt-3" id="tAutrePrix">
+                                                {# <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed"> #}
                                                     {# <thead>
                                                     <tr>
                                                         <th>Conditionnement</th>
                                                     </tr>
                                                     </thead> #}
-                                                    <tbody id="tAutrePrix">
+                                                    {# <tbody id="tAutrePrix">
                                                     </tbody>
-                                                </table>
+                                                </table> #}
                                             </div>
-                                        {# </div> #}
+                                        </div>
                                         <!--end::Form-->
                                     </div>
                                 </div>
@@ -314,13 +314,13 @@ $(".clicmore").click(function(){
                 dataType: "json"
                 })
                 .done(function( data ) {
-                    console.log(data[0], data[1]);
+                    console.log(data[2]);
                     $("#tbodyInfoCondi").html(data[0]);
                     $("#tbodyClient").html(data[1]);
-                    let html = $.parseHTML( data[2] );
-                    $("#tAutrePrix").html("");
-                    $("#tAutrePrix").append(data[2]);
-                    console.log(html);
+                    // let html = $.parseHTML( data[2] );
+                    // $("#tAutrePrix").html("");
+                    $("#tAutrePrix").html(data[2]);
+                    // console.log(html);
                     })
                 .fail(function(data){
                     Swal.fire(data, "Cliquez ici", "error");

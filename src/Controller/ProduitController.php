@@ -371,7 +371,7 @@ class ProduitController extends AbstractController
             $datass =[];
             foreach($conditionners as $conditionner){
                 $tdbodyCon .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>".  $conditionner->getPrixMin() ."</td><td>".  $conditionner->getPrixMax() ."</td><td>". $conditionner->getPrixConcurentiel() ."</td> </tr> ";
-                $historique .= "<tr><td>".$conditionner->getConditionnement()->getLibelle()."</td>";
+                $historique .= "<div class='btn btn-primary'> CONDITIONNEMENT : ".$conditionner->getConditionnement()->getLibelle()."</div>";
                 $condClis = $condCaCli->findBy(["conditionner"=>$conditionner]);
                 $cpt = 0;
                 
@@ -384,13 +384,20 @@ class ProduitController extends AbstractController
                 $datas = $native->getConnection()->query($sql)->fetchAllAssociative();
                 //dump($conditionner,$produit, $datas);
                 $datass[] =  $sql;
-                $historique .= '<tr><table><thead><tr><th>'. $conditionner->getConditionnement()->getLibelle() .' </th></tr><tr><th>Date début</th><th>Date fin</th><th>Prix vente</th><th>Prix Min</th><th>Prix Max</th></tr></thead><tbody>';
-                
+
+                $historique .=  '<table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed">';
+                $historique .= '<thead><tr><th>Date début</th><th>Date fin</th><th>Prix vente</th><th>Prix Min</th><th>Prix Max</th></tr></thead>'
+                               .'<tbody>';
                 foreach($datas as $prix){
-                    $historique .= "<tr> <td>".$prix['date_attribution'] ." </td><td>".  $prix['date_fin']."</td><td>".$prix['prix_vente'] ."</td><td>". $prix['prix_min']."</td><td>". $prix['prix_max']."</td></tr> ";
+                    $historique .= "<tr>"
+                    ."<td>". $prix['date_attribution']."</td>"
+                    ."<td>". $prix['date_fin']."</td>"
+                    ."<td>". $prix['prix_vente']."</td>"
+                    ."<td>". $prix['prix_min']."</td>"
+                    ."<td>". $prix['prix_max']."</td>"
+                    ."</tr> ";
                 }
-                $historique .= '</tbody></table></tr>';
-                //dump($historique);
+                $historique .= '</tbody></table>';
                 
                 $prixs = $prR->findBy(["conditionner"=>$conditionner, "estActif"=>1, "prixMin"=>NULL, "prixMax"=>NULL, "prixConcurentiel"=>NULL , "conditionnerClient"=>NULL]);
                 foreach($prixs as $prix){
