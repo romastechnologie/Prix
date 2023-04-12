@@ -132,6 +132,7 @@
                                                         <thead>
                                                         <tr>
                                                             <th>Conditionnement</th>
+                                                            <th>Prix vente</th>
                                                             <th>Prix minimal</th>
                                                             <th>Prix maximal</th>
                                                             <th>Prix concurentiel</th>
@@ -161,6 +162,7 @@
                                                         <tr>
                                                             <th>Conditionnement</th>
                                                             <th class="text-center">Type de client</th>
+                                                            <th>Prix de vente</th>
                                                             <th>Prix maximal</th>
                                                             <th>Prix Minimal</th>
                                                         </tr>
@@ -304,13 +306,10 @@ $(".clicmore").click(function(){
                 dataType: "json"
                 })
                 .done(function( data ) {
-                    console.log(data[2]);
+                   // console.log(data[2]);
                     $("#tbodyInfoCondi").html(data[0]);
                     $("#tbodyClient").html(data[1]);
-                    // let html = $.parseHTML( data[2] );
-                    // $("#tAutrePrix").html("");
                     $("#tAutrePrix").html(data[2]);
-                    // console.log(html);
                     })
                 .fail(function(data){
                     Swal.fire(data, "Cliquez ici", "error");
@@ -395,45 +394,5 @@ $('#drop_dropFile').change(function(){
 
     console.log(numberOfBytes,exponent);
 })
-{# const inputElement = document.getElementById("drop_dropFile");
- inputElement.addEventListener(
-        "change",
-        function() {
-          let numberOfBytes = 0;
-          console.log("OK");
-          for (const file of inputElement.files) {
-            numberOfBytes += file.size;
-          }
-
-          // Approximate to the closest prefixed unit
-          const units = [
-            "B",
-            "KiB",
-            "MiB",
-            "GiB",
-            "TiB",
-            "PiB",
-            "EiB",
-            "ZiB",
-            "YiB",
-          ];
-          const exponent = Math.min(
-            Math.floor(Math.log(numberOfBytes) / Math.log(1024)),
-            units.length - 1
-          );
-          const approx = numberOfBytes / 1024 ** exponent;
-          const output =
-            exponent === 0
-              ? `${numberOfBytes} bytes`
-              : `${approx.toFixed(3)} ${
-                  units[exponent]
-                } (${numberOfBytes} bytes)`;
-
-        },
-        false
-      ); #}
-
-
-
 </script>
 {% endblock %}

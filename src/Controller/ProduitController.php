@@ -370,13 +370,13 @@ class ProduitController extends AbstractController
             $historique = "";
             $datass =[];
             foreach($conditionners as $conditionner){
-                $tdbodyCon .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>".  $conditionner->getPrixMin() ."</td><td>".  $conditionner->getPrixMax() ."</td><td>". $conditionner->getPrixConcurentiel() ."</td> </tr> ";
+                $tdbodyCon .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>". $conditionner->getPrixVente() ."</td><td>". $conditionner->getPrixMin() ."</td><td>".  $conditionner->getPrixMax() ."</td><td>". $conditionner->getPrixConcurentiel() ."</td> </tr> ";
                 $historique .= "<div class='btn btn-primary'> CONDITIONNEMENT : ".$conditionner->getConditionnement()->getLibelle()."</div>";
                 $condClis = $condCaCli->findBy(["conditionner"=>$conditionner]);
                 $cpt = 0;
                 
                 foreach($condClis as $cond){
-                    $tdbodyConClient .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>". $cond->getCateClient()->getLibelle() ."</td><td>".$cond->getPrixMax() ."</td><td>". $cond->getPrixMin() ."</td> </tr> ";
+                    $tdbodyConClient .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>". $cond->getCateClient()->getLibelle() ."</td><td>".$cond->getPrixVente() ."</td><td>".$cond->getPrixMax() ."</td><td>". $cond->getPrixMin() ."</td> </tr> ";
                 }
                 
                 $Histprixs = $prR->historiquePrix($conditionner, $produit);
