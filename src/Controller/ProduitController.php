@@ -664,6 +664,7 @@ class ProduitController extends AbstractController
     {
         //dd($produit);
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+            dd($produit);
             $produitRepository->remove($produit, true);
         }
         return $this->redirectToRoute('produi_liste', [], Response::HTTP_SEE_OTHER);
