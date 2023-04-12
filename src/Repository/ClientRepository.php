@@ -44,18 +44,18 @@ class ClientRepository extends ServiceEntityRepository
             ->andWhere('c.nom = :nom')
             ->setParameter("nom",$nom)
             ->andWhere('c.prenom = :prenom')
-            ->setParameter("prenom",$prenom)
-            ->andWhere('c.dateNais = :date')
-            ->setParameter("date",$date->format("Y-m-d 00:00:00"))
-            ->andWhere('c.telephone1 = :tel')
+            ->setParameter("prenom",$prenom);
+            if($date != null){
+                $result = $result->andWhere('c.dateNais = :date')
+            ->setParameter("date",$date->format("Y-m-d 00:00:00"));
+        }
+        $result = $result->andWhere('c.telephone1 = :tel')
             ->setParameter("tel",$tel);
             if($id != null){
                 $result = $result
                 ->andWhere('c.id != :id')
                 ->setParameter("id",$id);
             }
-
-            dump($nom,$prenom,$date, $tel,$date->format("Y-m-d 00:00:00"),$result->getDQL());
 
         return $result = $result->getQuery()
             ->getResult();
