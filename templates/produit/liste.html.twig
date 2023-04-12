@@ -57,13 +57,15 @@
                 </thead>
                 <tbody>
                 {% for pr in produits %}
-                    <tr data-id="{{ pr["id"] }}" data-conditionners=" {% for p in pr['conditionners'] %}   [ {{ p['prixMin'] ~ '-' ~ p['prixMax'] ~ '-' ~ (p['prix'])['prixMin'] ~ '-' ~ (p['prix'])['prixMax']   ~ '-' ~ p['prix']['prixConcu'] }} ]- {% endfor %}"  data-categClient="" >
+                    <tr data-id="{{ pr.id }}" 
+                    {# data-conditionners=" {% for p in pr['conditionners'] %}   [ {{ p['prixMin'] ~ '-' ~ p['prixMax'] ~ '-' ~ (p['prix'])['prixMin'] ~ '-' ~ (p['prix'])['prixMax']   ~ '-' ~ p['prix']['prixConcu'] }} ]- {% endfor %}"   #}
+                    data-categClient="" >
                         {# {{ dump(pr["conditionners"]) }}  #}
-                        <td>{{ pr["id"] }}</td>
-                        <td>{{ pr["code"] }}</td>
-                        <td>{{ pr["designation"] }}</td>
-                        <td>{{ pr["categorie"] }}</td>
-                        <td>{{ pr["sousCategorie"] }}</td>
+                        <td>{{ pr.id }}</td>
+                        <td>{{ pr.code }}</td>
+                        <td>{{ pr.designation }}</td>
+                        <td>{{ (pr.sousCategorie)? pr.sousCategorie.categorie.libelle : '' }}</td>
+                        <td>{{ (pr.sousCategorie)? pr.sousCategorie.libelle : '' }}</td>
                         <td>
                         
                         <div class="dropdown">
@@ -71,9 +73,9 @@
                                 Plus d'option
                             </button>
                             <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item clicmore" data-toggle="modal" data-id="{{ pr["id"] }}" data-target="#exampleModalScrollable" href="{{ path('produit_edit_view',{ id : pr["id"] }) }}">Informations</a>
-                                <a class="dropdown-item" href="{{ path('produit_edit_view',{'id': pr["id"] }) }}">Modifier</a>
-                                <a class="dropdown-item btn btn-danger" href="{{ path('gp_produit_delete',{'id': pr["id"] } ) }}">Supprimer</a>
+                                <a class="dropdown-item clicmore" data-toggle="modal" data-id="{{ pr.id }}" data-target="#exampleModalScrollable" href="{{ path('produit_edit_view',{ id : pr.id }) }}">Informations</a>
+                                <a class="dropdown-item" href="{{ path('produit_edit_view',{'id': pr.id}) }}">Modifier</a>
+                                <a class="dropdown-item btn btn-danger" href="{{ path('gp_produit_delete',{'id': pr.id } ) }}">Supprimer</a>
                             </div>
                         </div>
                                                 

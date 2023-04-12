@@ -120,8 +120,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary font-weight-bold">Save changes</button>
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Fermé</button>
+                {# <button type="button" class="btn btn-primary font-weight-bold">Save changes</button> #}
             </div>
         </div>
     </div>
@@ -187,7 +187,8 @@
             this.value = this.value.replace(/[^0-9\.]/g,'');
         });
 
-       function addFormCollection(e, parentHolder = null) {
+
+        function addFormCollection(e, parentHolder = null) {
             var collectionHolder = document.querySelector('.' + e);
            if(parentHolder){
                 collectionHolder = parentHolder.querySelector('.' + e);
@@ -227,14 +228,16 @@
              //   }); 
 
             addTagFormDeleteLink(item);
-                index++;
+            index++;
 
             $(item.querySelector("select")).select2();
+            
                 if( e == 'conditionners'){
-                    document.querySelectorAll('.add_item_link2').forEach(btn => {
+                    item.querySelectorAll('.add_item_link2').forEach(btn => {
                             const btnAttr = btn.getAttribute('data-collection-holder-class');
                         btn.addEventListener('click', function(){addFormCollection(btnAttr,btn.closest('.el'))});
                         const holders2 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
+                        
                         holders2.forEach(h => {
                             const element = h.querySelectorAll('ell');
                             element.forEach(tr => {

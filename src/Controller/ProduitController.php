@@ -125,7 +125,10 @@ class ProduitController extends AbstractController
     }
     
     #[Route('/produit/list', name: 'produi_liste')]
-    public function liste(Request $request,ModeDefRepository $modeDefRepository,  ConditionnerCateClientRepository $conditionnerCateClientRepository, CategClientRepository $categClientRepository, EntityManagerInterface $em,ConditionnementRepository $conditionnementRepository, ProduitRepository $produitRe, ConditionnerRepository $conditionnerRepository, CategorieRepository $categorieRepository, SousCategorieRepository $sousCategorieRepository,PrixRepository $prixRepository, ProduitRepository $prR, PrixRepository $prixR, ConditionnerRepository $condR, ConditionnerCateClientRepository $condCaCli): Response
+    public function liste(Request $request,ModeDefRepository $modeDefRepository,  ConditionnerCateClientRepository $conditionnerCateClientRepository, 
+    CategClientRepository $categClientRepository, EntityManagerInterface $em,ConditionnementRepository $conditionnementRepository, ProduitRepository $produitRe, 
+    ConditionnerRepository $conditionnerRepository, CategorieRepository $categorieRepository, SousCategorieRepository $sousCategorieRepository,PrixRepository $prixRepository, 
+    ProduitRepository $prR, PrixRepository $prixR, ConditionnerRepository $condR, ConditionnerCateClientRepository $condCaCli): Response
     {
         $dropForm = $this->createForm(DropType::class);
         $produits = $prR->findAll();
@@ -173,24 +176,25 @@ class ProduitController extends AbstractController
                 );
             }
             
-            $res1[] = array(
-                'id'=>$pr->getId(),
-                'code'=>$pr->getCode() ,
-                'designation'=>$pr->getDesignation(),
-                'description'=>$pr->getDescription(),
-                'refUsi'=>$pr->getRefUsine(),
-                'sousCategorie'=> $pr->getSousCategorie() == null ? " " : $pr->getSousCategorie()->getLibelle(),
-                'categorie'=> $pr->getSousCategorie() == null ? " " :  $pr->getSousCategorie()->getCategorie()->getLibelle(),
-                'mode'=>$pr->getMode() == null ? " ":$pr->getMode()->getLibelle(),
-                'conditionners'=>$condition,
-                'conditionnersParCategClients'=>  $conClients,
-            );
+            // $res1[] = array(
+            //     'id'=>$pr->getId(),
+            //     'code'=>$pr->getCode() ,
+            //     'designation'=>$pr->getDesignation(),
+            //     'description'=>$pr->getDescription(),
+            //     'refUsi'=>$pr->getRefUsine(),
+            //     'sousCategorie'=> $pr->getSousCategorie() == null ? " " : $pr->getSousCategorie()->getLibelle(),
+            //     'categorie'=> $pr->getSousCategorie() == null ? " " :  $pr->getSousCategorie()->getCategorie()->getLibelle(),
+            //     'mode'=>$pr->getMode() == null ? " ":$pr->getMode()->getLibelle(),
+            //     'conditionners'=>$condition,
+            //     'conditionnersParCategClients'=>  $conClients,
+            // );
         }
-        $res = [
-            'data'=>$res1
-        ];
-        $result = new JsonResponse($res);
+        // $res = [
+        //     'data'=>$res1
+        // ];
+        // $result = new JsonResponse($res);
         $dropForm->handleRequest($request);
+
         if($dropForm->isSubmitted()){
             $fichier = $dropForm->get("dropFile")->getData();
             
@@ -304,8 +308,9 @@ class ProduitController extends AbstractController
                 "msg"=>"Importation réussie"
              ]);
         }
+
         return $this->renderForm('produit/liste.html.twig', [
-            "produits"=>$res1,
+            "produits"=>$produits,
             'drop'=>$dropForm
         ]);
     }
