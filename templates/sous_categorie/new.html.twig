@@ -62,6 +62,7 @@
                 </div>
             <!--end: List Widget 9-->
         </div>
+
         <div class="col-7">
             <!--begin::List Widget 9-->
                 <div class="card card-custom card-stretch gutter-b">
@@ -108,13 +109,27 @@
 <script>
 
     function recharge(){
-            $('#test').dataTable().fnClearTable();
+            // $('#test').dataTable().fnClearTable();
             $('#test').dataTable().fnDestroy();
             $('#test').DataTable({
                 'ajax' : {  url:  '{{ path("sous_categorie") }}',
                         dataSrc: 'data',
                         complete:function(){
+
+                            // $(".modif").click(function(){
+                            //     console.log('tes');
+                            //     let id = $(this).attr("data-id");
+                            //     let contenu = $(this).attr("data-libelle");
+                            //     let codeAt = $(this).attr("data-code");
+                            //     let categ = $(this).attr("data-categ");
+                            //     $("#sous_categorie_libelle").val(contenu);
+                            //     $("#sous_categorie_id").val(id);
+                            //     $("#sous_categorie_code").val(codeAt);
+                            //     $("#sous_categorie_categorie").val(categ);
+                            // });
+
                             $(".suppr").click(function(e) {
+                                console.log('supp');
                                 let id3 = $(this).attr("data-id");
                                 //console.log(id);
                                 Swal.fire({
@@ -152,6 +167,7 @@
                                     }
                                 });
                             })
+
                         }
                     },
                 'columns' : [
@@ -162,32 +178,35 @@
                     {"data":null }
                 ],
                 columnDefs: [
-                {
-                    targets: -1,
-                    data: null,
-                "render": function (data) {
-                    let id1 = data.id;
-                    let code = data.code;
-                    let libel = data.libelle;
-                    let cate = data.cateId
-                        $(".modif").click(function(){
-                                let id = $(this).attr("data-id");
-                                let contenu = $(this).attr("data-libelle");
-                                let codeAt = $(this).attr("data-code");
-                                let categ = $(this).attr("data-categ");
-                                $("#sous_categorie_libelle").val(contenu);
-                                $("#sous_categorie_id").val(id);
-                                $("#sous_categorie_code").val(codeAt);
-                                $("#sous_categorie_categorie").val(categ);
-                            });
-                        return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center modif' data-code='"+code+"' data-id='"+id1+"'data-categ='"+cate+"' data-libelle='"+libel+"' href='#'>Modifier</a><a class='divider' href='#'></a><a class='dropdown-item text-center btn btn-danger suppr' data-id='"+id1+"' href='#' >Supprimer</a>"
-                                +"</div>"+
-                            "</div>";
-                    }
-                },
-        ],
-        });
+                    {
+                        targets: -1,
+                        data: null,
+                        "render": function (data) {
+                            let id1 = data.id;
+                            let code = data.code;
+                            let libel = data.libelle;
+                            let cate = data.cateId
+                                
+                                return "<div class='dropdown'>"+
+                                            +"<button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>"+
+                                            +"<a class='dropdown-item text-center' href='#' onclick='modifier("+id1+",\""+code+"\",\""+libel+"\","+cate+")'>Modifier</a>"+
+                                            +"<a class='divider' href='#'></a><a class='dropdown-item text-center btn btn-danger suppr' data-id='"+id1+"' href='#' >Supprimer</a>"+
+                                        +"</div>"+
+                                    "</div>";
+                        }
+                    },
+                ],
+            });
+
+            
    
+    }
+
+    function modifier(id , code, libelle, categorie){
+        $("#sous_categorie_libelle").val(libelle);
+        $("#sous_categorie_id").val(id);
+        $("#sous_categorie_code").val(code);
+        $("#sous_categorie_categorie").val(categorie).change();
     }
 
     recharge()
