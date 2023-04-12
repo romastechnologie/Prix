@@ -209,13 +209,13 @@ class EntitySubscriber implements EventSubscriberInterface
 
         if($entity instanceof Conditionner ){
             $lastPrix = $this->prixRepository->lastPrixConditionnerForConditionment($entity);
-            $lastPrix->setDateFin(new DateTime());
+            $lastPrix->setDateFin(new DateTime())->setEstActif(0);
             $em->persist($lastPrix);
             $em->flush();
             $prix = new Prix();
                 $prix
-                ->setEstActif(0)
-                ->setEstActif(1)->setConditionner($entity)
+                ->setEstActif(1)
+                ->setConditionner($entity)
                 ->setPrixVente($entity->getPrixVente())
                 ->setPrixMin($entity->getPrixMin()  == NULL ? 0 : $entity->getPrixMin())
                 ->setPrixMax($entity->getPrixMax()  == NULL ? 0 : $entity->getPrixMax())

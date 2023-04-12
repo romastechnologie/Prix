@@ -315,8 +315,10 @@ $(".clicmore").click(function(){
                     console.log(data[0], data[1]);
                     $("#tbodyInfoCondi").html(data[0]);
                     $("#tbodyClient").html(data[1]);
-                    $("#tAutrePrix").html(data[2]);
-                    console.log(JSON.stringify(data[2]));
+                    let html = $.parseHTML( data[2] );
+                    $("#tAutrePrix").html("");
+                    $("#tAutrePrix").append(data[2]);
+                    console.log(html);
                     })
                 .fail(function(data){
                     Swal.fire(data, "Cliquez ici", "error");

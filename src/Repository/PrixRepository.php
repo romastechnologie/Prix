@@ -65,6 +65,7 @@ class PrixRepository extends ServiceEntityRepository
            ->getOneOrNullResult()
        ;
     }
+    
     public function lastPrixConditionnerForConditionmentClient($conditionnerClient){
         return $this->createQueryBuilder('p')
             ->innerJoin('p.conditionnerClient','ccc')    
