@@ -81,7 +81,6 @@ class ProduitRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
-            dd("OK");
             $this->getEntityManager()->flush();
         }
     }

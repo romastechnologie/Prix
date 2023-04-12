@@ -660,9 +660,10 @@ class ProduitController extends AbstractController
     }
 
     #[Route('produit/{id}/suppr', name: 'gp_produit_delete', methods: ['GET'])]
-    public function delete(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
+    public function delete(Request $request, Produit $produit, ConditionnerRepository $condRep, ProduitRepository $produitRepository): Response
     {
-        if($produit->getConditionners()){
+        $cond = $condRep->findBy(["produit"=>$produit]);
+        if($cond){
             return $this->redirectToRoute('produi_liste', [
                 "msg"=>"Impossible de supprimer l'élément"
             ], Response::HTTP_SEE_OTHER);
