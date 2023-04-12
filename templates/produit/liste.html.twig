@@ -67,7 +67,7 @@
                         <td>{{ (pr.sousCategorie)? pr.sousCategorie.categorie.libelle : '' }}</td>
                         <td>{{ (pr.sousCategorie)? pr.sousCategorie.libelle : '' }}</td>
                         <td>
-                        
+
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Plus d'option
@@ -78,7 +78,7 @@
                                 <a class="dropdown-item btn btn-danger" href="{{ path('gp_produit_delete',{'id': pr.id } ) }}">Supprimer</a>
                             </div>
                         </div>
-                                                
+
                         {# <a href="#"  class="btn btn-icon btn-light-primary btn-circle btn-sm mr-2 ">
                                 <i class="flaticon2-add"></i>
                             </a>
@@ -108,7 +108,8 @@
                         </button>
                     </div>
                     <div class="modal-body" style="height: 300px;">
-                        <div class="card-body">
+
+                        {# <div class="card-body"> #}
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a href="#home" class="nav-link tab i active" data-bs-toggle="tab">CONDITIONNEMENT</a>
@@ -125,7 +126,7 @@
                                     <div class="card card-custom">
                                         <div class="card-header">
                                             <h3 class="card-title">
-                                                Conditionnement 
+                                                Conditionnement
                                             </h3>
                                             <div class="card-toolbar">
                                                 <div class="example-tools justify-content-center">
@@ -135,7 +136,7 @@
                                             </div>
                                         </div>
                                         <!--begin::Form-->
-                                            <div class="card-body">
+                                            {# <div class="card-body"> #}
                                                 <div class="form-group">
                                                     <table class="table table-hover">
                                                         <thead>
@@ -147,11 +148,11 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody id="tbodyInfoCondi">
-                                                        
+
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            {# </div> #}
                                         <!--end::Form-->
                                     </div>
                                 </div>
@@ -159,11 +160,11 @@
                                     <div class="card card-custom">
                                         <div class="card-header">
                                             <h3 class="card-title">
-                                                Prix Par Catégorie de client 
+                                                Prix Par Catégorie de client
                                             </h3>
                                         </div>
                                         <!--begin::Form-->
-                                            <div class="card-body">
+                                            {# <div class="card-body"> #}
                                                 <div class="form-group">
                                                     <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed">
                                                         <thead>
@@ -184,7 +185,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            {# </div> #}
                                         <!--end::Form-->
                                     </div>
                                 </div>
@@ -192,7 +193,7 @@
                                     <div class="card card-custom">
                                         <div class="card-header">
                                             <h3 class="card-title">
-                                                HISTORIQUE DES PRIXS 
+                                                HISTORIQUE DES PRIXS
                                             </h3>
                                             <div class="card-toolbar">
                                                 <div class="example-tools justify-content-center">
@@ -202,33 +203,29 @@
                                             </div>
                                         </div>
                                         <!--begin::Form-->
-                                        <div class="card-body">
+                                        {# <div class="card-body"> #}
                                             <div class="form-group">
                                                 <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed">
-                                                    <thead>
+                                                    {# <thead>
                                                     <tr>
                                                         <th>Conditionnement</th>
                                                     </tr>
-                                                    </thead>
+                                                    </thead> #}
                                                     <tbody id="tAutrePrix">
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
+                                        {# </div> #}
                                         <!--end::Form-->
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        {# </div> #}
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary font-weight-bold">Save changes</button>
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Fermer</button>
+                        {# <button type="button" class="btn btn-primary font-weight-bold">Save changes</button> #}
                     </div>
                 </div>
             </div>
@@ -237,7 +234,7 @@
 
 
 
-    
+
 <!-- Button trigger modal-->
 
 <!-- Modal-->
@@ -262,7 +259,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -273,7 +270,7 @@
         </div>
     </div>
 </div>
-                                
+
 {% endblock %}
 
 {% block javascripts %}
@@ -289,7 +286,7 @@
             $("#soum").addClass("spinner spinner-white spinner-right");
         }
     });
-    
+
 
 const isObject2 = (obj) => {
   return typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
@@ -298,11 +295,11 @@ const isObject2 = (obj) => {
 const objToArray = (obj) => {
   return Object.keys(obj).map((key) => {
     return [
-      key, isObject2(obj[key]) ? 
+      key, isObject2(obj[key]) ?
         objToArray(obj[key]) :
         obj[key]
     ];
-  });    
+  });
 }
 
 $(".clicmore").click(function(){
@@ -320,7 +317,10 @@ $(".clicmore").click(function(){
                     console.log(data[0], data[1]);
                     $("#tbodyInfoCondi").html(data[0]);
                     $("#tbodyClient").html(data[1]);
-                    $("#tAutrePrix").html(data[2]);        
+                    let html = $.parseHTML( data[2] );
+                    $("#tAutrePrix").html("");
+                    $("#tAutrePrix").append(data[2]);
+                    console.log(html);
                     })
                 .fail(function(data){
                     Swal.fire(data, "Cliquez ici", "error");
@@ -342,7 +342,7 @@ $(".tab").click(function(){
     })
     $(this).addClass("active");
     $(contenu).addClass(" show active");
-    
+
 
 });
 

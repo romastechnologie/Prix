@@ -7,13 +7,14 @@
    <!--begin::Card-->
 
     <!--end::Card-->  
+ 
 <div class="card card-custom" id="kt_card_2">
 	<div class="card-header">
 		<div class="card-title">
 			<h3 class="card-label">RECHERCHE</h3>
 		</div>
 		<div class="card-toolbar">
-			
+		
 		</div>
 	</div>
 	<div class="card-body">
@@ -22,11 +23,6 @@
                         <div class="control-group">
                             {{ form_start(form) }}
                                 <div class="row">
-                                    <div class="col-5">
-                                        {{ form_label(form.client) }}
-                                        {{ form_widget(form.client) }}
-                                        <span class="form-text text-muted">Renseignez un code significatif pour vous.</span>
-                                    </div>
                                     <div class="col-5">
                                         {{ form_label(form.produit) }}
                                         {{ form_widget(form.produit) }}
@@ -60,10 +56,7 @@
                         </div>
             </fieldset>
 	</div>
-</div>
- 
-
-                
+</div>        
 
 
 {% endblock %}
@@ -91,15 +84,10 @@ $(".table").dataTable();
 
     $("#cliclic").click(function(){
         
-        let produit  = $('#recherche_produit').val();
-        let client = $('#recherche_client').val();
-        console.log( produit, client);
+        let produit  = $('#recherche2_produit').val();
+        //console.log( produit, client);
         if(produit == "" ){
             Swal.fire("Erreur", "Le produit n'est pas renseigner. Veuillez revoir ce champ", "error");
-            return false;
-        }
-        if(client == "" ){
-             Swal.fire("Erreur", "Le client n'est pas renseigner. Veuillez revoir ce champ", "error");
             return false;
         }
 
@@ -107,9 +95,9 @@ $(".table").dataTable();
         $('.table').dataTable().fnDestroy();
 
         $('.table').DataTable({
-            'ajax' : {  'url':  '{{ path("produit_recherche_recup_donnees") }}',
+            'ajax' : {  'url':  '{{ path("produit_recherche_recup") }}',
                         "type": "POST",
-                        "data":{ produit:  JSON.stringify(produit), client:  JSON.stringify(client) },
+                        "data":{ produit:  JSON.stringify(produit) },
                         "dataSrc": 'data',
                         beforeSend: function() {
                             let ele = $(".page-loader");
@@ -126,15 +114,6 @@ $(".table").dataTable();
                         $(ele).hide();
                     },
                     
-                    },
-                'language' : {
-                    "search": "Recherche",
-                    "paginate": {
-                    "previous": '‹',
-                    "next": '›'
-                    },
-                    "info": "Total",
-                    "lengthMenu": "Voir",
                     },
                  
             'columns' : [
