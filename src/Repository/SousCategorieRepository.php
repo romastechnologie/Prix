@@ -45,15 +45,15 @@ class SousCategorieRepository extends ServiceEntityRepository
             ->innerJoin("s.categorie","c")
             ->andWhere('s.code = :val1')
             ->setParameter('val1', $code)
+            ->orWhere('s.libelle = :val3')
+            ->setParameter('val3', $libelle)
             ->andWhere('c.id = :val2')
-            ->setParameter('val2', $cate)
-            ->andWhere('s.libelle = :val3')
-            ->setParameter('val3', $libelle);
+            ->setParameter('val2', $cate);
             if($id != ""){
                 $result = $result->andWhere('s.id != :val4')
                 ->setParameter('val4', $id);
             }
-        $result = $result->getQuery()
+        $result = $result->setMaxResults(1)->getQuery()
             ->getOneOrNullResult()
         ;
         return $result ;

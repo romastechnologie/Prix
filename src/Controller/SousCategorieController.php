@@ -61,7 +61,7 @@ class SousCategorieController extends AbstractController
             if($id == ""){
                 $type = "Ajout";
 
-                $ifSouEx = $sousCategorieRepository ->findSousIfSousCateExist($cate, $code, $libelle, $id);
+                $ifSouEx = $sousCategorieRepository ->findSousIfSousCateExist($cate, $code, $libelle, null);
                 if($ifSouEx){
                     return new JsonResponse([$type,"Cette sous catégorie existe déjà Veuillez revoir les informations inscrites"]);
                 }
@@ -72,6 +72,11 @@ class SousCategorieController extends AbstractController
                 return new JsonResponse([$type,$msg]);
             }else{
                 $type = "Modif";
+
+                $ifSouEx = $sousCategorieRepository ->findSousIfSousCateExist($cate, $code, $libelle, $id);
+                if($ifSouEx){
+                    return new JsonResponse([$type,"Cette sous catégorie existe déjà Veuillez revoir les informations inscrites"]);
+                }
                 $sousC = $sousCategorieRepository->find((int)$id);
                 $sousC->setCode($code)->setLibelle($libelle)->setCategorie($categorie);
                 $sousCategorieRepository ->save($sousC, true);
