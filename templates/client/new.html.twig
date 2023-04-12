@@ -50,38 +50,36 @@
 
         function showhide(type, moral, physique){
             if(type === 'Physique'){
+                    //$("label[for*='client1_nom']").html("Nom <strong style='color:red;'>*</strong>");
                     $("#client1_raisonSociale").removeAttr("required");
                     $("#client1_sigle").removeAttr("required");
                     $("#client1_ifu").removeAttr("required");
                     $("#client1_denomination").removeAttr("required");
-                moral.hide();
-                physique.show();
+                    moral.hide();
+                    physique.show();
             }else{
-            //  console.log(physique);
-            $("#client1_raisonSociale").attr("required",true);
-            $("#client1_sigle").attr("required",true);
-            $("#client1_ifu").attr("required",true);
-            $("#client1_denomination").attr("required",true);
-                physique.hide()
+                $("#client1_raisonSociale").attr("required",true);
+                $("#client1_sigle").attr("required",true);
+                $("#client1_ifu").attr("required",true);
+                $("#client1_denomination").attr("required",true);
+                physique.hide();
                 moral.show();
             }
         }
 
-            function swishe(){
-                let type  = $("input[checked='checked']").val();
-                let form = $("form");
-                let moral = form.find('.moral').parent();
-                let physique = form.find('.physique').parent();
-                console.log(type);
-                    showhide(type, moral, physique)
+        function swishe(){
+            let type  = $("input[checked='checked']").val();
+            let form = $("form");
+            let moral = form.find('.moral').parent();
+            let physique = form.find('.physique').parent();
+            showhide(type, moral, physique);
 
-                form.find('input[type="radio"]').change(function() {
-                    let type2 = this.value;
-                    showhide(type2, moral, physique)
-                });
-            
-            }
-            swishe();
+            form.find('input[type="radio"]').change(function() {
+                let type2 = this.value;
+                showhide(type2, moral, physique);
+            });
+        }
+        swishe();
         });
     </script>
 {% endblock %}      

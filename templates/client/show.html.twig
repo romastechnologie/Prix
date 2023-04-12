@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client{% endblock %}
-{% block pageActive %}  {% endblock %}
+{% block title %}Information client | GestPrix {% endblock %}
+{% block pageActive %} Information d'un client {% endblock %}
 {% block content %}
     <div class="row">
         <div class="col-12">
@@ -29,18 +29,26 @@
                        
                         <table class="table">
                             <tbody>
+
                                 <tr>
                                     <th>Id</th>
                                     <td>{{ client.id }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Nom</th>
-                                    <td>{{ client.nom }}</td>
+                                    <th>Statut</th>
+                                    <td>{{ client.statut }}</td>
                                 </tr>
-                                <tr>
-                                    <th>Prenom</th>
-                                    <td>{{ client.prenom }}</td>
-                                </tr>
+                                {% if client.statut == "Physique" %}
+                                    <tr>
+                                        <th>Nom</th>
+                                        <td>{{ client.nom }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Prenom</th>
+                                        <td>{{ client.prenom }}</td>
+                                    </tr>
+                                {% endif %}
+                                
                                 <tr>
                                     <th>Adresse</th>
                                     <td>{{ client.adresse }}</td>
@@ -57,32 +65,33 @@
                                     <th>Telephone2</th>
                                     <td>{{ client.telephone2 }}</td>
                                 </tr>
-                                <tr>
-                                    <th>RaisonSociale</th>
-                                    <td>{{ client.raisonSociale }}</td>
-                                </tr>
+                                {% if client.statut == "Moral" %}
+                                    <tr>
+                                        <th>Raison Sociale</th>
+                                        <td>{{ client.raisonSociale }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Rccm</th>
+                                        <td>{{ client.rccm }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sigle</th>
+                                        <td>{{ client.sigle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dénomination</th>
+                                        <td>{{ client.denomination }}</td>
+                                    </tr>
+                                {% endif %}
+                                
                                 <tr>
                                     <th>Ifu</th>
                                     <td>{{ client.ifu }}</td>
                                 </tr>
+                                
+
                                 <tr>
-                                    <th>Rccm</th>
-                                    <td>{{ client.rccm }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Sigle</th>
-                                    <td>{{ client.sigle }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Denomination</th>
-                                    <td>{{ client.denomination }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Statut</th>
-                                    <td>{{ client.statut }}</td>
-                                </tr>
-                                <tr>
-                                    <th>DateNais</th>
+                                    <th>  {{ client.statut == "Physique" ? "Date de naissance" : "Date de création" }}</th>
                                     <td>{{ client.dateNais ? client.dateNais|date('Y-m-d H:i:s') : '' }}</td>
                                 </tr>
                             </tbody>
@@ -95,10 +104,10 @@
             <!--end: List Widget 9-->
         </div>
     </div>
+    <a class="btn btn-primary" href="{{ path('app_client_edit', {'id': client.id}) }}">Modifier</a>
+    <a class="btn btn-warning" href="{{ path('app_client_index') }}">Retour</a>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
 
-    <a href="{{ path('app_client_index') }}">back to list</a>
-
-    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
-
-    {{ include('client/_delete_form.html.twig') }}
 {% endblock %}

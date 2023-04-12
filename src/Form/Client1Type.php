@@ -24,7 +24,8 @@ class Client1Type extends AbstractType
             ->add('cateClient', EntityType::class, [
                 'class'=> CategClient :: class,
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Catégorie',
+                'label_html' => true,
+                'label' => 'Catégorie <span style="color: red;"><strong>*</strong></span>',
                 'required' => false,
                 'placeholder' => 'Choisissez votre Catégorie',
                 'attr' => ['required'=>false, 
@@ -33,7 +34,8 @@ class Client1Type extends AbstractType
             ])
             ->add('nom', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Nom',
+                'label' => 'Nom <span style="color: red;"><strong>*</strong></span>',
+                'label_html' => true,
                 'required' => false,
                 'attr' => ['required'=>false, 
                 'class'=>'form-control mb-2 physique', 
@@ -41,7 +43,8 @@ class Client1Type extends AbstractType
             ])
             ->add('prenom', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Prénoms',
+                'label' => 'Prénoms <span style="color: red;"><strong>*</strong></span> ',
+                'label_html' => true,
                 'required' => false,
                 'attr' => ['required'=>false, 
                 'class'=>'form-control mb-2 physique', 
@@ -51,22 +54,25 @@ class Client1Type extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'label' => 'Adresse',
                 'required' => false,
+                'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2', 
                 'placeholder' => 'Entrer l\'adresse'],
             ])
             ->add('email', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Email',
+                'label' => 'Email <span style="color: red;"><strong>*</strong></span>',
                 'required' => false,
+                'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2', 
                 'placeholder' => 'Entrer l\'email'],
             ])
             ->add('telephone1', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Téléphone 1',
+                'label' => 'Téléphone 1 <span style="color: red;"><strong>*</strong></span>',
                 'required' => true,
+                'label_html' => true,
                 'attr' => ['required'=>true,
                 'class'=>'form-control mb-2', 
                 'placeholder' => 'Entrer le numero de téléphone'],
@@ -75,46 +81,52 @@ class Client1Type extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'label' => 'Téléphone 2',
                 'required' => false,
+                'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2', 
                 'placeholder' => 'Entrer le numero de téléphone'],
             ])
             ->add('raisonSociale', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Raison sociale',
+                'label' => 'Raison sociale <span style="color: red;"><strong>*</strong></span>',
                 'required' => false,
+                'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2 moral', 
                 'placeholder' => 'Entrer la raison sociale'],
             ])
             ->add('ifu', IntegerType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'N° IFU',
+                'label' => 'N° IFU  <span style="color: red;"><strong>*</strong></span>',
                 'required' => true,
+                'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2', 
                 'placeholder' => 'Entrer le numero IFU'],
             ])
             ->add('rccm', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'N° RCCM',
+                'label' => 'N° RCCM  <span style="color: red;"><strong>*</strong></span>',
                 'required' => false,
+                'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2 moral', 
                 'placeholder' => 'Entrer le numero du Registre de commerce'],
             ])
             ->add('sigle', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Sigle',
+                'label' => 'Sigle <span style="color: red;"><strong>*</strong></span>',
                 'required' => true,
+                'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2 moral', 
                 'placeholder' => 'Entrer le sigle'],
             ])
             ->add('denomination', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Dénomination',
+                'label' => 'Dénomination <span style="color: red;"><strong>*</strong></span>',
                 'required' => false,
+                'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2 moral', 
                 'placeholder' => 'Entrer la denomination'],
@@ -135,8 +147,9 @@ class Client1Type extends AbstractType
             ->add('dateNais', BirthdayType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
+                'label_html' => true,
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Date de naissance',
+                'label' => 'Date de naissance  <span style="color: red;"><strong>*</strong></span>',
                 'required' => false,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2 physique', 
