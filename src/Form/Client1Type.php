@@ -97,8 +97,8 @@ class Client1Type extends AbstractType
             ])
             ->add('ifu', IntegerType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'N° IFU  <span style="color: red;"><strong>*</strong></span>',
-                'required' => true,
+                'label' => 'N° IFU ',
+                'required' => false,
                 'label_html' => true,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2', 
