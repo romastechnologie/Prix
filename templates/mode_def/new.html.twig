@@ -168,46 +168,7 @@ console.log(etat);
                 'ajax' : {  url:  '{{ path("liste_mode_def_by_ajax") }}',
                         dataSrc: 'data',
                         complete:function(){
-                            $(".suppr").click(function(e) {
-                                let id3 = $(this).attr("data-id");
-                                //console.log(id);
-                                Swal.fire({
-                                    title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
-                                    text: "Cette action est irréversible" ,
-                                    icon: "warning",
-                                    showCancelButton: true,
-                                    cancelButtonText: "Non",
-                                    confirmButtonText: "Oui"
-                                }).then(function(result) {
-                                    if (result.value) {
-                                            $.ajax({
-                                                url: "{{path('mode_def_delete')}}",
-                                                method: "POST",
-                                                data:{ id: JSON.stringify(id3)},
-                                                dataType: "json"
-                                                })
-                                                .done(function( data ) {
-                                                    if(data[0] == "Succes"){
-                                                        recharge()
-                                                        Swal.fire(
-                                                            "Suppression effective",
-                                                            "L'enregistrement a bien été supprimé. ",
-                                                            "success"
-                                                        )
-                                                    }else{
-                                                        Swal.fire(
-                                                            "Suppression effective",
-                                                            data[1],
-                                                            "error"
-                                                        )
-                                                    }
 
-                                                })
-                                        
-                                        
-                                    }
-                                });
-                            })
                         }
                     },
             'columns' : [
@@ -221,15 +182,8 @@ console.log(etat);
                 data: null,
                "render": function (data) {
                 let id1 = data.id;
-                let libel = data.libelle;
-                     $(".modif").click(function(){
-                            let id = $(this).attr("data-id");
-                            let contenu = $(this).attr("data-libelle");
-                            //console.log(id);
-                            $("#mode_def_libelle").val(contenu);
-                            $("#mode_def_id").val(id);
-                        });
-                    return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center modif' data-id='"+id1+"' data-libelle='"+libel+"' href='#'>Modifier</a><a class='divider' href='#'></a><a class='dropdown-item text-center btn btn-danger suppr' data-id='"+id1+"' href='#' >Supprimer</a>"
+                let libel = data.libelle;;
+                    return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center' onclick='modifier("+id1+", \""+libel+"\")' href='#'>Modifier</a><a class='divider' href='#'></a><a class='dropdown-item text-center btn btn-danger' onclick='supprimer("+id1+")' href='#' >Supprimer</a>"
                             //"<divider>   '<a class='dropdown-item' href='#'>Something else here</a>
                             +"</div>"+
                         "</div>";
@@ -239,6 +193,49 @@ console.log(etat);
     });
    
     }
+    function modifier(id,libel){
+        $("#mode_def_libelle").val(libel);
+        $("#mode_def_id").val(id);
+    }
+
+    function supprimer(id){
+        Swal.fire({
+            title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
+            text: "Cette action est irréversible" ,
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonText: "Non",
+            confirmButtonText: "Oui"
+        }).then(function(result) {
+            if (result.value) {
+                    $.ajax({
+                        url: "{{path('mode_def_delete')}}",
+                        method: "POST",
+                        data:{ id: JSON.stringify(id)},
+                        dataType: "json"
+                        })
+                        .done(function( data ) {
+                            if(data[0] == "Succes"){
+                                recharge()
+                                Swal.fire(
+                                    "Suppression effective",
+                                    "L'enregistrement a bien été supprimé. ",
+                                    "success"
+                                )
+                            }else{
+                                Swal.fire(
+                                    "Suppression effective",
+                                    data[1],
+                                    "error"
+                                )
+                            }
+
+                        })
+                
+                
+            }
+        });
+}
 recharge()
     
     $("form").submit(function(e){
@@ -280,13 +277,6 @@ recharge()
                 Swal.fire(data, "Cliquez ici", "error");
             });
     });
-
-     $(".modif").click(function(){
-        let idTd = $(this).parent().parent().parent().prev().prev();
-        let id = $(id[0]).text();
-
-        console.log($(id[0]).text());
-        });
     
 </script>
 {% endblock %}

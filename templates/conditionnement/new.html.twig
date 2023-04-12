@@ -107,50 +107,7 @@
                         dataSrc: 'data',
                         complete:function(){
                                 
-                                $(".suppr").click(function(e) {
-                                    let id = $(this).attr("data-id");
-                                    console.log(id);
-                                    Swal.fire({
-                                        title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
-                                        text: "Cette action est irréversible" ,
-                                        icon: "warning",
-                                        showCancelButton: true,
-                                        cancelButtonText: "Non",
-                                        confirmButtonText: "Oui"
-                                    }).then(function(result) {
-                                        if (result.value) {
-                                                $.ajax({
-                                                    url: "{{path('app_conditionnement_delete')}}",
-                                                    method: "POST",
-                                                    data:{ id: JSON.stringify(id)},
-                                                    dataType: "json"
-                                                    })
-                                                    .done(function( data ) {
-                                                        if(data[0] == "Succes"){
-                                                            recharge();
-                                                            Swal.fire(
-                                                                "Suppression effective",
-                                                                "L'enregistrement a bien été supprimé. ",
-                                                                "success"
-                                                            );
-                                                            vidage();
-                                                        }else{
-                                                            Swal.fire(
-                                                                "Suppression effective",
-                                                                data[1],
-                                                                "error"
-                                                            );
-                                                            vidage();
-                                                        }
-
-                                                    })
-                                            
-                                            
-                                        }
-                                });
-
-                         
-                            })
+                                
                         }
                     },
                 'columns' : [
@@ -169,18 +126,7 @@
                     let code = data.code;
                     let libel = data.libelle;
                     let qteC = data.qte;
-                    $(".modif").click(function(){
-                        vidage()
-                        let id = $(this).attr("data-id");
-                        let contenu = $(this).attr("data-libelle");
-                        let codeAt = $(this).attr("data-code");
-                        let qte = $(this).attr("data-qte");
-                        $("#conditionnement_libelle").val(contenu);
-                        $("#conditionnement_id").val(id);
-                        $("#conditionnement_code").val(codeAt);
-                        $("#conditionnement_qte").val(qte);
-                    });
-                    return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center modif' data-code='"+code+"' data-id='"+id1+"'data-qte='"+qteC+"' data-libelle='"+libel+"' href='#'>Modifier</a><a class='divider suppr' href='#'></a><a class='dropdown-item text-center btn btn-danger suppr' data-id='"+ id1 +"'  href='#' >Supprimer</a>"
+                    return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center modif' data-code='"+code+"' data-id='"+id1+"'data-qte='"+qteC+"' data-libelle='"+libel+"' onclick='modifier("+id1+", \""+code+"\",\""+libel+"\", "+qteC+")' href='#'>Modifier</a><a class='divider suppr' href='#'></a><a class='dropdown-item text-center btn btn-danger' onclick='supprimer("+id1+")' data-id='"+ id1 +"'  href='#' >Supprimer</a>"
                             +"</div>"+
                         "</div>";
                 }
@@ -191,6 +137,54 @@
     }
 
     recharge()
+    function supprimer(id){
+            Swal.fire({
+                title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
+                text: "Cette action est irréversible" ,
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Non",
+                confirmButtonText: "Oui"
+            }).then(function(result) {
+                if (result.value) {
+                        $.ajax({
+                            url: "{{path('app_conditionnement_delete')}}",
+                            method: "POST",
+                            data:{ id: JSON.stringify(id)},
+                            dataType: "json"
+                            })
+                            .done(function( data ) {
+                                if(data[0] == "Succes"){
+                                    recharge();
+                                    Swal.fire(
+                                        "Suppression effective",
+                                        "L'enregistrement a bien été supprimé. ",
+                                        "success"
+                                    );
+                                    vidage();
+                                }else{
+                                    Swal.fire(
+                                        "Suppression effective",
+                                        data[1],
+                                        "error"
+                                    );
+                                    vidage();
+                                }
+
+                            })
+                    
+                    
+                }
+        });
+    }
+
+    function modifier(id, code, libel,qte){
+        vidage();
+        $("#conditionnement_libelle").val(libel);
+        $("#conditionnement_id").val(id);
+        $("#conditionnement_code").val(code);
+        $("#conditionnement_qte").val(qte);
+    }
 
 
     $("#reset").click(function(){

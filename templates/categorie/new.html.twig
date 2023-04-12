@@ -130,56 +130,6 @@
                 'ajax' : {  url:  '{{ path("categorie") }}',
                         dataSrc: 'data',
                         complete:function(){
-                            $(".suppr").click(function(e) {
-                                let id3 = $(this).attr("data-id");
-                                //console.log(id);
-                                Swal.fire({
-                                    title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
-                                    text: "Cette action est irréversible" ,
-                                    icon: "warning",
-                                    showCancelButton: true,
-                                    cancelButtonText: "Non",
-                                    confirmButtonText: "Oui"
-                                })
-                                .then(function(result) {
-                                    if (result.value) {
-                                        $.ajax({
-                                            url: "{{path('categorie_delete')}}",
-                                            method: "POST",
-                                            data:{ id: JSON.stringify(id3)},
-                                            dataType: "json"
-                                        })
-                                        .done(function( data ){
-                                            if(data[0] == "Succes"){
-                                                recharge();
-                                                Swal.fire(
-                                                    "Suppression effective",
-                                                    "L'enregistrement a bien été supprimé. ",
-                                                    "success"
-                                                )
-                                            }else{
-                                                Swal.fire(
-                                                    "Suppression effective",
-                                                    data[1],
-                                                    "error"
-                                                )
-                                            }
-                                        })
-                                    }
-                                });
-                            })
-                            
-                            $(".modif").click(function(){
-                                vidage()
-                                console.log(this);
-                                let id = $(this).attr("data-id");
-                                let contenu = $(this).attr("data-libelle");
-                                let codeAt = $(this).attr("data-code");
-                                console.log(id,codeAt,contenu);
-                                $("#categorie_libelle").val(contenu);
-                                $("#categorie_id").val(id);
-                                $("#categorie_code").val(codeAt);
-                            });
                         }
                     },
             'columns' : [
@@ -196,7 +146,7 @@
                 let id1 = data.id;
                 let code = data.code;
                 let libel = data.libelle;
-                    return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center modif ' data-code='"+code+"' data-id='"+id1+"' data-libelle='"+libel+"' href='#'>Modifier</a><a class='dropdown-item text-center btn btn-danger suppr' data-id='"+id1+"' href='#' >Supprimer</a>"
+                    return "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> Plus d'option</button><div class='dropdown-menu' aria-labelledby='dropdownMenuButton'><a class='dropdown-item text-center modif '  onclick='modifier("+id1+",\""+code+"\" , \""+libel+"\")' href='#'>Modifier</a><a class='dropdown-item text-center btn btn-danger suppr' onclick='supprimer("+id1+")' href='#' >Supprimer</a>"
                             //"<divider>   '<a class='dropdown-item' href='#'>Something else here</a>
                             +"</div>"+
                         "</div>";
@@ -207,8 +157,49 @@
    
     }
 
-recharge()
-
+recharge();
+function supprimer(id){
+        Swal.fire({
+            title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
+            text: "Cette action est irréversible" ,
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonText: "Non",
+            confirmButtonText: "Oui"
+        })
+        .then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: "{{path('categorie_delete')}}",
+                    method: "POST",
+                    data:{ id: JSON.stringify(id)},
+                    dataType: "json"
+                })
+                .done(function( data ){
+                    if(data[0] == "Succes"){
+                        recharge();
+                        Swal.fire(
+                            "Suppression effective",
+                            "L'enregistrement a bien été supprimé. ",
+                            "success"
+                        )
+                    }else{
+                        Swal.fire(
+                            "Suppression effective",
+                            data[1],
+                            "error"
+                        )
+                    }
+                })
+            }
+        });
+}
+function modifier(id, code, libel){
+    vidage()
+    $("#categorie_libelle").val(libel);
+    $("#categorie_id").val(id);
+    $("#categorie_code").val(code);
+}
 
     $("#reset").click(function(){
         vidage();
