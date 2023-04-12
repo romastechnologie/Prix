@@ -65,14 +65,4 @@ class ProduitTestController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/{id}', name: 'app_produit_test_delete', methods: ['POST'])]
-    public function delete(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
-            $produitRepository->remove($produit, true);
-        }
-
-        return $this->redirectToRoute('app_produit_test_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

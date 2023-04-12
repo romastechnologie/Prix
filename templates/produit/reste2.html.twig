@@ -105,6 +105,10 @@ $(".table").DataTable({
                     }
                     
                 },
+                dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
 }
 );
         
@@ -175,7 +179,11 @@ $(".table").DataTable({
                 {"data":"prixVente"},
                 {"data":"prixMin"},
                 {"data":"prixMax"}
-            ]
+            ],
+            dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
             
         });
 });
