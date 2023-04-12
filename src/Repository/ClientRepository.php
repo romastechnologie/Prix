@@ -69,7 +69,7 @@ class ClientRepository extends ServiceEntityRepository
             ->setParameter("rccm",$rccm)
             ->andWhere('c.ifu = :ifu')
             ->setParameter("ifu",$ifu)
-            ->andWhere('c.raisonSocial = :raisonSocial')
+            ->andWhere('c.raisonSociale = :raisonSocial')
             ->setParameter("raisonSocial",$raisonSocial);
             if($id != null){
                 $result = $result

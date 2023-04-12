@@ -155,15 +155,6 @@ class Client1Type extends AbstractType
                 'class'=>'form-control mb-2 physique', 
                 'placeholder' => 'Date de naissance'],
             ])
-            // ->add('prixs', CollectionType::class,[
-            //     'mapped'=>true,
-            //     'required'=>true,
-            //     'entry_type'=>PrixContionnerAchatRevientType::class,
-            //     'by_reference'=>false,
-            //     'allow_add'=>true,
-            //     'allow_delete'=>true,
-            //     'prototype_name'=> '_name_'
-            // ])
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
