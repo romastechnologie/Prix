@@ -51,7 +51,7 @@ class CategClient
 
     public function setCode(string $code): self
     {
-        $this->code = $code;
+        $this->code = trim( strtoupper($code));
 
         return $this;
     }
@@ -63,7 +63,7 @@ class CategClient
 
     public function setLibelle(string $libelle): self
     {
-        $this->libelle = $libelle;
+        $this->libelle = trim( strtoupper($libelle));
 
         return $this;
     }

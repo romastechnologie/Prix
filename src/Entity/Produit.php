@@ -77,7 +77,7 @@ class Produit
 
     public function setDesignation(string $designation): self
     {
-        $this->designation = $designation;
+        $this->designation = trim( strtoupper( $designation ));
 
         return $this;
     }
@@ -89,7 +89,7 @@ class Produit
 
     public function setCode(string $code): self
     {
-        $this->code = $code;
+        $this->code = trim( strtoupper($code));
 
         return $this;
     }
@@ -101,7 +101,7 @@ class Produit
 
     public function setRefUsine(?string $refUsine): self
     {
-        $this->refUsine = $refUsine;
+        $this->refUsine = trim( strtoupper($refUsine));
 
         return $this;
     }

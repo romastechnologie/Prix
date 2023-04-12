@@ -78,7 +78,7 @@ class Client
 
     public function setNom(?string $nom): self
     {
-        $this->nom = $nom;
+        $this->nom = trim( strtoupper($nom));
 
         return $this;
     }
