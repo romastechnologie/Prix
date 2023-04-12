@@ -248,18 +248,16 @@
                 }
             
         };
-
         const addTagFormDeleteLink = (item) => {
              
             const removeFormButton = item.querySelector('.supprimer');
+            //console.log("Ok");
 
             removeFormButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 item.remove();
             });
         }
-
-
         document.querySelectorAll('.add_item_link').forEach(btn => {
             const btnAttr = btn.getAttribute('data-collection-holder-class');
             btn.addEventListener('click', function(){addFormCollection(btnAttr)});
@@ -273,96 +271,4 @@
            
         });
     </script>
-
-    <script>
-        const addFormToCollection2 = (e) => {
-            const collectionHolder2 = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-           
-            const item = document.createElement('div');
-            item.classList.add('ell');
-
-            item.innerHTML = collectionHolder2
-            .dataset
-            .prototype
-            .replace(
-            /__name__/g,
-            collectionHolder2.dataset.index
-            );
-
-            collectionHolder2.appendChild(item);
-            $(item.querySelector("select")).select2();
-            collectionHolder2.dataset.index++;
-
-            // add a delete link to the new form
-            addTagFormDeleteLink2(item);
-        };
-
-        const addTagFormDeleteLink2 = (item) => {
-             
-            const removeFormButton2 = item.querySelector('.supprimer2');
-
-            removeFormButton2.addEventListener('click', (e) => {
-                e.preventDefault();
-                item.remove();
-            });
-        }
-
-
-        document.querySelectorAll('.add_item_link2').forEach(btn => {
-            btn.addEventListener('click', addFormToCollection2);
-            const holders2 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
-            holders2.forEach(h => {
-                const element = h.querySelectorAll('ell');
-                element.forEach(tr => {
-                    addTagFormDeleteLink2(tr);
-                });
-            });
-        });
-    </script> 
-
-    <script>
-        const addFormToCollection3 = (e) => {
-            const collectionHolder3 = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-           
-            const item = document.createElement('div');
-            item.classList.add('ell');
-
-            item.innerHTML = collectionHolder3
-            .dataset
-            .prototype
-            .replace(
-            /__name__/g,
-            collectionHolder3.dataset.index
-            );
-
-            collectionHolder3.appendChild(item);
-            $(item.querySelector("select")).select2();
-            collectionHolder3.dataset.index++;
-
-            // add a delete link to the new form
-            addTagFormDeleteLink3(item);
-        };
-
-        const addTagFormDeleteLink3 = (item) => {
-             
-            const removeFormButton3 = item.querySelector('.supprimer3');
-
-            removeFormButton3.addEventListener('click', (e) => {
-                e.preventDefault();
-                item.remove();
-            });
-        }
-
-
-        document.querySelectorAll('.add_item_link3').forEach(btn => {
-            btn.addEventListener('click', addFormToCollection3);
-            const holders3 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
-            holders3.forEach(h => {
-                const element = h.querySelectorAll('ell');
-                element.forEach(tr => {
-                    addTagFormDeleteLink3(tr);
-                });
-            });
-        });
-    </script> 
 {% endblock %}
