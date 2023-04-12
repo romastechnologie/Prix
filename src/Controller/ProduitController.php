@@ -662,11 +662,14 @@ class ProduitController extends AbstractController
     #[Route('produit/{id}/suppr', name: 'gp_produit_delete', methods: ['GET'])]
     public function delete(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
     {
-        dd($request,$produit);
-        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
-            dd($produit);
+        if($produit->getConditionners()){
+            return $this->redirectToRoute('produi_liste', [
+                "msg"=>"Impossible de supprimer l'élément"
+            ], Response::HTTP_SEE_OTHER);
+        }else{
             $produitRepository->remove($produit, true);
         }
+        
         return $this->redirectToRoute('produi_liste', [], Response::HTTP_SEE_OTHER);
     }
 }
