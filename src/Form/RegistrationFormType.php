@@ -89,7 +89,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('file',FileType::class,[
-                'label'=>"Une image",
+                'label'=>"Ajouter une photo",
                 'multiple'=>false,
                 'required'=>false,
                 'mapped'=>false,

@@ -35,7 +35,6 @@ class ClientController extends AbstractController
             $stat = $client->getStatut();
             
             if($stat == "Physique"){
-
                 $nom = $client->getNom();
                 $prenom = $client->getPrenom();
                 $date = $client->getDateNais();
