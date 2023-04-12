@@ -157,6 +157,17 @@
     </script>
 
     <script>
+        $('.supprimer').click(function(){
+                let block = $(this).parent().parent().parent();
+            $(block).remove();
+                
+            })
+        $('.supprimer2').click(function(){
+            let block = $(this).parent().parent().parent();
+        $(block).remove();
+            
+        })
+
         function min(cla, val1) {
             let ele = cla;
             let titre = $(ele).prev().text();
@@ -202,7 +213,9 @@
             index = parseInt(index);
 
             if( e == 'conditionnerCateClients'){
+                console.log(parentHolder);
                 parentHolder.querySelector('.conditionnerCateClients').dataset.index = index + 1;
+                
                 item.innerHTML = collectionHolder
                 .dataset.prototype.replace( /_subname_/g,collectionHolder.dataset.index);
                 collectionHolder.appendChild(item);
