@@ -482,6 +482,19 @@ class ProduitController extends AbstractController
             $designation = $form->get("designation")->getData();
             $id = $produit->getId();
             $prod = $produitRepository->checkProduit($id, $designation, $sousCat);
+            $conds = array();
+            foreach($conditionners as $c){
+                if(in_array($c->getConditionnement()->getLibelle(), $conds)){
+                    $msg = "Le conditionnement ".$c->getConditionnement()->getLibelle()." ne peut pas être utilisé deux fois pour ce produit"; 
+                    return $this->renderForm('produit/index.html.twig', [
+                        'produit' => $produit,
+                        'form' => $form,
+                        'msg' => $msg,
+                    ]);
+                }else{
+                    $conds[] = $c->getConditionnement()->getLibelle();
+                }
+            }
             
             if($prod){
                 $msg = "Ce produit semble déjà existé. Veuillez revoir votre enregistrement"; 
@@ -565,6 +578,22 @@ class ProduitController extends AbstractController
             $designation = $produit->getDesignation();
             $id = $produit->getId();
             $prod = $produitRepository->checkProduit($id, $designation, $sousCat);
+
+            $conds = array();
+            foreach($conditionners as $c){
+                if(in_array($c->getConditionnement()->getLibelle(), $conds)){
+                    $msg = "Le conditionnement ".$c->getConditionnement()->getLibelle()." ne peut pas être utilisé deux fois pour ce produit"; 
+                    return $this->renderForm('produit/index.html.twig', [
+                        'produit' => $produit,
+                        'form' => $form,
+                        'msg' => $msg,
+                    ]);
+                }else{
+                    $conds[] = $c->getConditionnement()->getLibelle();
+                }
+            }
+            
+
             
             if($prod){
                 $msg = "Ce produit semble déjà existé sur un autre enregistrement. Veuillez revoir votre enregistrement"; 
