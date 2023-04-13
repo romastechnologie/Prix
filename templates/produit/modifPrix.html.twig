@@ -92,6 +92,9 @@
 {% block javascripts %}
 {{ parent() }}
     <script>
+    $(".supprimer").each(function( index, element ) {
+                $(element).remove();
+            });
      $('#enregistre').click(function(e){
         $form = $("form");
         e.preventDefault();

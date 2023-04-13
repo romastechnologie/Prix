@@ -103,6 +103,9 @@
 {% block javascripts %}
 {{ parent() }}
     <script>
+        $(".supprimer").each(function( index, element ) {
+                $(element).remove();
+            });
         $("select[name*='[conditionners]']").each(function( index, element ) {
             let sonPar = $(element).parent();
             $(element).attr("disabled","disabled");
@@ -140,6 +143,7 @@
 
                 $("select[name*='[conditionners]']").each(function( index, element ) {
                     $(element).removeAttr("disabled");
+                    $(element).removeAttr("readonly");
                 });
                 $form.unbind().submit();
         });
