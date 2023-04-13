@@ -215,7 +215,7 @@
         
         e.preventDefault();
          let ta =  $("input[name*='[code]']").val();
-        if($(ta).length < 4 || $(ta).length > 5){
+        if(ta.length < 4 || ta.length > 4){
             Swal.fire('Le code doit être avoir nécessairement 4 caractères au plus', "Cliquez ici", "error");
             $("#soum").removeClass("spinner spinner-white spinner-right");
             return false;
