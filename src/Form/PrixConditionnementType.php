@@ -13,6 +13,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class PrixConditionnementType extends AbstractType
 {
@@ -26,6 +28,7 @@ class PrixConditionnementType extends AbstractType
                 'class'=>Conditionnement::class,
                 'choice_attr' => function(Conditionnement $cond){
                     return [
+                        
                         'data-qte' => $cond->getQte(),
                     ];
                 },
@@ -115,6 +118,45 @@ class PrixConditionnementType extends AbstractType
             
             ])
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+            $data = $event->getData();
+            $form = $event->getForm();
+            if (!($data === null) && $data->getId() != "") {
+                $form->remove('conditionnement');
+                $form->remove('qteProduit');
+                $form
+                ->add('conditionnement',EntityType::class,[
+                    'label_html' => true,
+                    'required'=> true,
+                    'placeholder'=>'Selectionner un conditionnement',
+                    'class'=>Conditionnement::class,
+                    'choice_attr' => function(Conditionnement $cond){
+                        return [
+                            
+                            'data-qte' => $cond->getQte(),
+                        ];
+                    },
+                    'label'=>'Conditionnement  <span style="color: red;"><strong>*</strong></span>',
+                    'attr'=>[
+                        'class'=>' form-control',
+                        "disabled"=>true,
+                        'data-live-search'=>true,
+                        'data-select2-id'=>'kt_select2_1'
+                    ]
+                    ])
+                    ->add('qteProduit',NumberType::class,[
+                        'label_html' => true,
+                        'required'=>true,
+                        'label'=>'Quantité du produit <span style="color: red;"><strong>*</strong></span>',
+                        'attr'=>[
+                            'data-verif'=>"nonOk",
+                            "disabled"=>true,
+                            'class'=>'form-control tape'
+                        ]
+                    ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

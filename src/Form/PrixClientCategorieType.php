@@ -10,6 +10,8 @@ use App\Entity\Conditionnement;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PrixClientCategorieType extends AbstractType
@@ -71,6 +73,27 @@ class PrixClientCategorieType extends AbstractType
         //     ]
         // ])
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+            $data = $event->getData();
+            $form = $event->getForm();
+            if($data && $data->getId() != null){
+                $form->remove("cateClient");
+                $form ->add('cateClient',EntityType::class,[
+                    'class'=>CategClient::class,
+                    'required'=>true,
+                    'label_html' => true,
+                    'mapped'=>true,
+                    'placeholder'=>'Selectionner une sous catégorie',
+                    'label'=>'Catégorie de Client <span style="color: red;"><strong>*</strong></span>',
+                    'attr'=>[
+                        'class'=>'form-control',
+                        "disabled"=>true,
+                        'data-live-search'=>true
+                    ]
+                    ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

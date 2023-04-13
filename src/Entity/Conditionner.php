@@ -19,7 +19,7 @@ class Conditionner
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'conditionners')]
+    #[ORM\ManyToOne(inversedBy: 'conditionners',cascade:["persist"])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Produit $produit = null;
 

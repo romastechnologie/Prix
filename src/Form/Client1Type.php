@@ -61,7 +61,7 @@ class Client1Type extends AbstractType
             ])
             ->add('email', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Email <span style="color: red;"><strong>*</strong></span>',
+                'label' => 'Email',
                 'required' => false,
                 'label_html' => true,
                 'attr' => ['required'=>false,
@@ -95,14 +95,16 @@ class Client1Type extends AbstractType
                 'class'=>'form-control mb-2 moral', 
                 'placeholder' => 'Entrer la raison sociale'],
             ])
-            ->add('ifu', IntegerType::class, [
+            ->add('ifu', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'N° IFU ',
+                'label' => 'N° IFU <span id="fui"></span>',
                 'required' => false,
                 'label_html' => true,
                 'attr' => ['required'=>false,
                 "maxlength"=>"13",
                 'class'=>'form-control mb-2', 
+                'oninput'=>"this.value=this.value.replace(/[^0-9]/g,'');", 
+                "maxlength"=>"13",
                 'placeholder' => 'Entrer le numero IFU'],
             ])
             ->add('rccm', TextType::class, [
@@ -150,7 +152,7 @@ class Client1Type extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'label_html' => true,
                 'label_attr' => ['class' => 'form-label'],
-                'label' => 'Date de naissance  <span style="color: red;"><strong>*</strong></span>',
+                'label' => 'Date de naissance  <span id="etad"></span>',
                 'required' => false,
                 'attr' => ['required'=>false,
                 'class'=>'form-control mb-2 physique', 

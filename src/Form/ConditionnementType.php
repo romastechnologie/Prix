@@ -22,12 +22,15 @@ class ConditionnementType extends AbstractType
                 'label_html' => true,
                 'label'=>'Code <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
+                    'maxlength'=>"4",
+                    "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control']
                 ])
             ->add('libelle', TextType::class,[
                 'label_html' => true,
                 'label'=>'Libellé <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
+                    "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control']
                 ])
             ->add('qte', IntegerType::class,[

@@ -49,7 +49,6 @@ class ProduitType extends AbstractType
                 'attr'=>[
                     'class'=>'form-control'
                 ]
-            
             ])
             ->add('refUsine', TextType::class,[
                 'required'=>false,

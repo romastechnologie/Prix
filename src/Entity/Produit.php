@@ -75,7 +75,7 @@ class Produit
         return $this->designation;
     }
 
-    public function setDesignation(string $designation): self
+    public function setDesignation(?string $designation): self
     {
         $this->designation = trim( strtoupper( $designation ));
 

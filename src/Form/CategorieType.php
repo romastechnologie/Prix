@@ -21,6 +21,7 @@ class CategorieType extends AbstractType
                 'label_html' => true,
                 'label'=>'Code <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
+                    "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control',
                     'maxlength'=>"4"
                 ]
@@ -30,6 +31,7 @@ class CategorieType extends AbstractType
                 'label_html' => true,
                 'label'=>'Libellé <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
+                    "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control'
                 ]
             

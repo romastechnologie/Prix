@@ -16,13 +16,12 @@
 		</div>
 	</div>
 	<div class="card-body">
-       
             {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
             <div class="card-footer">
-            <button type="submit" class="btn btn-warning"   title="Modification de l'utilisateur">
+            <button type="submit" class="btn btn-secondary"   title="Modification de l'utilisateur">
                 <i class="ki ki-reload icon-nm"></i>Modifier
             </button>
-            <button type="reset" class="btn btn-secondary">Annuler</button>
+            <a type="button" href="{{ path('app_utilisateur_index') }}" class="btn btn-warning">Annuler</a>
             </div>
 
 	</div>

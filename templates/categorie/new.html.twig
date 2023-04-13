@@ -33,17 +33,18 @@
                                                 <div class="col-12">
                                                     {{ form_widget(form.id) }}
                                                 </div>
-                                                <div class="col-12">
+                                                <div class="col-4">
                                                     <div class="form-group">
                                                         {{ form_label(form.code) }}
                                                         {{ form_widget(form.code) }}
+                                                        <span class="form-text text-muted">Renseigner un code de 4 caractères au plus</span>
                                                     </div>
                                                  </div>
-                                                <div class="col-12">
+                                                <div class="col-8">
                                                     <div class="form-group">
                                                         {{ form_label(form.libelle) }}
                                                         {{ form_widget(form.libelle) }}
-                                                        {# <span class="form-text text-muted">Renseignez un libellé significatif pour vous.</span> #}
+                                                        <span class="form-text text-muted">Renseignez un libellé significatif</span>
                                                     </div>
                                                 </div>
                                             </div>

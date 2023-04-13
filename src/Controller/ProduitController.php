@@ -14,6 +14,7 @@ use App\Entity\Conditionner;
 use App\Entity\ModeDef;
 use App\Entity\SousCategorie;
 use App\Form\DropType;
+use App\Form\PrixProduitType;
 use App\Form\RechercheType;
 use App\Form\Recherche2Type;
 use App\Repository\CategClientRepository;
@@ -656,22 +657,51 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}-/prix', name: 'produit_edit_prix_view', methods: ['GET', 'POST'])]
-    public function modifPrix(Request $request, Produit $produit, ProduitRepository $produitRepository){
-        $form = $this->createForm(ProduitType::class, $produit);
-
+    #[Route('/edit/{id}-/prix/produit', name: 'produit_edit_prix_view_modifification', methods: ['GET', 'POST'])]
+    public function modifPrix(Request $request, Produit $produit, ProduitRepository $produitRepository, ConditionnerRepository $condRepo ){
+        $form = $this->createForm(PrixProduitType::class,$produit);
+        $des = $produit->getDesignation();
+        //if($produit->getId() != null)
+        // $produitt = array(
+        //     "designation"=>$produit->getDesignation(),
+        //     "id"=>$produit->getId(),
+        //     "ref_usine"=>$produit->getRefUsine(),
+        //     "conditionners"=> $request->request->get("produit")["conditionners"]
+        // );
+        // $request->request->add(["produit"=>$produitt]);
+       //dd($produit,$request->request, $_POST["produit"]);
+       //dd($request);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted()) {
+            //dd($des);
             $conditionners = $form->get("conditionners")->getData();
             $msg = "";
             $sousCat = $produit->getSousCategorie();
-            $designation = $produit->getDesignation();
+            $produit->setDesignation($des);
             $id = $produit->getId();
-            $prod = $produitRepository->checkProduit($id, $designation, $sousCat);
+            $prod = $produitRepository->checkProduit($id, $des, $sousCat);
+
+            if(!$sousCat){
+                $msg = "Ce produit n'a aucune sous catégorie"; 
+                return $this->renderForm('produit/index.html.twig', [
+                    'produit' => $produit,
+                    'form' => $form,
+                    'msg' => $msg,
+                ]);
+            }
 
             $conds = array();
-            foreach($conditionners as $c){
+            //dd($conditionners);
+            $conditionner2 = [];
+            foreach($conditionners as $con){
+                dump($con);
+                 $cc = $condRepo->find((int)$con->getId()); 
+                 dump((int)$con->getId(),$cc);
+                 $conditionner2[] = $con->setConditionnement($cc->getConditionnement())->setQteProduit($cc->getQteProduit());
+            }
+            dd($conditionner2);
+            foreach($conditionner2 as $c){
                 if(in_array($c->getConditionnement()->getLibelle(), $conds)){
                     $msg = "Le conditionnement ".$c->getConditionnement()->getLibelle()." ne peut pas être utilisé deux fois pour ce produit"; 
                     return $this->renderForm('produit/index.html.twig', [
@@ -680,7 +710,7 @@ class ProduitController extends AbstractController
                         'msg' => $msg,
                     ]);
                 }else{
-                    $conds[] = $c->getConditionnement()->getLibelle();
+                    $condRep[] = $c->getConditionnement()->getLibelle();
                 }
             }
             
@@ -694,7 +724,8 @@ class ProduitController extends AbstractController
                     'msg' => $msg,
                 ]);
             }
-            foreach($conditionners as $c){
+            
+            foreach($conditionner2 as $c){
                 if($c->getPrixMin() || $c->getPrixMax()){
                     if((float)$c->getPrixMin() > (float)$c->getPrixMax()){
                         $msg = "Le prix minimal ne peut pas être supérieur au prix maximal pour les conditionnement"; 
@@ -739,8 +770,8 @@ class ProduitController extends AbstractController
                         }
                     }
                 }
+                $condRepo->save($c, true);
             }
-            $produitRepository->update($produit, true);
             return $this->redirectToRoute("produi_liste");
         }
         

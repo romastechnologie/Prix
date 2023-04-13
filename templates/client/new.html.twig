@@ -50,7 +50,8 @@
 
         function showhide(type, moral, physique){
             if(type === 'Physique'){
-                    //$("label[for*='client1_nom']").html("Nom <strong style='color:red;'>*</strong>");
+                    $("#fui").html("");
+                    $("#etad").html("");
                     $("#client1_raisonSociale").removeAttr("required");
                     $("#client1_sigle").removeAttr("required");
                     $("#client1_ifu").removeAttr("required");
@@ -58,6 +59,8 @@
                     moral.hide();
                     physique.show();
             }else{
+                $("#fui").html("<strong style='color:red;'>*</strong>");
+                $("#etad").html("<strong style='color:red;'>*</strong>");
                 $("#client1_raisonSociale").attr("required",true);
                 $("#client1_sigle").attr("required",true);
                 $("#client1_ifu").attr("required",true);

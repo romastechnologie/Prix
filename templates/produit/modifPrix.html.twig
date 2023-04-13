@@ -7,7 +7,7 @@
     <div class="card card-custom">
         <div class="card-header">
             <h3 class="card-title">
-                Modidification des prix du produit {{ produit.designation }}
+                Modification des prix du produit {{ produit.designation }}
             </h3>
             <div class="card-toolbar">
                 <div class="example-tools justify-content-center">
@@ -19,6 +19,16 @@
         <!--begin::Form-->
         {{ form_start(form) }}
             <div class="card-body">
+            <div class="row">
+                        <div class="col-5">
+                            {{ form_label(form.designation) }}
+                            {{ form_widget(form.designation) }}
+                        </div>
+                        <div class="col-3">
+                            {{ form_label(form.refUsine) }}
+                            {{ form_widget(form.refUsine) }}
+                        </div>
+                    </div>
                     <div class="card-body p-0">
                         <div class="form-group mb-0">
                             <div class="conditionners"
@@ -82,6 +92,8 @@
 {% block javascripts %}
 {{ parent() }}
     <script>
+    $("#produit_designation").attr("disabled","disabled");
+    $("#produit_refUsine").attr("disabled","disabled");
         $("select[name*='[conditionnement]']").change(function(){
             let option = $(this).find('option:selected');
             let qteCond = String($(option).attr("data-qte")); 
@@ -155,8 +167,8 @@
             var collectionHolder = document.querySelector('.' + e);
            if(parentHolder){
                 collectionHolder = parentHolder.querySelector('.' + e);
+                console.log(e);
            }
-
             const item = document.createElement('div');
             item.classList.add('el');
 
@@ -165,7 +177,7 @@
             index = parseInt(index);
 
             if( e == 'conditionnerCateClients'){
-                console.log(parentHolder);
+                
                 parentHolder.querySelector('.conditionnerCateClients').dataset.index = index + 1;
                 
                 item.innerHTML = collectionHolder
