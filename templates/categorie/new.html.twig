@@ -228,6 +228,12 @@ function modifier(id, code, libel){
     $("form").submit(function(e){
         $("#soum").addClass("spinner spinner-white spinner-right");
         e.preventDefault();
+         let ta =  $("input[name*='[code]']").val();
+        if($(ta).length < 4 || $(ta).length > 5){
+            Swal.fire('Le code doit être avoir nécessairement 4 caractères au plus', "Cliquez ici", "error");
+            $("#soum").removeClass("spinner spinner-white spinner-right");
+            return false;
+        }
         let libelle =JSON.stringify( $("#categorie_libelle").val());
         let code =  JSON.stringify( $("#categorie_code").val());
         let id = JSON.stringify( $("#categorie_id").val());

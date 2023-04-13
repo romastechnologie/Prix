@@ -660,17 +660,6 @@ class ProduitController extends AbstractController
     #[Route('/edit/{id}-/prix/produit', name: 'produit_edit_prix_view_modifification', methods: ['GET', 'POST'])]
     public function modifPrix(Request $request, Produit $produit, ProduitRepository $produitRepository, ConditionnerRepository $condRepo ){
         $form = $this->createForm(PrixProduitType::class,$produit);
-        $des = $produit->getDesignation();
-        //if($produit->getId() != null)
-        // $produitt = array(
-        //     "designation"=>$produit->getDesignation(),
-        //     "id"=>$produit->getId(),
-        //     "ref_usine"=>$produit->getRefUsine(),
-        //     "conditionners"=> $request->request->get("produit")["conditionners"]
-        // );
-        // $request->request->add(["produit"=>$produitt]);
-       //dd($produit,$request->request, $_POST["produit"]);
-       //dd($request);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -678,9 +667,8 @@ class ProduitController extends AbstractController
             $conditionners = $form->get("conditionners")->getData();
             $msg = "";
             $sousCat = $produit->getSousCategorie();
-            $produit->setDesignation($des);
             $id = $produit->getId();
-            $prod = $produitRepository->checkProduit($id, $des, $sousCat);
+            $prod = $produitRepository->checkProduit($id, $produit->getDesignation(), $sousCat);
 
             if(!$sousCat){
                 $msg = "Ce produit n'a aucune sous catégorie"; 
@@ -693,15 +681,13 @@ class ProduitController extends AbstractController
 
             $conds = array();
             //dd($conditionners);
-            $conditionner2 = [];
-            foreach($conditionners as $con){
-                dump($con);
-                 $cc = $condRepo->find((int)$con->getId()); 
-                 dump((int)$con->getId(),$cc);
-                 $conditionner2[] = $con->setConditionnement($cc->getConditionnement())->setQteProduit($cc->getQteProduit());
-            }
-            dd($conditionner2);
-            foreach($conditionner2 as $c){
+            // $conditionner2 = [];
+            // foreach($conditionners as $con){
+            //      $cc = $condRepo->find((int)$con->getId()); 
+            //      $conditionner2[] = $con->setConditionnement($cc->getConditionnement())->setQteProduit($cc->getQteProduit());
+            // }
+            //dd($conditionner2);
+            foreach($conditionners as $c){
                 if(in_array($c->getConditionnement()->getLibelle(), $conds)){
                     $msg = "Le conditionnement ".$c->getConditionnement()->getLibelle()." ne peut pas être utilisé deux fois pour ce produit"; 
                     return $this->renderForm('produit/index.html.twig', [
@@ -725,7 +711,7 @@ class ProduitController extends AbstractController
                 ]);
             }
             
-            foreach($conditionner2 as $c){
+            foreach($conditionners as $c){
                 if($c->getPrixMin() || $c->getPrixMax()){
                     if((float)$c->getPrixMin() > (float)$c->getPrixMax()){
                         $msg = "Le prix minimal ne peut pas être supérieur au prix maximal pour les conditionnement"; 
