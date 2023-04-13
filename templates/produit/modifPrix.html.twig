@@ -154,7 +154,7 @@
             if(titre !== "Min" || titre !== "Achat"){
                 return false;
             }
-            //console.log(titre);
+            
             var eleVal = ele.val();
             var nexEle = $(ele).parent().parent().next().children().find('input');
             var nexEleLabel = $(ele).parent().parent().next().children().find('label');
@@ -164,7 +164,6 @@
             eleVal = parseInt(eleVal);
             
             nextInputVal = parseInt(nextInputVal);
-            console.log(val1+" "+ eleVal , val2 + " " + nextInputVal);
             if(titre.includes(val1)){
                 if(titre.includes(val1) && nextLabel.includes(val2)){
                     if(nextInputVal >= eleVal ){
@@ -180,11 +179,12 @@
 
 
         function addFormCollection(e, parentHolder = null) {
-            var collectionHolder = document.querySelector('.' + e);
+           
+           var collectionHolder = document.querySelector('.' + e);
            if(parentHolder){
                 collectionHolder = parentHolder.querySelector('.' + e);
-                console.log(e);
            }
+
             const item = document.createElement('div');
             item.classList.add('el');
 
@@ -193,11 +193,9 @@
             index = parseInt(index);
 
             if( e == 'conditionnerCateClients'){
-                
                 parentHolder.querySelector('.conditionnerCateClients').dataset.index = index + 1;
                 
-                item.innerHTML = collectionHolder
-                .dataset.prototype.replace( /_subname_/g,collectionHolder.dataset.index);
+                item.innerHTML = collectionHolder.dataset.prototype.replace( /_subname_/g,collectionHolder.dataset.index);
                 collectionHolder.appendChild(item);
             }else{
                     collectionHolder.dataset.index = index + 1;
@@ -213,12 +211,6 @@
             jQuery('.tape').keyup(function () {     
                 this.value = this.value.replace(/[^0-9\.]/g,'');
             });
-            
-             // $(".tape").keyup(function(){
-              //      let el = $(this);
-               //     functionName(el, "Min", 'Max');
-                // functionName(el, 'Achat', 'Revient');
-             //   }); 
 
             addTagFormDeleteLink(item);
             index++;
@@ -245,7 +237,6 @@
         const addTagFormDeleteLink = (item) => {
              
             const removeFormButton = item.querySelector('.supprimer');
-
             removeFormButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 item.remove();
@@ -263,47 +254,14 @@
                     addTagFormDeleteLink(tr);
                 });
             });
-           
         });
-    </script>
-
-    <script>
-        const addFormToCollection2 = (e) => {
-            const collectionHolder2 = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-           
-            const item = document.createElement('div');
-            item.classList.add('ell');
-
-            item.innerHTML = collectionHolder2
-            .dataset
-            .prototype
-            .replace(
-            /__name__/g,
-            collectionHolder2.dataset.index
-            );
-
-            collectionHolder2.appendChild(item);
-            $(item.querySelector("select")).select2();
-            collectionHolder2.dataset.index++;
-
-            // add a delete link to the new form
-            addTagFormDeleteLink2(item);
-        };
-
-        const addTagFormDeleteLink2 = (item) => {
-             
-            const removeFormButton2 = item.querySelector('.supprimer2');
-
-            removeFormButton2.addEventListener('click', (e) => {
-                e.preventDefault();
-                item.remove();
-            });
-        }
-
 
         document.querySelectorAll('.add_item_link2').forEach(btn => {
-            btn.addEventListener('click', addFormToCollection2);
+            
+            const btnAttr = btn.getAttribute('data-collection-holder-class');
+            btn.addEventListener('click', function(){addFormCollection(btnAttr,btn.closest('.card-body'))});
             const holders2 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
+            
             holders2.forEach(h => {
                 const element = h.querySelectorAll('ell');
                 element.forEach(tr => {
@@ -311,51 +269,6 @@
                 });
             });
         });
-    </script> 
 
-    <script>
-        const addFormToCollection3 = (e) => {
-            const collectionHolder3 = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-           
-            const item = document.createElement('div');
-            item.classList.add('ell');
-
-            item.innerHTML = collectionHolder3
-            .dataset
-            .prototype
-            .replace(
-            /__name__/g,
-            collectionHolder3.dataset.index
-            );
-
-            collectionHolder3.appendChild(item);
-            $(item.querySelector("select")).select2();
-            collectionHolder3.dataset.index++;
-
-            // add a delete link to the new form
-            addTagFormDeleteLink3(item);
-        };
-
-        const addTagFormDeleteLink3 = (item) => {
-             
-            const removeFormButton3 = item.querySelector('.supprimer3');
-
-            removeFormButton3.addEventListener('click', (e) => {
-                e.preventDefault();
-                item.remove();
-            });
-        }
-
-
-        document.querySelectorAll('.add_item_link3').forEach(btn => {
-            btn.addEventListener('click', addFormToCollection3);
-            const holders3 = document.querySelectorAll('.' + btn.dataset.collectionHolderClass);
-            holders3.forEach(h => {
-                const element = h.querySelectorAll('ell');
-                element.forEach(tr => {
-                    addTagFormDeleteLink3(tr);
-                });
-            });
-        });
-    </script> 
+    </script>
 {% endblock %}
