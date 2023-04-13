@@ -28,7 +28,6 @@ class PrixConditionnementType extends AbstractType
                 'class'=>Conditionnement::class,
                 'choice_attr' => function(Conditionnement $cond){
                     return [
-                        
                         'data-qte' => $cond->getQte(),
                     ];
                 },

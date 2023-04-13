@@ -95,10 +95,16 @@
      $('#enregistre').click(function(e){
         $form = $("form");
         e.preventDefault();
+            var Paserreur = true;
+            
             $("select[name*='[conditionners]']").each(function( index, element ) {
                 $(element).removeAttr("disabled");
+                $(element).removeAttr("readonly");
             });
-            $form.unbind().submit();
+            if(Paserreur == true){
+                $form.unbind().submit();
+            }
+            
      })
 
     $("#produit_designation").attr("readonly","readonly");
@@ -106,7 +112,6 @@
     ///console.log($("select[name*='[conditionners]']"));
     $("select[name*='[conditionners]']").each(function( index, element ) {
         let sonPar = $(element).parent();
-        console.log(this);
         $(element).attr("disabled","disabled");
     });
     //$("select[name*='[conditionners]']").parent().attr("readonly","readonly");

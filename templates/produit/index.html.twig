@@ -112,14 +112,32 @@
             e.preventDefault();
                 let sous = $("select[name*='[sousCategorie]']").val();
                 let mode = $("select[name*='[mode]']").val();
+                let designation = $("input[name*='[designation]']").val();
                 if(sous == ''){
                     Swal.fire("Selectionner une categorie", "Cliquez ici", "error");
                     return false;
                 }
+
+                if(designation == ''){
+                    Swal.fire("Renseignez une désignation", "Cliquez ici", "error");
+                    return false;
+                }
+
                 if(mode == ''){
                     Swal.fire("Selectionner un mode", "Cliquez ici", "error");
                     return false;
                 }
+                let error = false;
+                $("select[name*='[conditionners]']").each(function( index, element ) {
+                   // $(element).val();
+                   error = true;
+                   break;
+                });
+                 if(error){
+                        Swal.fire("Selectionner tous les élements", "Cliquez ici", "error");
+                        return false;
+                    }
+
                 $("select[name*='[conditionners]']").each(function( index, element ) {
                     $(element).removeAttr("disabled");
                 });

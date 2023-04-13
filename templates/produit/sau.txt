@@ -1,0 +1,35 @@
+            $("select[name*='[conditionnement]']").each(function( index, element ) {
+                let bloc = $(element).parent().parent().parent();
+                let blocSuiv = $(bloc).next().next();
+                let InpVente = $(blocSuiv).find("input[name*='[prixVente]']").val() != "" ? $(blocSuiv).find("input[name*='[prixVente]']").val() : 0;
+                let InpMax = $(blocSuiv).find("input[name*='[prixMax]']").val() != "" ? $(blocSuiv).find("input[name*='[prixMax]']").val() : 0;
+                let InpMin = $(blocSuiv).find("input[name*='[prixMin]']").val() != "" ? $(blocSuiv).find("input[name*='[prixMin]']").val() : 0 ;
+                if(InpVente != 0){
+                    if(InpMax < InpMin){
+                        Swal.fire("Le prix minimal ne peut pas être supérieur au prix maximal", "Cliquez ici", "error");
+                        Paserreur = (false && Paserreur);
+                        //console.log(Paserreur);
+                    }
+                    if(InpVente < InpMin || InpVente > InpMax){
+                        Swal.fire("Le prix de vente doit être compris entre le prix minimal et le prix maximal", "Cliquez ici", "error");
+                        Paserreur = (false && Paserreur);
+                    }
+                }else{
+                    if(InpMax < InpMin){
+                        Swal.fire("Le prix minimal ne peut pas être supérieur au prix maximal", "Cliquez ici", "error");
+                        Paserreur = (false && Paserreur);
+                        //console.log(Paserreur);
+                    }
+                }
+            });
+            //return false;
+            $("select[name*='[cateClient]']").each(function( index, element ) {
+                let bloc = $(element).parent().parent();
+                let blocSuiv = $(bloc).next();
+                let blocSu = $(bloc).next().next();
+                let blocSui = $(bloc).next().next().next();
+                let InpVente = $(blocSuiv).find("input[name*='[prixVente]']").val() != "" ? $(blocSuiv).find("input[name*='[prixVente]']").val() : 0;
+                let InpMax = $(blocSui).find("input[name*='[prixMax]']").val() != "" ? $(blocSuiv).find("input[name*='[prixMax]']").val() : 0;
+                let InpMin = $(blocSu).find("input[name*='[prixMin]']").val() != "" ? $(blocSuiv).find("input[name*='[prixMin]']").val() : 0 ;
+                //console.log(InpVente,InpMin,InpMax);
+            });
