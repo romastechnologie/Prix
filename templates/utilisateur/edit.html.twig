@@ -10,8 +10,8 @@
 			<h3 class="card-label">RECHERCHE</h3>
 		</div>
 		<div class="card-toolbar">
-			<button type="submit" class="btn btn-warning"   title="Modification de l'utilisateur">
-			<i class="ki ki-reload icon-nm"></i>Modifier
+			<button type="submit" class="btn btn-primary"   title="Modification de l'utilisateur">
+			Modifier
 			</button>
 		</div>
 	</div>
@@ -19,12 +19,12 @@
             {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
             <div class="card-footer">
             <button type="submit" class="btn btn-primary"   title="Modification de l'utilisateur">
-                <i class="ki ki-reload icon-nm"></i>Modifier
+                Modifier
             </button>
             <a type="button" href="{{ path('app_utilisateur_index') }}" class="btn btn-warning">Retour</a>
             </div>
 	</div>
 </div>
-        {{ form_end(form) }}
+        {{ form_end(form, {render_rest:false}) }}
    
 {% endblock %}
