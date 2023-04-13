@@ -41,7 +41,7 @@
                                     <div class="col-4">
                                         {{ form_label(form.code) }}
                                         {{ form_widget(form.code) }}
-                                        <span class="form-text text-muted">Renseignez un code significatif pour vous.</span>
+                                        <span class="form-text text-muted">Renseignez un code de 4 caractères au plus.</span>
                                     </div>
                                     <div class="col-8">
                                         {{ form_label(form.libelle) }}
@@ -222,7 +222,7 @@ $("form").submit(function(e){
         e.preventDefault();
          let ta =  $("input[name*='[code]']").val();
        if(ta.length < 4 || ta.length > 4){
-            Swal.fire('Le code doit être avoir nécessairement 4 caractères au plus', "Cliquez ici", "error");
+            Swal.fire('Le code doit avoir nécessairement 4 caractères au plus', "Cliquez ici", "error");
             $("#soum").removeClass("spinner spinner-white spinner-right");
             return false;
         }
