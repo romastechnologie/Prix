@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Database\NativeQueryMySQL;
 use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,7 +52,7 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}/edit/edition', name: 'app_utilisateur_inscription_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
+    public function edit(Request $request,NativeQueryMySQL $native, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, $id=null): Response
     {
         $form = $this->createForm(RegistrationFormType::class, $utilisateur);
         $form->remove("agreeTerms");
@@ -60,6 +62,15 @@ class UtilisateurController extends AbstractController
             $utilisateurRepository->save($utilisateur, true);
 
             return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+        }else{
+            $per = $native->getConnection()->query("SELECT u.username FROM utilisateur u WHERE u.id = $id")->fetchOne();
+            $form->remove("username")->add('username',TextType::class,[
+                "attr"=>[
+                    'placeholder'=>"Pseudo",
+                    "value"=> $per,
+                    'class'=>'form-control'
+                ]
+            ]);
         }
 
         return $this->renderForm('utilisateur/edit.html.twig', [

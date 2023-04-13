@@ -21,3 +21,12 @@
                 </div>
         </div>
         {% endblock %}
+        {% block javascripts %}
+        {{ parent() }}
+        <script>
+            {% if msg is defined %}
+                Swal.fire("{{ msg }}", "Cliquez ici", "error");
+            {% endif %}
+        </script>
+        {% endblock %}
+

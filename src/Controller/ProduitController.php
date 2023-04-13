@@ -772,9 +772,11 @@ class ProduitController extends AbstractController
     {
         $cond = $condRep->findBy(["produit"=>$produit]);
         if($cond){
-            return $this->redirectToRoute('produi_liste', [
-                "msg"=>"Impossible de supprimer l'élément"
-            ], Response::HTTP_SEE_OTHER);
+            $error = true;
+            $this->addFlash(
+                'notice',
+                "Impossible de supprimer ce produit"
+            );
         }else{
             $produitRepository->remove($produit, true);
         }

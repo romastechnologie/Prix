@@ -43,6 +43,11 @@
             </div>
         </div>
         <div class="card-body">
+        {% for notice in app.flashes('notice') %}
+            <div class="alert text-center" style="background-color: #B5DED5;" role="alert">
+                <span style="font-size: 20px; ">{{ notice }}</span>
+            </div>
+        {% endfor %}
             <!--begin: Datatable-->
             <table class="table table-separate table-head-custom table-checkable dataTable no-footer dtr-inline collapsed" id="test" style="width: 100%;">
                 <thead>
@@ -270,6 +275,9 @@
 {{ parent() }}
 
 <script>
+$(".alert").delay(4000).slideUp(200, function() {
+    $(this).alert('close');
+});
     {% if msg is defined %}
         Swal.fire("{{ msg }}", "Cliquez ici", "error");
     {% endif %}

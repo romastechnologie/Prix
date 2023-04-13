@@ -18,12 +18,11 @@
 	<div class="card-body">
             {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
             <div class="card-footer">
-            <button type="submit" class="btn btn-secondary"   title="Modification de l'utilisateur">
+            <button type="submit" class="btn btn-primary"   title="Modification de l'utilisateur">
                 <i class="ki ki-reload icon-nm"></i>Modifier
             </button>
-            <a type="button" href="{{ path('app_utilisateur_index') }}" class="btn btn-warning">Annuler</a>
+            <a type="button" href="{{ path('app_utilisateur_index') }}" class="btn btn-warning">Retour</a>
             </div>
-
 	</div>
 </div>
         {{ form_end(form) }}
