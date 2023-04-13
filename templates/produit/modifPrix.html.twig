@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
-{% block pageActive %} Produit {% endblock %}
+{% block pageActive %} Modif prix {% endblock %}
 
-{% block title %}ROMAS Produit{% endblock %}
+{% block title %}Produit | GestPrix {% endblock %}
 
 {% block content %}
     <div class="card card-custom">
         <div class="card-header">
             <h3 class="card-title">
-                Un nouveau produit
+                Modidification des prix du produit {{ produit.designation }}
             </h3>
             <div class="card-toolbar">
                 <div class="example-tools justify-content-center">
@@ -19,37 +19,6 @@
         <!--begin::Form-->
         {{ form_start(form) }}
             <div class="card-body">
-                <div class="form-group mb-0">
-                    <div class="row">
-                        <div class="col-4">
-                            {# {{ form_label(form.aTaxe) }} #}
-                            <label for="produit_aTaxe" required="required">
-                            Est Taxable
-                                {{ form_widget(form.aTaxe) }}
-                            </label>
-                            {# <span class="form-text text-muted">Renseignez un code significatif pour vous.</span> #}
-                        </div>
-                    </div>
-                    <div class="row">
-                        
-                        <div class="col-3">
-                            {{ form_label(form.sousCategorie) }}
-                            {{ form_widget(form.sousCategorie) }}
-                        </div>
-                    <div class="col-3">
-                            {{ form_label(form.designation) }}
-                            {{ form_widget(form.designation) }}
-                        </div>
-                        <div class="col-3">
-                            {{ form_label(form.mode) }}
-                            {{ form_widget(form.mode) }}
-                        </div>
-                        <div class="col-3">
-                            {{ form_label(form.refUsine) }}
-                            {{ form_widget(form.refUsine) }}
-                        </div>
-                    </div>
-                </div>
                     <div class="card-body p-0">
                         <div class="form-group mb-0">
                             <div class="conditionners"
@@ -68,7 +37,7 @@
 
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
-                <a type="button" href="{{ path('produi_liste') }}" class="btn btn-secondary">Annuler</a>
+                <button type="reset" class="btn btn-secondary">Annuler</button>
             </div>
         {{ form_end(form, {render_rest:false}) }}
         <!--end::Form-->

@@ -83,16 +83,12 @@ class CategorieController extends AbstractController
                 $mes = "Catégorie existante";
             }
         }
-        
-        
         return new JsonResponse($msg);
-
     }
 
     #[Route('/categorie/new/ajax/new', name: 'new_categ_ajax')]
     public function newParAjax(Request $request, CategorieRepository $catR)
     {
-        //dump($request);
         $cate = new Categorie();
         $em = $this->getDoctrine()->getManager();
         if ($request->isMethod("POST")) {

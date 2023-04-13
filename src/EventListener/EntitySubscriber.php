@@ -73,11 +73,9 @@ class EntitySubscriber implements EventSubscriberInterface
             // $nomTab = explode(" ",trim( $nom));
             // $cpt = 1;
             // foreach($nomTab as $t){
-            //    // dump("dedans");
             //     preg_match_all('/[0-9]+/',$t, $res);
             //     preg_match_all('/[0-9]+/',$codeProd, $res1);
             //     if($res[0] != []){
-            //         // dump($res[0],"Rentrer");
             //         $codeProd .= strtoupper(trim($t));
             //         break;
             //     }else{

@@ -21,7 +21,8 @@ class CategorieType extends AbstractType
                 'label_html' => true,
                 'label'=>'Code <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
-                    'class'=>'form-control'
+                    'class'=>'form-control',
+                    'maxlength'=>"4"
                 ]
             
             ])

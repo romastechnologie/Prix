@@ -54,7 +54,6 @@ class PrincipalController extends AbstractController
                  $this->getParameter('import_dir') ,
                  $nomFi
              );
-             dump($nomFi);
              set_time_limit(0);
              $fichier = $this->getParameter('import_dir').'/'.$nomFi;
              $handle = fopen($fichier,"r");
@@ -68,7 +67,6 @@ class PrincipalController extends AbstractController
                     if(!$categorie){
                         $categorie = new Categorie();
                         $categorie->setCode($codeCate)->setLibelle($libelCat);
-                        dump($categorie);
                         $categorieRepository->save($categorie,true);
                     }
                  }
@@ -99,7 +97,6 @@ class PrincipalController extends AbstractController
                  }
 
                  if($type == "Produit"){
-                    //dump("Produit");
                     $codeCond = $row[2];
                     $conditionnement = $conditionnementRepository->findOneBy(["code"=>$codeCond]);
                     $designation = $row[1];

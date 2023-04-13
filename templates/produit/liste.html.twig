@@ -74,7 +74,8 @@
                             </button>
                             <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item clicmore" data-toggle="modal" data-id="{{ pr.id }}" data-target="#exampleModalScrollable" href="{{ path('produit_edit_view',{ id : pr.id }) }}">Informations</a>
-                                <a class="dropdown-item" href="{{ path('produit_edit_view',{'id': pr.id}) }}">Modifier</a>
+                                <a class="dropdown-item" href="{{ path('produit_edit_view',{'id': pr.id}) }}">Modifier produit</a>
+                                <a class="dropdown-item" href="{{ path('produit_edit_prix_view',{'id': pr.id}) }}">Modifier Prix</a>
                                 <a class="dropdown-item btn btn-danger" href="{{ path('gp_produit_delete',{'id': pr.id } ) }}">Supprimer</a>
                             </div>
                         </div>

@@ -25,6 +25,7 @@ class SousCategorieType extends AbstractType
                 'label'=>'Code <span style="color: red;"><strong>*</strong></span>',
                 'required'=>false,
                 'attr'=>[
+                    'maxlength'=>"4",
                     'class'=>'form-control'
                 ]
             ])

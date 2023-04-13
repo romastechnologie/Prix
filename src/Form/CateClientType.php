@@ -21,7 +21,9 @@ class CateClientType extends AbstractType
             'label_html' => true,
             'label'=>'Code <span style="color: red;"><strong>*</strong></span>',
             'attr'=>[
-                'class'=>'form-control']
+                'class'=>'form-control',
+                'maxlength'=>"4"
+                ]
             ])
         ->add('libelle', TextType::class,[
             'label_html' => true,

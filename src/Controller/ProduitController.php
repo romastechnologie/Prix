@@ -49,7 +49,6 @@ class ProduitController extends AbstractController
 
             $client = $clientRepository->find($idCli);
             $idCateg = (int) $client->getCateClient()->getId();
-            //dump($produit,$idCateg);
             /*Requete*/
             $sql = "SELECT cc.prix_min as prixMin, cc.prix_max as prixMax, cc.prix_vente as prixVente, co.libelle as conditionnement, c.prix_achat as prixAchat , c.prix_revient as prixRevient  FROM `conditionner_cate_client` cc INNER JOIN conditionner c ON c.id = cc.conditionner_id INNER JOIN produit p ON p.id = c.produit_id INNER JOIN categ_client cat ON cat.id = cc.cate_client_id INNER JOIN conditionnement co ON co.id = c.conditionnement_id WHERE cat.id =  $idCateg  AND p.id = $produit";
            
@@ -83,12 +82,10 @@ class ProduitController extends AbstractController
         if($request->isMethod('POST')){
            
            $pro = $request->request->get("produit");
-           $produit = $prR->find((int)$pro);
            $sql = "SELECT co.libelle as conditionnement, c.prix_min as prixMin, c.prix_max as prixMax, c.prix_achat as prixAchat , c.prix_revient as prixRevient, c.prix_vente as prixVente  FROM conditionner c INNER JOIN produit p ON p.id = c.produit_id INNER JOIN conditionnement co ON co.id = c.conditionnement_id WHERE p.id = $pro";
            
            /*Exécution Requete*/
            $results = $native->getConnection()->query($sql)->fetchAllAssociative();
-            dump($request,$results);
 
             //$conds = $results->getConditionners();
             $res1 = null;
@@ -654,6 +651,100 @@ class ProduitController extends AbstractController
         }
         
         return $this->renderForm('produit/index.html.twig', [
+            'produit' => $produit,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/edit/{id}-/prix', name: 'produit_edit_prix_view', methods: ['GET', 'POST'])]
+    public function modifPrix(Request $request, Produit $produit, ProduitRepository $produitRepository){
+        $form = $this->createForm(ProduitType::class, $produit);
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted()) {
+            $conditionners = $form->get("conditionners")->getData();
+            $msg = "";
+            $sousCat = $produit->getSousCategorie();
+            $designation = $produit->getDesignation();
+            $id = $produit->getId();
+            $prod = $produitRepository->checkProduit($id, $designation, $sousCat);
+
+            $conds = array();
+            foreach($conditionners as $c){
+                if(in_array($c->getConditionnement()->getLibelle(), $conds)){
+                    $msg = "Le conditionnement ".$c->getConditionnement()->getLibelle()." ne peut pas être utilisé deux fois pour ce produit"; 
+                    return $this->renderForm('produit/index.html.twig', [
+                        'produit' => $produit,
+                        'form' => $form,
+                        'msg' => $msg,
+                    ]);
+                }else{
+                    $conds[] = $c->getConditionnement()->getLibelle();
+                }
+            }
+            
+
+            
+            if($prod){
+                $msg = "Ce produit semble déjà existé sur un autre enregistrement. Veuillez revoir votre enregistrement"; 
+                return $this->renderForm('produit/index.html.twig', [
+                    'produit' => $produit,
+                    'form' => $form,
+                    'msg' => $msg,
+                ]);
+            }
+            foreach($conditionners as $c){
+                if($c->getPrixMin() || $c->getPrixMax()){
+                    if((float)$c->getPrixMin() > (float)$c->getPrixMax()){
+                        $msg = "Le prix minimal ne peut pas être supérieur au prix maximal pour les conditionnement"; 
+                        return $this->renderForm('produit/index.html.twig', [
+                            'produit' => $produit,
+                            'form' => $form,
+                            'msg' => $msg,
+                        ]);
+                    }
+                    
+                    if((float)$c->getPrixMin() <= (float)$c->getPrixMax()){
+                        $cats = $c->getConditionnerCateClients();
+                        foreach($cats as $co){
+                            if((float)$co->getPrixMin() > (float)$co->getPrixMax()){
+                                $msg = "Le prix minimal ne peut pas être supérieur au prix maximal pour les prix par catégorie de client"; 
+                                return $this->renderForm('produit/index.html.twig', [
+                                    'produit' => $produit,
+                                    'form' => $form,
+                                    'msg' => $msg,
+                                ]);
+                            }
+    
+                            if((float)$co->getPrixVente() < (float)$c->getPrixMin() || (float)$co->getPrixVente() > (float)$c->getPrixMax()){
+                                $msg = "Le prix de vente pour la catégorie du client *".$co->getCateClient()->getLibelle()."* doit être compris entre le prix minimal et le prix maximal du conditionnement"; 
+                                return $this->renderForm('produit/index.html.twig', [
+                                    'produit' => $produit,
+                                    'form' => $form,
+                                    'msg' => $msg,
+                                ]);
+                            }
+    
+                        }
+                    }
+                    if($c->getPrixMax()){
+                        if((float)$c->getPrixVente() > (float)$c->getPrixMax() || (float)$c->getPrixVente() < (float)$c->getPrixMin()){
+                            $msg = "Le prix de vente doit être compris entre le prix min et le prix max. Veuillez revoir le conditionnement ".$c->getConditionnement();
+                            return $this->renderForm('produit/index.html.twig', [
+                                'produit' => $produit,
+                                'form' => $form,
+                                'msg' => $msg,
+                            ]);
+                        }
+                    }
+                }
+            }
+            $produitRepository->update($produit, true);
+            return $this->redirectToRoute("produi_liste");
+        }
+        
+        return $this->renderForm('produit/modifPrix.html.twig', [
             'produit' => $produit,
             'form' => $form,
         ]);
