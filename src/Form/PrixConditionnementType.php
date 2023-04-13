@@ -132,17 +132,14 @@ class PrixConditionnementType extends AbstractType
                     'placeholder'=>'Selectionner un conditionnement',
                     'class'=>Conditionnement::class,
                     'choice_attr' => function(Conditionnement $cond){
-                        return [
-                            
-                            'data-qte' => $cond->getQte(),
-                        ];
+                        return [ 'data-qte' => $cond->getQte(), ];
                     },
                     'label'=>'Conditionnement  <span style="color: red;"><strong>*</strong></span>',
                     'attr'=>[
                         'class'=>' form-control',
-                        "disabled"=>true,
                         'data-live-search'=>true,
-                        'data-select2-id'=>'kt_select2_1'
+                        'data-select2-id'=>'kt_select2_1',
+                        "readonly"=>true,
                     ]
                     ])
                     ->add('qteProduit',NumberType::class,[
@@ -151,7 +148,7 @@ class PrixConditionnementType extends AbstractType
                         'label'=>'Quantité du produit <span style="color: red;"><strong>*</strong></span>',
                         'attr'=>[
                             'data-verif'=>"nonOk",
-                            "disabled"=>true,
+                            "readonly"=>true,
                             'class'=>'form-control tape'
                         ]
                     ]);
