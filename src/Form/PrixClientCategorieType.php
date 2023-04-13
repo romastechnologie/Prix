@@ -56,6 +56,7 @@ class PrixClientCategorieType extends AbstractType
             'placeholder'=>'Selectionner une sous catégorie',
             'label'=>'Catégorie de Client <span style="color: red;"><strong>*</strong></span>',
             'attr'=>[
+                //"disabled"=>true,
                 'class'=>'form-control',
                 'data-live-search'=>true
             ]

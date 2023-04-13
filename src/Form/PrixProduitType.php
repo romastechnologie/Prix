@@ -21,7 +21,7 @@ class PrixProduitType extends AbstractType
             'required'=>true,
             'label'=>'Désignation <span style="color: red;"><strong>*</strong></span>',
             'attr'=>[
-                'disabled'=>true,
+                'readonly'=>true,
                 'class'=>'form-control'
             ]
         ])
@@ -30,7 +30,7 @@ class PrixProduitType extends AbstractType
             'mapped'=>true,
             'label'=>'Ref Usine ',
             'attr'=>[
-                'disabled'=>true,
+                'readonly'=>true,
                 'class'=>'form-control'
             ]
         

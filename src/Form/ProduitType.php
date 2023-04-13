@@ -74,13 +74,13 @@ class ProduitType extends AbstractType
                 'prototype_name'=> '_name_'
             ])
             
-            ->add('aTaxe', CheckboxType::class,[
-                'label'=>'Est Taxable ',
-                'required'=>false,
-                'attr'=>[
-                    'class'=>'checkbox'
-                ]
-            ])
+            // ->add('aTaxe', CheckboxType::class,[
+            //     'label'=>'Est Taxable ',
+            //     'required'=>false,
+            //     'attr'=>[
+            //         'class'=>'checkbox'
+            //     ]
+            // ])
             ->add('sousCategorie', EntityType::class, [
                 'class'=> SousCategorie::class,
                 'required'=>true,

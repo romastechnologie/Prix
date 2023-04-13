@@ -21,16 +21,6 @@
             <div class="card-body">
                 <div class="form-group mb-0">
                     <div class="row">
-                        <div class="col-4">
-                            {# {{ form_label(form.aTaxe) }} #}
-                            <label for="produit_aTaxe" required="required">
-                            Est Taxable
-                                {{ form_widget(form.aTaxe) }}
-                            </label>
-                            {# <span class="form-text text-muted">Renseignez un code significatif pour vous.</span> #}
-                        </div>
-                    </div>
-                    <div class="row">
                         
                         <div class="col-3">
                             {{ form_label(form.sousCategorie) }}
@@ -67,8 +57,8 @@
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
-                <a type="button" href="{{ path('produi_liste') }}" class="btn btn-secondary">Annuler</a>
+                <button type="submit" id="enregistre" class="btn btn-primary mr-2">Enregistrer</button>
+                <a type="button" href="{{ path('produi_liste') }}" class="btn btn-secondary">Retour</a>
             </div>
         {{ form_end(form, {render_rest:false}) }}
         <!--end::Form-->
@@ -113,6 +103,29 @@
 {% block javascripts %}
 {{ parent() }}
     <script>
+        $("select[name*='[conditionners]']").each(function( index, element ) {
+            let sonPar = $(element).parent();
+            $(element).attr("disabled","disabled");
+        });
+         $('#enregistre').click(function(e){
+            $form = $("form");
+            e.preventDefault();
+                let sous = $("select[name*='[sousCategorie]']").val();
+                let mode = $("select[name*='[mode]']").val();
+                if(sous == ''){
+                    Swal.fire("Selectionner une categorie", "Cliquez ici", "error");
+                    return false;
+                }
+                if(mode == ''){
+                    Swal.fire("Selectionner un mode", "Cliquez ici", "error");
+                    return false;
+                }
+                $("select[name*='[conditionners]']").each(function( index, element ) {
+                    $(element).removeAttr("disabled");
+                });
+                $form.unbind().submit();
+        });
+
         $("select[name*='[conditionnement]']").change(function(){
             let option = $(this).find('option:selected');
             let qteCond = String($(option).attr("data-qte")); 
