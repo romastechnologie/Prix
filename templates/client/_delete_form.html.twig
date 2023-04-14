@@ -1,5 +1,5 @@
 
-<form method="post" class="btn-bg-danger" action="{{ path('app_client_delete', {'id': client.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" style="background: #f64e60;"  action="{{ path('app_client_delete', {'id': client.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
-    <button class="btn btn-danger">Delete</button>
+    <button class="btn btn-danger">Supprimer</button>
 </form>
