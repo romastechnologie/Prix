@@ -180,6 +180,7 @@
 
 recharge();
 function supprimer(id){
+    vidage();
         Swal.fire({
             title: "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
             text: "Cette action est irréversible" ,
@@ -197,6 +198,7 @@ function supprimer(id){
                     dataType: "json"
                 })
                 .done(function( data ){
+                    vidage();
                     if(data[0] == "Succes"){
                         recharge();
                         Swal.fire(
