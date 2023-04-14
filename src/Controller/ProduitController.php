@@ -564,7 +564,6 @@ class ProduitController extends AbstractController
     #[Route('/edit/{id}--', name: 'produit_edit_view', methods: ['GET', 'POST'])]
     public function edition(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
     {
-       // $produit
         $form = $this->createForm(ProduitType::class, $produit);
 
         $form->handleRequest($request);
@@ -650,7 +649,6 @@ class ProduitController extends AbstractController
             $produitRepository->update($produit, true);
             return $this->redirectToRoute("produi_liste");
         }
-        
         return $this->renderForm('produit/index.html.twig', [
             'produit' => $produit,
             'form' => $form,

@@ -7,7 +7,7 @@
     <div class="card card-custom">
         <div class="card-header">
             <h3 class="card-title">
-                Un nouveau produit
+                {{ produit.id is defined ? "Modification de produit" : "Un nouveau produit" }}
             </h3>
             <div class="card-toolbar">
                 <div class="example-tools justify-content-center">
