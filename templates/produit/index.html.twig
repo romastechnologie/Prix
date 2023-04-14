@@ -104,8 +104,9 @@
 {{ parent() }}
     <script>
         $(".supprimer").each(function( index, element ) {
-                $(element).remove();
-            });
+            console.log(element);
+            $(element).remove();
+        });
         $("select[name*='[conditionners]']").each(function( index, element ) {
             let sonPar = $(element).parent();
             $(element).attr("disabled","disabled");
@@ -134,7 +135,6 @@
                 $("select[name*='[conditionners]']").each(function( index, element ) {
                    // $(element).val();
                    error = true;
-                   break;
                 });
                  if(error){
                         Swal.fire("Selectionner tous les élements", "Cliquez ici", "error");

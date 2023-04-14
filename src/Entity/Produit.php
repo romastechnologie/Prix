@@ -63,6 +63,7 @@ class Produit
     {
         $this->conditionners = new ArrayCollection();
         $this->media = new ArrayCollection();
+        $this->aTaxe = 0;
     }
 
     public function getId(): ?int
