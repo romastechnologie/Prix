@@ -41,7 +41,7 @@ class ClientController extends AbstractController
                 $tel= $client->getTelephone1();
                 $id = $client->getId();
                 
-                $check = $clientRepository->checkPersonnePhysique($id ,$nom,$prenom,$date, $tel);
+                $check = $clientRepository->checkPersonnePhysique($id ,$nom,$prenom,$tel);
                 //dd($id,$check);
                 if($check){
                     $msg = "Ce client semble déjà existé. Veuillez revoir votre enregistrement"; 

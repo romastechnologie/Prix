@@ -39,16 +39,12 @@ class ClientRepository extends ServiceEntityRepository
         }
     }
 
-    public function checkPersonnePhysique($id, $nom,$prenom,$date, $tel){
+    public function checkPersonnePhysique($id, $nom,$prenom, $tel){
         $result = $this->createQueryBuilder('c')
             ->andWhere('c.nom = :nom')
             ->setParameter("nom",$nom)
             ->andWhere('c.prenom = :prenom')
             ->setParameter("prenom",$prenom);
-            if($date != null){
-                $result = $result->andWhere('c.dateNais = :date')
-            ->setParameter("date",$date->format("Y-m-d 00:00:00"));
-        }
         $result = $result->andWhere('c.telephone1 = :tel')
             ->setParameter("tel",$tel);
             if($id != null){
