@@ -38,43 +38,42 @@ class PrixConditionnementType extends AbstractType
                     'data-select2-id'=>'kt_select2_1'
                 ]
             ])
-            ->add('prixMin',NumberType::class,[
+            ->add('prixMin',TextType::class,[
                 'label_html' => true,
                 'required'=>false,
                 'label'=>'Prix Min ',
                 'attr'=>[
-                    
                     'data-verif'=>"nonOk",
-                    'class'=>'form-control tape'
+                    'class'=>'form-control tape format'
                 ]
             ])
-            ->add('prixVente',NumberType::class,[
+            ->add('prixVente',TextType::class,[
                 'label_html' => true,
                 'required'=>true,
                 'label'=>'Prix de Vente <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
                     
                     'data-verif'=>"nonOk",
-                    'class'=>'form-control tape'
+                    'class'=>'form-control tape format'
                 ]
             ])
-            ->add('qteProduit',NumberType::class,[
+            ->add('qteProduit',TextType::class,[
                 'label_html' => true,
                 'required'=>true,
                 'label'=>'Quantité du produit <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
                     'data-verif'=>"nonOk",
-                    'class'=>'form-control tape'
+                    'class'=>'form-control tape format'
                 ]
             ])
-            ->add('prixMax', NumberType::class,[
+            ->add('prixMax', TextType::class,[
                 'label_html' => true,
                 'required'=>false,
                 'label'=>'Prix Max ',
                 'attr'=>[
                     
                     'data-verif'=>"nonOk",
-                    'class'=>'form-control tape'
+                    'class'=>'form-control tape format'
                 ]
             
             ])
@@ -93,26 +92,26 @@ class PrixConditionnementType extends AbstractType
                 'label'=>'Prix Concurentiel ',
                 'attr'=>[
                     'data-verif'=>"nonOk",
-                    'class'=>'form-control tape'
+                    'class'=>'form-control tape format'
                 ]
             
             ])
-            ->add('prixAchat',NumberType::class,[
+            ->add('prixAchat',TextType::class,[
                 'label_html' => true,
                 'required'=>false,
                 'label'=>"Prix d'achat",
                 'attr'=>[
                     'data-verif'=>"nonOk",
-                    'class'=>'form-control tape'
+                    'class'=>'form-control tape format'
                 ]
             ])
-            ->add('prixRevient', NumberType::class,[
+            ->add('prixRevient', TextType::class,[
                 'label_html' => true,
                 'required'=>false,
                 'label'=>"Prix de revient",
                 'attr'=>[
                     'data-verif'=>"nonOk",
-                    'class'=>'form-control tape'
+                    'class'=>'form-control tape format'
                 ]
             
             ])
@@ -142,7 +141,7 @@ class PrixConditionnementType extends AbstractType
                         "readonly"=>true,
                     ]
                     ])
-                    ->add('qteProduit',NumberType::class,[
+                    ->add('qteProduit',TextType::class,[
                         'label_html' => true,
                         'required'=>true,
                         'label'=>'Quantité du produit <span style="color: red;"><strong>*</strong></span>',

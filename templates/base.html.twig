@@ -1039,11 +1039,34 @@
  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
  <script type="text/javascript" src="{{ asset('dataTables/DataTables/js/dataTables.bootstrap5.min.js') }}"></script>
 {# <script src="{{ asset('admin/theme/html/demo1/dist/assets/plugins/custom/datatables/datatables.bundlef552.js?v=7.1.8') }}"></script> #}
+{# <script type="text/javascript" src="{{ asset('assets/js/divider.js') }}"></script> #}
+
 <!--end::Page Vendors-->
     <script type="text/javascript" src="{{ asset('admin/theme/html/demo1/dist/assets/js/pages/features/miscellaneous/sweetalert2f552.js?v=7.1.8') }}"></script>
 <!--begin::Page Scripts(Pagination)-->
     <script>
+        $(".format").keyup(function(){
+            this.value = this.value.replace(/[^0-9\.]/g,'');
+            let va = parseFloat($(this).val());
+            if(va == 0 || isNaN(va) ){
+            $(this).val(""); 
+            }else{
+                $(this).val(new Intl.NumberFormat('fr-FR').format(va))
+            }
+        });
+    
+            {# $(".format").keyup(function(){
+                console.log("OK");
+                this.value = this.value.replace(/[^0-9\.]/g,'');
+                let va = parseFloat($(this).val());
+                if(va == 0 || isNaN(va) ){
+                $(this).val(""); 
+                }else{
+                    $(this).val(new Intl.NumberFormat().format(va))
+                }
+            }); #}
         $(document).ready(function() {
+           
             $('.test').DataTable( {
                 language: {
 

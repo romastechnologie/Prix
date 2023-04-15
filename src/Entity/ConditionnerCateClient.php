@@ -87,7 +87,6 @@ class ConditionnerCateClient
             $this->prixes->add($prix);
             $prix->setConditionnerClient($this);
         }
-
         return $this;
     }
 
@@ -105,36 +104,36 @@ class ConditionnerCateClient
 
     public function getPrixMin(): ?string
     {
-        return $this->prixMin;
+        return $this->prixMin == 0 ? NULL : $this->prixMin ;
     }
 
     public function setPrixMin(?string $prixMin): self
     {
-        $this->prixMin = $prixMin;
+        $this->prixMin = str_replace(" ","",$prixMin);
 
         return $this;
     }
 
     public function getPrixMax(): ?string
     {
-        return $this->prixMax;
+        return $this->prixMax == 0 ? NULL : $this->prixMax;
     }
 
     public function setPrixMax(?string $prixMax): self
     {
-        $this->prixMax = $prixMax;
+        $this->prixMax = str_replace(" ","",$prixMax);
 
         return $this;
     }
 
     public function getPrixVente(): ?string
     {
-        return $this->prixVente == NULL ? 0 : $this->prixVente;
+        return $this->prixVente == 0 ? NULL : $this->prixVente;
     }
 
     public function setPrixVente(?string $prixVente): self
     {
-        $this->prixVente = $prixVente;
+        $this->prixVente = str_replace(" ","",$prixVente);
 
         return $this;
     }

@@ -103,6 +103,15 @@
 {% block javascripts %}
 {{ parent() }}
     <script>
+        $(".format").each(function(i,el){
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+        let va = parseFloat($(el).val());
+        if(va == 0 || isNaN(va) ){
+        $(el).val(""); 
+        }else{
+            $(el).val(new Intl.NumberFormat('fr-FR').format(va))
+        }
+    });
         $(".supprimer").each(function( index, element ) {
             console.log(element);
             $(element).remove();
@@ -173,7 +182,6 @@
             $(this).addClass("active");
             $(contenu).addClass(" show active");
         });
-
     </script>
 
     <script>
@@ -213,9 +221,19 @@
                 }
             }
         }
-        $('.tape').keyup(function () {     
+            
+        {# $('.tape').keyup(function () {     
             this.value = this.value.replace(/[^0-9\.]/g,'');
-        });
+        }); #}
+      //  $(".format").divider({
+          
+            // current delimiter
+     //       delimiter:' ',
+                    
+            // 1000 or 1,000
+       //     divideThousand:true
+            
+      //      });
 
 
         function addFormCollection(e, parentHolder = null) {
@@ -248,9 +266,18 @@
                                 $(input[0]).val(qteCond);
                             });
             }
-            jQuery('.tape').keyup(function () {     
+            $(".format").keyup(function(){
                 this.value = this.value.replace(/[^0-9\.]/g,'');
+                let va = parseFloat($(this).val());
+                if(va == 0 || isNaN(va) ){
+                $(this).val(""); 
+                }else{
+                    $(this).val(new Intl.NumberFormat('fr-FR').format(va))
+                }
             });
+            // jQuery('.tape').keyup(function () {     
+             //   this.value = this.value.replace(/[^0-9\.]/g,'');
+            //});
 
             addTagFormDeleteLink(item);
             index++;

@@ -33,3 +33,24 @@
                 let InpMin = $(blocSu).find("input[name*='[prixMin]']").val() != "" ? $(blocSuiv).find("input[name*='[prixMin]']").val() : 0 ;
                 //console.log(InpVente,InpMin,InpMax);
             });
+
+
+
+             $(".format").each(function(i, el){
+                let va = parseFloat($(el).val());
+                if(va == 0 || isNaN(va) ){
+                $(el).val(" "); 
+                }else{
+                    $(el).val(new Intl.NumberFormat().format(va))
+                }
+            });
+                $(".format").keyup(function(){
+                    console.log("OK");
+                    this.value = this.value.replace(/[^0-9\.]/g,'');
+                    let va = parseFloat($(this).val());
+                    if(va == 0 || isNaN(va) ){
+                    $(this).val(""); 
+                    }else{
+                        $(this).val(new Intl.NumberFormat().format(va))
+                    }
+                });

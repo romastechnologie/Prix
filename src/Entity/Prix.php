@@ -72,12 +72,12 @@ class Prix
 
     public function getPrixMin(): ?string
     {
-        return $this->prixMin;
+        return str_replace(" ","",$this->prixMin);
     }
 
     public function setPrixMin(string $prixMin): self
     {
-        $this->prixMin = $prixMin;
+        $this->prixMin = str_replace(" ","",$prixMin);
 
         return $this;
     }
@@ -89,7 +89,7 @@ class Prix
 
     public function setPrixMax(string $prixMax): self
     {
-        $this->prixMax = $prixMax;
+        $this->prixMax = str_replace(" ","",$prixMax);
 
         return $this;
     }
@@ -149,7 +149,7 @@ class Prix
 
     public function setPrixConcurentiel(?string $prixConcurentiel): self
     {
-        $this->prixConcurentiel = $prixConcurentiel;
+        $this->prixConcurentiel = str_replace(" ","",$prixConcurentiel);
 
         return $this;
     }
@@ -185,7 +185,7 @@ class Prix
 
     public function setPrixAchat(?string $prixAchat): self
     {
-        $this->prixAchat = $prixAchat;
+        $this->prixAchat = str_replace(" ","",$prixAchat);
 
         return $this;
     }
@@ -197,7 +197,7 @@ class Prix
 
     public function setPrixRevient(?string $prixRevient): self
     {
-        $this->prixRevient = $prixRevient;
+        $this->prixRevient = str_replace(" ","",$prixRevient);
 
         return $this;
     }
@@ -221,7 +221,7 @@ class Prix
 
     public function setPrixVente(?string $prixVente): self
     {
-        $this->prixVente = $prixVente;
+        $this->prixVente = str_replace(" ","",$prixVente);
 
         return $this;
     }

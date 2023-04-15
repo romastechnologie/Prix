@@ -92,6 +92,15 @@
 {% block javascripts %}
 {{ parent() }}
     <script>
+    $(".format").each(function(i,el){
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+        let va = parseFloat($(el).val());
+        if(va == 0 || isNaN(va) ){
+        $(el).val(""); 
+        }else{
+            $(el).val(new Intl.NumberFormat('fr-FR').format(va))
+        }
+    });
     $(".supprimer").each(function( index, element ) {
                 $(element).remove();
             });
@@ -181,9 +190,6 @@
                 }
             }
         }
-        $('.tape').keyup(function () {     
-            this.value = this.value.replace(/[^0-9\.]/g,'');
-        });
 
 
         function addFormCollection(e, parentHolder = null) {
@@ -216,8 +222,14 @@
                                 $(input[0]).val(qteCond);
                             });
             }
-            jQuery('.tape').keyup(function () {     
+            $(".format").keyup(function(){
                 this.value = this.value.replace(/[^0-9\.]/g,'');
+                let va = parseFloat($(this).val());
+                if(va == 0 || isNaN(va) ){
+                $(this).val(""); 
+                }else{
+                    $(this).val(new Intl.NumberFormat('fr-FR').format(va))
+                }
             });
 
             addTagFormDeleteLink(item);

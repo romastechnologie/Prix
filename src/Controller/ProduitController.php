@@ -112,6 +112,9 @@ class ProduitController extends AbstractController
         ]);
     }
 
+
+
+
     #[Route('/produit/recherche/info/recuperation/par/categorie', name: 'produit_recherche_recup_don_cate')]
     public function resultaRecherche2(Request $request,NativeQueryMySQL $native){
         $form = $this->createForm(Recherche2Type::class);
@@ -424,7 +427,7 @@ class ProduitController extends AbstractController
                     "condClients"=>$condParClient
                 );
             }
-            
+            //$prix;
             $res1[] = array(
                 'id'=>$pr->getId(),
                 'code'=>$pr->getCode() ,
@@ -475,6 +478,7 @@ class ProduitController extends AbstractController
        
 
         if ($form->isSubmitted()) {
+            
             $conditionners = $form->get("conditionners")->getData();
             $sousCat = $form->get("sousCategorie")->getData();
             $designation = $form->get("designation")->getData();
@@ -560,15 +564,21 @@ class ProduitController extends AbstractController
             
         ]);
     }
+    #[Route('/un/deux/trois/quatre/cinq', name: 'produttt', methods: ['GET', 'POST'])]
+    public function edition22()
+    {
+        return new JsonResponse("OK");
+    }
 
-    #[Route('/edit/{id}--', name: 'produit_edit_view', methods: ['GET', 'POST'])]
-    public function edition(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
+    #[Route('/modification/{id}/prod', name: 'produit_modif', methods: ['GET', 'POST'])]
+    public function edition(Request $request, Produit $produit, ProduitRepository $produitRepository)
     {
         $form = $this->createForm(ProduitType::class, $produit);
-
+        
         $form->handleRequest($request);
         
         if ($form->isSubmitted()) {
+           // dd($form->get("conditionners")->getData());
             $conditionners = $form->get("conditionners")->getData();
             $msg = "";
             $sousCat = $produit->getSousCategorie();
@@ -576,8 +586,10 @@ class ProduitController extends AbstractController
             $id = $produit->getId();
             $prod = $produitRepository->checkProduit($id, $designation, $sousCat);
 
+            //dd($conditionners);
             $conds = array();
             foreach($conditionners as $c){
+               // dd($c->getPrixMin(),explode(" ",$c->getPrixMin()),implode("",explode(" ",$c->getPrixMin())), " ","", $c->getPrixMin()));
                 if(in_array($c->getConditionnement()->getLibelle(), $conds)){
                     $msg = "Le conditionnement ".$c->getConditionnement()->getLibelle()." ne peut pas être utilisé deux fois pour ce produit"; 
                     return $this->renderForm('produit/index.html.twig', [
@@ -589,9 +601,6 @@ class ProduitController extends AbstractController
                     $conds[] = $c->getConditionnement()->getLibelle();
                 }
             }
-            
-
-            
             if($prod){
                 $msg = "Ce produit semble déjà existé sur un autre enregistrement. Veuillez revoir votre enregistrement"; 
                 return $this->renderForm('produit/index.html.twig', [
@@ -611,7 +620,7 @@ class ProduitController extends AbstractController
                         ]);
                     }
                     
-                    if((float)$c->getPrixMin() <= (float)$c->getPrixMax()){
+                    if((float)$c->getPrixMin() <= (float)($c->getPrixMax())){
                         $cats = $c->getConditionnerCateClients();
                         foreach($cats as $co){
                             if((float)$co->getPrixMin() > (float)$co->getPrixMax()){
@@ -646,6 +655,7 @@ class ProduitController extends AbstractController
                     }
                 }
             }
+           // dd($produit);
             $produitRepository->update($produit, true);
             return $this->redirectToRoute("produi_liste");
         }
@@ -655,7 +665,8 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}-/prix/produit', name: 'produit_edit_prix_view_modifification', methods: ['GET', 'POST'])]
+
+    #[Route('/prix/mod/{id}-/prix/produit', name: 'produit_edit_prix_view_modifification', methods: ['GET', 'POST'])]
     public function modifPrix(Request $request, Produit $produit, ProduitRepository $produitRepository, ConditionnerRepository $condRepo ){
         $form = $this->createForm(PrixProduitType::class,$produit);
         $form->handleRequest($request);

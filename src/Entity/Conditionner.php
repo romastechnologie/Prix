@@ -155,7 +155,7 @@ class Conditionner
 
     public function setPrixMin(?string $prixMin): self
     {
-        $this->prixMin = $prixMin;
+        $this->prixMin = str_replace(" ","",$prixMin);
 
         return $this;
     }
@@ -167,7 +167,7 @@ class Conditionner
 
     public function setPrixMax(?string $prixMax): self
     {
-        $this->prixMax = $prixMax;
+        $this->prixMax = str_replace(" ","",$prixMax);
 
         return $this;
     }
@@ -179,7 +179,7 @@ class Conditionner
 
     public function setPrixConcurentiel(?string $prixConcurentiel): self
     {
-        $this->prixConcurentiel = $prixConcurentiel;
+        $this->prixConcurentiel = str_replace(" ","",$prixConcurentiel);
 
         return $this;
     }
@@ -191,7 +191,7 @@ class Conditionner
 
     public function setPrixAchat(?string $prixAchat): self
     {
-        $this->prixAchat = $prixAchat;
+        $this->prixAchat = str_replace(" ","",$prixAchat);
 
         return $this;
     }
@@ -203,7 +203,7 @@ class Conditionner
 
     public function setPrixRevient(?string $prixRevient): self
     {
-        $this->prixRevient = $prixRevient;
+        $this->prixRevient = str_replace(" ","",$prixRevient);
 
         return $this;
     }
@@ -220,7 +220,7 @@ class Conditionner
 
     public function setQteProduit(?string $qteProduit): self
     {
-        $this->qteProduit = $qteProduit;
+        $this->qteProduit = str_replace(" ","",$qteProduit);
 
         return $this;
     }
@@ -232,7 +232,7 @@ class Conditionner
 
     public function setPrixVente(?string $prixVente): self
     {
-        $this->prixVente = $prixVente;
+        $this->prixVente = str_replace(" ","",$prixVente);
 
         return $this;
     }

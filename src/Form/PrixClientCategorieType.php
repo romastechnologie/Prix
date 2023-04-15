@@ -19,32 +19,32 @@ class PrixClientCategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('prixMin',NumberType::class,[
+        ->add('prixMin',TextType::class,[
             'label_html' => true,
             'required'=>false,
             'label'=>'Prix Min',
             'attr'=>[
                 'data-verif'=>"nonOk",
-                'class'=>'form-control tape'
+                'class'=>'form-control tape format'
             ]
         ])
-        ->add('prixMax', NumberType::class,[
+        ->add('prixMax', TextType::class,[
             'label_html' => true,
             'required'=>false,
             'label'=>'Prix Max',
             'attr'=>[
                 'data-verif'=>"nonOk",
-                'class'=>'form-control tape'
+                'class'=>'form-control tape format'
             ]
         
         ])
-        ->add('prixVente', NumberType::class,[
+        ->add('prixVente', TextType::class,[
             'label_html' => true,
             'required'=>true,
             'label'=>'Prix de vente <span style="color: red;"><strong>*</strong></span>',
             'attr'=>[
                 'data-verif'=>"nonOk",
-                'class'=>'form-control tape'
+                'class'=>'form-control tape format'
             ]
         
         ])
