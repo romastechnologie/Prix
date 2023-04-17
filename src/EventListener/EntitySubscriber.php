@@ -151,8 +151,6 @@ class EntitySubscriber implements EventSubscriberInterface
                 $em->flush();
             
         }
-
-
         if($entity instanceof ConditionnerCateClient ){
             $prix = new Prix();
             //dd($entity);
@@ -207,38 +205,51 @@ class EntitySubscriber implements EventSubscriberInterface
 
         if($entity instanceof Conditionner ){
             $lastPrix = $this->prixRepository->lastPrixConditionnerForConditionment($entity);
-            $lastPrix->setDateFin(new DateTime())->setEstActif(0);
-            $em->persist($lastPrix);
-            $em->flush();
-            $prix = new Prix();
-                $prix
-                ->setEstActif(1)
-                ->setConditionner($entity)
-                ->setPrixVente($entity->getPrixVente())
-                ->setPrixMin($entity->getPrixMin()  == NULL ? 0 : $entity->getPrixMin())
-                ->setPrixMax($entity->getPrixMax()  == NULL ? 0 : $entity->getPrixMax())
-                ->setPrixConcurentiel($entity->getPrixConcurentiel() == NULL ? 0 : $entity->getPrixConcurentiel())
-                ->setPrixAchat($entity->getPrixAchat()== NULL ? 0 :$entity->getPrixAchat())
-                ->setPrixRevient($entity->getPrixRevient() == NULL ? 0 : $entity->getPrixRevient());
+            //dd($entity,$lastPrix);
+            //dd($lastPrix , $entity->getPrixMax() , $lastPrix->getPrixMax() , $entity->getPrixMin() , $lastPrix->getPriMin(), $entity->getPrixVente() , $lastPrix->getPrixVente() || $entity->getPrixConcurentiel() !=  $lastPrix->getPrixConcurentiel() || $entity->getPrixRevient() !=  $lastPrix->getPrixRevient());
+            
+                
+                $em->persist($lastPrix);
+                $em->flush();
+                $prix = new Prix();
+                    $prix
+                    ->setEstActif(1)
+                    ->setConditionner($entity)
+                    ->setPrixVente($entity->getPrixVente())
+                    ->setPrixMin($entity->getPrixMin()  == NULL ? 0 : $entity->getPrixMin())
+                    ->setPrixMax($entity->getPrixMax()  == NULL ? 0 : $entity->getPrixMax())
+                    ->setPrixConcurentiel($entity->getPrixConcurentiel() == NULL ? 0 : $entity->getPrixConcurentiel())
+                    ->setPrixAchat($entity->getPrixAchat()== NULL ? 0 :$entity->getPrixAchat())
+                    ->setPrixRevient($entity->getPrixRevient() == NULL ? 0 : $entity->getPrixRevient());
+            if($lastPrix == null || $prix->getPrixMax() != $lastPrix->getPrixMax() || $prix->getPrixMin() != $lastPrix->getPrixMin() || $prix->getPrixVente() != $lastPrix->getPrixVente() || $prix->getPrixConcurentiel() !=  $lastPrix->getPrixConcurentiel() || $prix->getPrixRevient() !=  $lastPrix->getPrixRevient()){
+              //  dd("Oui il entre le traitre");
+              $lastPrix->setDateFin(new DateTime())->setEstActif(0);
                 $em->persist($prix);
                 $em->flush();
+            }
+
         }
 
 
         if($entity instanceof ConditionnerCateClient ){
             $lastPrix = $this->prixRepository->lastPrixConditionnerForConditionmentClient($entity);
-            $lastPrix->setDateFin(new DateTime());
-            $em->persist($lastPrix);
-            $em->flush();
-            $prix = new Prix();
-            //dd($entity);
-                $prix
-                ->setConditionnerClient($entity)
-                ->setPrixVente($entity->getPrixVente())
-                ->setPrixMin($entity->getPrixMin()  == NULL ? 0 : $entity->getPrixMin())
-                ->setPrixMax($entity->getPrixMax()  == NULL ? 0 : $entity->getPrixMax());
-                $em->persist($prix);
+            
+                
+                $em->persist($lastPrix);
                 $em->flush();
+                $prix = new Prix();
+                //dd($entity);
+                    $prix
+                    ->setConditionnerClient($entity)
+                    ->setPrixVente($entity->getPrixVente())
+                    ->setPrixMin($entity->getPrixMin()  == NULL ? 0 : $entity->getPrixMin())
+                    ->setPrixMax($entity->getPrixMax()  == NULL ? 0 : $entity->getPrixMax());
+            if($lastPrix == null || $entity->getPrixMax() != $lastPrix->getPrixMax() || $entity->getPrixMin() != $lastPrix->getPrixMin() || $entity->getPrixVente() != $lastPrix->getPrixVente()){
+                //dd("Oui il entre au niveau 2 le traitre");
+                    $lastPrix->setDateFin(new DateTime());
+                    $em->persist($prix);
+                    $em->flush();
+            }
             
         }
     }
