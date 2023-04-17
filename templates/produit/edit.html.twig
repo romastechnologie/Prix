@@ -112,10 +112,10 @@
             $(el).val(new Intl.NumberFormat('fr-FR').format(va))
         }
     });
-        $(".supprimer").each(function( index, element ) {
+        {# $(".supprimer").each(function( index, element ) {
             console.log(element);
             $(element).remove();
-        });
+        }); #}
         $("select[name*='[conditionners]']").each(function( index, element ) {
             let sonPar = $(element).parent();
             $(element).attr("disabled","disabled");

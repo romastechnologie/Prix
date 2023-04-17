@@ -30,7 +30,7 @@ class Conditionner
     #[ORM\OneToMany(mappedBy: 'conditionner', targetEntity: ConditionnerCateClient::class, orphanRemoval: true, cascade :["persist"])]
     private Collection $conditionnerCateClients;
 
-    #[ORM\OneToMany(mappedBy: 'conditionner', targetEntity: Prix::class)]
+    #[ORM\OneToMany(mappedBy: 'conditionner', targetEntity: Prix::class, orphanRemoval: true, cascade :["persist"])]
     private Collection $prixs;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 30, scale: 2, nullable: true)]

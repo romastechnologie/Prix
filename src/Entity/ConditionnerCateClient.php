@@ -27,7 +27,7 @@ class ConditionnerCateClient
     #[ORM\JoinColumn(nullable: false)]
     private ?Conditionner $conditionner = null;
 
-    #[ORM\OneToMany(mappedBy: 'conditionnerClient', targetEntity: Prix::class)]
+    #[ORM\OneToMany(mappedBy: 'conditionnerClient', targetEntity: Prix::class, orphanRemoval: true, cascade :["persist"])]
     private Collection $prixes;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 30, scale: 2, nullable: true)]
