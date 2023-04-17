@@ -7,7 +7,7 @@
     <div class="card card-custom">
         <div class="card-header">
             <h3 class="card-title">
-                {{ "Un nouveau produit" }}
+                {{"Modification de produit"}}
             </h3>
             <div class="card-toolbar">
                 <div class="example-tools justify-content-center">
@@ -112,10 +112,10 @@
             $(el).val(new Intl.NumberFormat('fr-FR').format(va))
         }
     });
-        {# $(".supprimer").each(function( index, element ) {
+        $(".supprimer").each(function( index, element ) {
             console.log(element);
             $(element).remove();
-        }); #}
+        });
         $("select[name*='[conditionners]']").each(function( index, element ) {
             let sonPar = $(element).parent();
             $(element).attr("disabled","disabled");
@@ -192,7 +192,7 @@
             })
         $('.supprimer2').click(function(){
             let block = $(this).parent().parent().parent();
-            $(block).remove();
+        $(block).remove();
             
         })
 

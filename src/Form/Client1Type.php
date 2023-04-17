@@ -151,10 +151,12 @@ class Client1Type extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
                 'label_html' => true,
+                
                 'label_attr' => ['class' => 'form-label'],
                 'label' => 'Date de naissance  <span id="etad"></span>',
                 'required' => false,
                 'attr' => ['required'=>false,
+                'placeholder'=>'JJ/MM/YYYY',
                 'class'=>'form-control mb-2 physique', 
                 'placeholder' => 'Date de naissance'],
             ])

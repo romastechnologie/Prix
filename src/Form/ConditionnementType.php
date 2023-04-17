@@ -23,6 +23,7 @@ class ConditionnementType extends AbstractType
                 'label'=>'Code <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
                     'maxlength'=>"4",
+                    "placeholder"=>"UNIT",
                     "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control']
                 ])
@@ -30,6 +31,7 @@ class ConditionnementType extends AbstractType
                 'label_html' => true,
                 'label'=>'Libellé <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
+                    "placeholder"=>"UNITE",
                     "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control']
                 ])
@@ -37,7 +39,8 @@ class ConditionnementType extends AbstractType
                 'label_html' => true,
                 'label'=>'Quantité <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
-                    'class'=>'form-control']
+                    "placeholder"=>"1",
+                    'class'=>'form-control format']
                 ])
         ;
     }

@@ -26,6 +26,7 @@ class SousCategorieType extends AbstractType
                 'required'=>false,
                 'attr'=>[
                     'maxlength'=>"4",
+                    'placeholder'=>"CACA",
                     "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control'
                 ]
@@ -35,6 +36,7 @@ class SousCategorieType extends AbstractType
                 'label'=>'Libellé <span style="color: red;"><strong>*</strong></span>',
                 'required'=>false,
                 'attr'=>[
+                    'placeholder'=>"CARREAUX CASSES",
                     "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control'
                 ]

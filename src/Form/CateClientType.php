@@ -22,6 +22,7 @@ class CateClientType extends AbstractType
             'label'=>'Code <span style="color: red;"><strong>*</strong></span>',
             'attr'=>[
                 'class'=>'form-control',
+                "placeholder"=>"CLAM",
                 "onkeyup"=>"this.value = this.value.toUpperCase();",
                 'maxlength'=>"4"
                 ]
@@ -31,6 +32,7 @@ class CateClientType extends AbstractType
             'label'=>'Libellé <span style="color: red;"><strong>*</strong></span>',
             'attr'=>[
                 "onkeyup"=>"this.value = this.value.toUpperCase();",
+                "placeholder"=>"CLIENTS AMIS",
                 'class'=>'form-control']
             ])
     ;

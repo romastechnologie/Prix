@@ -21,6 +21,7 @@ class ModeDefType extends AbstractType
                 'label_html' => true,
                 'label'=>'Libellé <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
+                    "placeholder"=>"HORS TAXES",
                     "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control']
                 ])
