@@ -60,11 +60,11 @@ class ProduitController extends AbstractController
             foreach($results as $r){
                 $res1[] = array(
                     'conditionnement'=> $r["conditionnement"] ,
-                    'prixAchat'=> $r["prixAchat"]  == '' ? 0 : number_format($r["prixAchat"],0,","," ") ,
-                    'prixRevient'=> $r["prixRevient"] == '' ? 0 : number_format($r["prixRevient"],0,","," ") ,
-                    'prixVente'=> $r["prixVente"] == '' ? 0 : number_format($r["prixVente"],0,","," ") ,
-                    'prixMin'=> $r["prixMin"]  == '' ? 0 : number_format($r["prixMin"],0,","," "),
-                    'prixMax'=> $r["prixMax"] == '' ? 0 : number_format($r["prixMax"],0,","," ")
+                    'prixAchat'=> $r["prixAchat"]  == '' ? 0 : number_format($r["prixAchat"],2,","," ") ,
+                    'prixRevient'=> $r["prixRevient"] == '' ? 0 : number_format($r["prixRevient"],2,","," ") ,
+                    'prixVente'=> $r["prixVente"] == '' ? 0 : number_format($r["prixVente"],2,","," ") ,
+                    'prixMin'=> $r["prixMin"]  == '' ? 0 : number_format($r["prixMin"],2,","," "),
+                    'prixMax'=> $r["prixMax"] == '' ? 0 : number_format($r["prixMax"],2,","," ")
                 );
             }
             $res = [
@@ -93,11 +93,11 @@ class ProduitController extends AbstractController
             foreach($results as $r){
                 $res1[] = array(
                     'conditionnement'=> $r["conditionnement"] ,
-                    'prixAchat'=> $r["prixAchat"]  == '' ? 0 : number_format($r["prixAchat"],0,","," ") ,
-                    'prixRevient'=> $r["prixRevient"] == '' ? 0 : number_format($r["prixRevient"],0,","," ") ,
-                    'prixVente'=> $r["prixVente"] == '' ? 0 : number_format($r["prixVente"],0,","," ") ,
-                    'prixMin'=> $r["prixMin"]  == '' ? 0 : number_format($r["prixMin"],0,","," "),
-                    'prixMax'=> $r["prixMax"] == '' ? 0 : number_format($r["prixMax"],0,","," ")
+                    'prixAchat'=> $r["prixAchat"]  == '' ? 0 : number_format($r["prixAchat"],2,","," ") ,
+                    'prixRevient'=> $r["prixRevient"] == '' ? 0 : number_format($r["prixRevient"],2,","," ") ,
+                    'prixVente'=> $r["prixVente"] == '' ? 0 : number_format($r["prixVente"],2,","," ") ,
+                    'prixMin'=> $r["prixMin"]  == '' ? 0 : number_format($r["prixMin"],2,","," "),
+                    'prixMax'=> $r["prixMax"] == '' ? 0 : number_format($r["prixMax"],2,","," ")
                 );
             }
             //$donne 
@@ -132,11 +132,11 @@ class ProduitController extends AbstractController
             foreach($results as $r){
                 $res1[] = array(
                     'conditionnement'=> $r["conditionnement"] ,
-                    'prixAchat'=> $r["prixAchat"]  == '' ? 0 : number_format($r["prixAchat"],0,","," ") ,
-                    'prixRevient'=> $r["prixRevient"] == '' ? 0 : number_format($r["prixRevient"],0,","," ") ,
-                    'prixVente'=> $r["prixVente"] == '' ? 0 : number_format($r["prixVente"],0,","," ") ,
-                    'prixMin'=> $r["prixMin"]  == '' ? 0 : number_format($r["prixMin"],0,","," "),
-                    'prixMax'=> $r["prixMax"] == '' ? 0 : number_format($r["prixMax"],0,","," ")
+                    'prixAchat'=> $r["prixAchat"]  == '' ? 0 : number_format($r["prixAchat"],2,","," ") ,
+                    'prixRevient'=> $r["prixRevient"] == '' ? 0 : number_format($r["prixRevient"],2,","," ") ,
+                    'prixVente'=> $r["prixVente"] == '' ? 0 : number_format($r["prixVente"],2,","," ") ,
+                    'prixMin'=> $r["prixMin"]  == '' ? 0 : number_format($r["prixMin"],2,","," "),
+                    'prixMax'=> $r["prixMax"] == '' ? 0 : number_format($r["prixMax"],2,","," ")
                 );
             }
             $res = [
@@ -371,13 +371,13 @@ class ProduitController extends AbstractController
             $historique = "";
             $datass =[];
             foreach($conditionners as $conditionner){
-                $tdbodyCon .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>". number_format($conditionner->getPrixVente(),0,","," ") ."</td><td>". number_format($conditionner->getPrixMin(),0,","," ") ."</td><td>".  number_format($conditionner->getPrixMax(),0,","," ") ."</td><td>". number_format($conditionner->getPrixConcurentiel(),0,","," ") ."</td> </tr> ";
+                $tdbodyCon .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>". number_format($conditionner->getPrixVente(),2,","," ") ."</td><td>". number_format($conditionner->getPrixMin(),2,","," ") ."</td><td>".  number_format($conditionner->getPrixMax(),2,","," ") ."</td><td>". number_format($conditionner->getPrixConcurentiel(),2,","," ") ."</td> </tr> ";
                 $historique .= "<div class='btn btn-primary'> CONDITIONNEMENT : ".$conditionner->getConditionnement()->getLibelle()."</div>";
                 $condClis = $condCaCli->findBy(["conditionner"=>$conditionner]);
                 $cpt = 0;
                 
                 foreach($condClis as $cond){
-                    $tdbodyConClient .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>". $cond->getCateClient()->getLibelle() ."</td><td>". number_format($cond->getPrixVente(),0,","," ") ."</td><td>". number_format($cond->getPrixMax(),0,","," ") ."</td><td>". number_format($cond->getPrixMin(),0,","," ") ."</td> </tr> ";
+                    $tdbodyConClient .= "<tr> <td>". $conditionner->getConditionnement()->getLibelle() ." </td><td>". $cond->getCateClient()->getLibelle() ."</td><td>". number_format($cond->getPrixVente(),2,","," ") ."</td><td>". number_format($cond->getPrixMax(),2,","," ") ."</td><td>". number_format($cond->getPrixMin(),2,","," ") ."</td> </tr> ";
                 }
                 
                 $Histprixs = $prR->historiquePrix($conditionner, $produit);
@@ -393,9 +393,9 @@ class ProduitController extends AbstractController
                     $historique .= "<tr>"
                     ."<td>".  $prix['date_attribution'] ."</td>"
                     ."<td>". $prix['date_fin'] ."</td>"
-                    ."<td>". number_format((float)$prix['prix_vente'],0,","," ") ."</td>"
-                    ."<td>". number_format((float)$prix['prix_min'],0,","," ") ."</td>"
-                    ."<td>". number_format((float)$prix['prix_max'],0,","," ") ."</td>"
+                    ."<td>". number_format((float)$prix['prix_vente'],2,","," ") ."</td>"
+                    ."<td>". number_format((float)$prix['prix_min'],2,","," ") ."</td>"
+                    ."<td>". number_format((float)$prix['prix_max'],2,","," ") ."</td>"
                     ."</tr> ";
                 }
                 $historique .= '</tbody></table>';
