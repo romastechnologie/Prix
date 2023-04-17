@@ -74,8 +74,11 @@ class Client1Type extends AbstractType
                 'required' => true,
                 'label_html' => true,
                 'attr' => ['required'=>true,
+                'oninput'=>"this.value=this.value.replace(/[^0-9]/g,'');", 
+                "maxlength"=>"13",
+                'placeholder' => '00229XXXXXXXX',
                 'class'=>'form-control mb-2', 
-                'placeholder' => 'Entrer le numero de téléphone'],
+            ],
             ])
             ->add('telephone2', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],
@@ -83,8 +86,10 @@ class Client1Type extends AbstractType
                 'required' => false,
                 'label_html' => true,
                 'attr' => ['required'=>false,
+                'oninput'=>"this.value=this.value.replace(/[^0-9]/g,'');", 
+                "maxlength"=>"13",
                 'class'=>'form-control mb-2', 
-                'placeholder' => 'Entrer le numero de téléphone'],
+                'placeholder' => '00229XXXXXXXX'],
             ])
             ->add('raisonSociale', TextType::class, [
                 'label_attr' => ['class' => 'form-label'],

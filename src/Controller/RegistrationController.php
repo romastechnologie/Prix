@@ -102,8 +102,8 @@ class RegistrationController extends AbstractController
     {
         $form = $this->createForm(RegisterMdpType::class, $utilisateur);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        
+        if($form->isSubmitted()) {
             $utilisateur->setPassword(
                 $userPasswordHasher->hashPassword(
                     $utilisateur,
@@ -112,17 +112,24 @@ class RegistrationController extends AbstractController
             );
             //dd($utilisateur);
             $utilisateurRepository->save($utilisateur, true);
+            $error = false;
+            $this->addFlash(
+                'notice',
+                "Modification du mot de passe effectuée."
+            );
             return $this->redirectToRoute('edit_password_edit', ['id'=>$utilisateur->getId(),], Response::HTTP_SEE_OTHER);
-        }else{
-            $per = $native->getConnection()->query("SELECT u.username FROM utilisateur u WHERE u.id = $id")->fetchOne();
-            $form->remove("username")->add('username',TextType::class,[
-                "attr"=>[
-                    'placeholder'=>"Pseudo",
-                    "value"=> $per,
-                    'class'=>'form-control'
-                ]
-            ]);
         }
+        //dd($form);
+        // else{
+        //     // $per = $native->getConnection()->query("SELECT u.username FROM utilisateur u WHERE u.id = $id")->fetchOne();
+        //     // $form->add('username',TextType::class,[
+        //     //     "attr"=>[
+        //     //         'placeholder'=>"Pseudo",
+        //     //         "value"=> $per,
+        //     //         'class'=>'form-control'
+        //     //     ]
+        //     // ]);
+        // }
         return $this->renderForm('registration/passwordEd.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,
@@ -134,18 +141,21 @@ class RegistrationController extends AbstractController
     {
 
         
-
         //dd($utilisateur);
         $form = $this->createForm(RegisterProfileType::class, $utilisateur);
         $form->handleRequest($request);
         
         //dd($utilisateur->getUsername());
         
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted()) {
             $utilisateurRepository->save($utilisateur, true);
+            $error = false;
+            $this->addFlash(
+                'notice',
+                "Modification du profile effectuée."
+            );
             return $this->redirectToRoute('edit_profil_edit', [
                 'id'=>$utilisateur->getId(),
-                "etat"=>"OK"
             ]);
         }else{
             $per = $native->getConnection()->query("SELECT u.username FROM utilisateur u WHERE u.id = $id")->fetchOne();

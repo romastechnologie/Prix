@@ -21,6 +21,7 @@ class RegisterProfileType extends AbstractType
             ]
         ])
         ->add('username',TextType::class,[
+            "required"=>false,
             "attr"=>[
                 'placeholder'=>"Pseudo",
                 'class'=>'form-control'
@@ -40,11 +41,14 @@ class RegisterProfileType extends AbstractType
         ])
         ->add('telephone',TextType::class,[
             "attr"=>[
-                'placeholder'=>"Téléphone",
-                'class'=>'form-control'
+                'class'=>'form-control',
+                'oninput'=>"this.value=this.value.replace(/[^0-9]/g,'');", 
+                "maxlength"=>"13",
+                'placeholder' => '00229XXXXXXXX',
             ]
         ])
         ->add('adresse',TextType::class,[
+            "required"=>false,
             "attr"=>[
                 'placeholder'=>"Adresse",
                 'class'=>'form-control'
