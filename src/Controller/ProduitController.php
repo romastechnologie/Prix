@@ -405,7 +405,7 @@ class ProduitController extends AbstractController
                     $conditAchatRevient .= "<tr> <td>". $prix->getConditionner()->getConditionnement()->getLibelle() ." </td><td>". number_format($prix->getPrixAchat(),0,","," ") ."</td><td>". number_format($prix->getPrixRevient(),0,","," ") ."</td></tr> ";
                 }
             }
-           return new JsonResponse([$tdbodyCon,$tdbodyConClient, $historique]); 
+           return new JsonResponse([$tdbodyCon,$tdbodyConClient, $historique, $produit->__toString()]); 
         }else{ 
             return new JsonResponse("Erreur"); 
         }
@@ -474,8 +474,6 @@ class ProduitController extends AbstractController
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
-
-       
 
         if ($form->isSubmitted()) {
             

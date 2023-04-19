@@ -35,7 +35,7 @@ class ConditionnementController extends AbstractController
                 'id'=>$li->getId(),
                 'code'=>$li->getCode() ,
                 'libelle'=>$li->getLibelle(),
-                'qte'=>$li->getQte(),
+                'qte'=> number_format($li->getQte(),2,","," "),
             );
         }
         $res = [

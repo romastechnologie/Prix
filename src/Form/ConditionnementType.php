@@ -35,12 +35,13 @@ class ConditionnementType extends AbstractType
                     "onkeyup"=>"this.value = this.value.toUpperCase();",
                     'class'=>'form-control']
                 ])
-            ->add('qte', IntegerType::class,[
+            ->add('qte', TextType::class,[
                 'label_html' => true,
                 'label'=>'Quantité <span style="color: red;"><strong>*</strong></span>',
                 'attr'=>[
                     "placeholder"=>"1",
-                    'class'=>'form-control format']
+                    "onkeyup"=>"this.value = this.value.replace(/[^0-9\.]/g,''); let va = parseFloat($(this).val()); if(va == 0 || isNaN(va) ){ $(this).val(''); }else{ $(this).val(new Intl.NumberFormat('fr-FR').format(va)) }",
+                    'class'=>'form-control']
                 ])
         ;
     }

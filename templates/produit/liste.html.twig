@@ -318,6 +318,7 @@ $(".clicmore").click(function(){
                     $("#tbodyInfoCondi").html(data[0]);
                     $("#tbodyClient").html(data[1]);
                     $("#tAutrePrix").html(data[2]);
+                    $("#exampleModalLabel").text('Détails ['+data[3]+']')
                     })
                 .fail(function(data){
                     Swal.fire(data, "Cliquez ici", "error");
